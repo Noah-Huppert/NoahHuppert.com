@@ -5,11 +5,22 @@
 
     <link href="/styles/css/main.css" rel="stylesheet" type="text/css">
 
+    <script src="http://underscorejs.org/underscore-min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/knockout/3.1.0/knockout-min.js"></script>
     <script src="/scripts/javascript/main.js"></script>
   </head>
 
   <body>
-    \
+    <nav>
+      <h3>Noah Huppert</h3>
+      <span>Projects</span>
+    </nav>
+
+    <div id="content">
+      <div class="tab" id="tabProjects" data-bind="visible: shouldShowTab('projects')">
+          PROJECTS
+      </div>
+    </div>
   </body>
 </html>

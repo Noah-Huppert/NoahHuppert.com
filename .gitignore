@@ -1,2 +1,8 @@
 #Sass
 .sass-cache
+
+#Visual Studio
+*.ntvs_analysis.dat
+*.njsproj
+*.sln
+*.suo

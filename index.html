@@ -18,8 +18,8 @@
     </nav>
 
     <div id="content">
-      <div class="tab" id="tabProjects" data-bind="visible: shouldShowTab('projects')">
-          PROJECTS
+      <div class="tab" id="tabProjects" data-bind="visible: shouldShowTab('projects'), foreach: getTabById('projects').context().projects">
+        <span data-bind="text: name"></div>
       </div>
     </div>
   </body>

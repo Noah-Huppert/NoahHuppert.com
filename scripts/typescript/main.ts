@@ -1,11 +1,6 @@
-﻿class LogHelper {
-    static INFO_TAG: string = "INFO";
-    static DEBUG_TAG: string = "DEBUG";
-    static ERROR_TAG: string = "ERROR";
+﻿var Log: LogHelper = new LogHelper();
 
-    write(data, tag?: string, location?: string) {
-        if (!tag) {
-
-        }
-    }
-}
+$(document).ready(function () {
+    Log.i("Cool!", "main.ts");
+    Log.i("Cool");
+});

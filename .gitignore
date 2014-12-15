@@ -6,3 +6,7 @@
 *.njsproj
 *.sln
 *.suo
+obj
+
+#Bower
+libs

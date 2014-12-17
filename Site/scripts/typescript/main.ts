@@ -1,4 +1,4 @@
-﻿var Log: LogHelper = new LogHelper();
+﻿//var Log: LogHelper = new LogHelper();
 
 $(document).ready(function () {
     var model: AppModel = new AppModel();
@@ -7,9 +7,7 @@ $(document).ready(function () {
     model.addTab(new Tab("projects", true));
 
     //Setup tabs
-    model.getTabById("projects").loadContentFromUrl("https://api.orchestrate.io/v0/Projects");
-
-    //TODO Make work with orchestrate.io API
+    model.getTabById("projects").loadContentFromUrl("/data/projects.json");
 
     ko.applyBindings(model);
 });

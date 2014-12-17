@@ -8,15 +8,22 @@
         if (active) {
             this.active(active);
         }
+
+        Log.d(this.id, "Tab.constructor");
     }
 
     loadContentFromUrl(url: string) {
-        $.getJSON(url, function fetchedJson(data, err) {
-            if (err == undefined) {
-                this.data = data;
-            } else {
-                Log.e("Tab[" + this.id() + "].loadContentFromUrl", "Can not load data from \"" + url + "\", error: " + err);
-            }
-        });
+        Log.d(this.id, "Tab.loadContentFromUrl");
+        $.getJSON(url, this.fetchedJsonData);
+    }
+
+    fetchedJsonData(data, err) {
+        Log.d(this.id, "Tab.fetchedJsonData");
+        /*if (err == "success") {
+            this.data(data);
+            Log.i(this.data());
+        } else {
+            Log.e("Tab-" + this.id() + ".loadContentFromUrl", err);
+        }*/
     }
 }

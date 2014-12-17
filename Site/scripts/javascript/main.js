@@ -1,12 +1,11 @@
-var LogHelper = (function () {
-    function LogHelper() {
-        this.INFO_TAG = "INFO";
-        this.DEBUG_TAG = "DEBUG";
-        this.ERROR_TAG = "ERROR";
-        this.mutedTags = [];
-    }
-    LogHelper.prototype.write = function (data, tag, location) {
-        if (this.mutedTags.indexOf(tag) == -1 && this.mutedTags.indexOf("*") == -1) {
+var Log;
+(function (Log) {
+    var INFO_TAG = "INFO";
+    var DEBUG_TAG = "DEBUG";
+    var ERROR_TAG = "ERROR";
+    var mutedTags = [];
+    function write(data, tag, location) {
+        if (mutedTags.indexOf(tag) == -1 && mutedTags.indexOf("*") == -1) {
             var tagSuffix = location ? " " : " - ";
             if (tag) {
                 tag = "[" + tag + "]" + tagSuffix;
@@ -20,37 +19,42 @@ var LogHelper = (function () {
             else {
                 location = "";
             }
-            console.log(tag + location + data);
+            console.log(tag, location, data);
         }
-    };
-    LogHelper.prototype.mute = function (tag) {
-        if (tag && this.mutedTags.indexOf(tag) == -1) {
-            this.mutedTags.push(tag);
+    }
+    Log.write = write;
+    function mute(tag) {
+        if (tag && mutedTags.indexOf(tag) == -1) {
+            mutedTags.push(tag);
         }
         else if (!tag) {
-            this.mutedTags = ["*"];
+            mutedTags = ["*"];
         }
-    };
-    LogHelper.prototype.unmute = function (tag) {
+    }
+    Log.mute = mute;
+    function unmute(tag) {
         if (tag) {
-            this.mutedTags = _.without(this.mutedTags, tag);
+            mutedTags = _.without(mutedTags, tag);
         }
         else {
-            this.mutedTags = [];
+            mutedTags = [];
         }
-    };
+    }
+    Log.unmute = unmute;
     /* Tags */
-    LogHelper.prototype.i = function (data, location) {
-        this.write(data, this.INFO_TAG, location);
-    };
-    LogHelper.prototype.d = function (data, location) {
-        this.write(data, this.DEBUG_TAG, location);
-    };
-    LogHelper.prototype.e = function (data, location) {
-        this.write(data, this.ERROR_TAG, location);
-    };
-    return LogHelper;
-})();
+    function i(data, location) {
+        write(data, INFO_TAG, location);
+    }
+    Log.i = i;
+    function d(data, location) {
+        write(data, DEBUG_TAG, location);
+    }
+    Log.d = d;
+    function e(data, location) {
+        write(data, ERROR_TAG, location);
+    }
+    Log.e = e;
+})(Log || (Log = {}));
 var AppModel = (function () {
     function AppModel() {
         this.tabs = ko.observableArray();
@@ -77,27 +81,30 @@ var Tab = (function () {
         if (active) {
             this.active(active);
         }
+        Log.d(this.id, "Tab.constructor");
     }
     Tab.prototype.loadContentFromUrl = function (url) {
-        $.getJSON(url, function fetchedJson(data, err) {
-            if (err == undefined) {
-                this.data = data;
-            }
-            else {
-                Log.e("Tab[" + this.id() + "].loadContentFromUrl", "Can not load data from \"" + url + "\", error: " + err);
-            }
-        });
+        Log.d(this.id, "Tab.loadContentFromUrl");
+        $.getJSON(url, this.fetchedJsonData);
+    };
+    Tab.prototype.fetchedJsonData = function (data, err) {
+        Log.d(this.id, "Tab.fetchedJsonData");
+        /*if (err == "success") {
+            this.data(data);
+            Log.i(this.data());
+        } else {
+            Log.e("Tab-" + this.id() + ".loadContentFromUrl", err);
+        }*/
     };
     return Tab;
 })();
-var Log = new LogHelper();
+//var Log: LogHelper = new LogHelper();
 $(document).ready(function () {
     var model = new AppModel();
     //Add tabs
     model.addTab(new Tab("projects", true));
     //Setup tabs
-    model.getTabById("projects").loadContentFromUrl("https://api.orchestrate.io/v0/Projects");
-    //TODO Make work with orchestrate.io API
+    model.getTabById("projects").loadContentFromUrl("/data/projects.json");
     ko.applyBindings(model);
 });
 //# sourceMappingURL=main.js.map

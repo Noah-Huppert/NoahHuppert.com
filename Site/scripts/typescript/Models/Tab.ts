@@ -1,29 +1,31 @@
 ﻿class Tab {
     id: KnockoutObservable<string> = ko.observable<string>();
+    prettyName: KnockoutObservable<string> = ko.observable<string>();
     active: KnockoutObservable<boolean> = ko.observable<boolean>();
     data: KnockoutObservable<any> = ko.observable<any>();
 
-    constructor(id: string, active?: boolean) {
+    constructor(id: string, prettyName: string, active?: boolean) {
         this.id(id);
-        if (active) {
+        this.prettyName(prettyName);
+
+        if (active != undefined) {
             this.active(active);
-        }
-
-        Log.d(this.id, "Tab.constructor");
-    }
-
-    loadContentFromUrl(url: string) {
-        Log.d(this.id, "Tab.loadContentFromUrl");
-        $.getJSON(url, this.fetchedJsonData);
-    }
-
-    fetchedJsonData(data, err) {
-        Log.d(this.id, "Tab.fetchedJsonData");
-        /*if (err == "success") {
-            this.data(data);
-            Log.i(this.data());
         } else {
-            Log.e("Tab-" + this.id() + ".loadContentFromUrl", err);
-        }*/
+            this.active(false);
+        }
+    }
+
+    loadContentFromUrl(url: string, key?: string): void {
+        $.getJSON(url, (data, err) => {
+            if (err == "success") {
+                if (key) {
+                    this.data(data[key]);
+                } else {
+                    this.data(data);
+                }
+            } else {
+                Log.e("Tab-" + this.id() + ".loadContentFromUrl", err);
+            }
+        });
     }
 }

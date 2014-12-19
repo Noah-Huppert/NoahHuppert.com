@@ -8,6 +8,7 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "DefinitelyTyped": "*"
+    "DefinitelyTyped": "*",
+    "bourbon": "~4.0.2"
   }
 }

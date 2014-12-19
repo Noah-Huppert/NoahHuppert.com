@@ -1,0 +1,13 @@
+#Sass
+.sass-cache
+
+#Visual Studio
+*.ntvs_analysis.dat
+*.njsproj
+*.sln
+*.suo
+obj
+.ntvs_analysis.dat.tmp
+
+#Bower
+libs

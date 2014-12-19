@@ -1,0 +1,17 @@
+{
+  "name": "NoahHuppert.com",
+  "version": "0.0.1",
+  "homepage": "https://github.com/Noah-Huppert/NoahHuppert.com",
+  "authors": [
+    "Noah Huppert <noahhuppert@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "DefinitelyTyped": "*",
+    "bourbon": "~4.0.2"
+  },
+  "devDependencies": {
+    "marked": "~0.3.2"
+  }
+}

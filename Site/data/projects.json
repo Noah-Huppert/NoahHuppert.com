@@ -1,0 +1,19 @@
+﻿{
+  "projects": [
+    {
+      "name": "Battle Ship",
+      "body": "Battle Ship is a Battle Ship game I made for my Java class. The goal of this project was to use good object oriented style to create the game. I decided to go with a slightly modified Model, View aproach. For this project I also decided to try out Java Swing, a Java UI framework. I found using this framework most interesting and at times challenging.",
+      "github": "Noah-Huppert/Battle-Ship"
+    },
+    {
+      "name": "Spikes",
+      "body": "Spikes is a game created in Ruby with Gosu. I decided to try and replicated the mobile game [Don't Touch The Spikes](https://play.google.com/store/apps/details?id=com.ketchapp.donttouchthespikes&hl=en). One of the major challenges I encountered was making my own physics engine since Gosu does not come with a physics engine to start with.",
+      "github": "Noah-Huppert/Intro-To-Programming-14-15/tree/master/Spikes"
+    },
+    {
+      "name": "NoahHuppert.com",
+      "body": "NoahHuppert.com is the web that is the current website. I designed this website using [Knockout Js](http://knockoutjs.com/) for a data binding library along with [Sass](http://sass-lang.com/) and [TypeScript](http://www.typescriptlang.org/). KnockoutJs makes it possible to bind the value of a varible TODO content",
+      "github": "Noah-Huppert/NoahHuppert.com"
+    }
+  ]
+}

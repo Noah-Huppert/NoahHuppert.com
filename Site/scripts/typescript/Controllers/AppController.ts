@@ -1,4 +1,4 @@
-﻿class AppModel{
+﻿class AppController{
     tabs: KnockoutObservableArray<Tab> = ko.observableArray<Tab>();
 
     /* Actions */

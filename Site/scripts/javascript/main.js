@@ -1,3 +1,49 @@
+var AppController = (function () {
+    function AppController() {
+        this.tabs = ko.observableArray();
+    }
+    /* Actions */
+    //Tabs
+    AppController.prototype.addTab = function (tab) {
+        if (this.getTabById(tab.id()) == undefined) {
+            this.tabs().push(tab);
+        }
+    };
+    AppController.prototype.getTabById = function (tabId) {
+        return _.filter(this.tabs(), function (item) {
+            return item.id() === tabId;
+        })[0];
+    };
+    AppController.prototype.shouldShowTab = function (tabId) {
+        var tab = this.getTabById(tabId);
+        return tab != undefined && tab.active();
+    };
+    AppController.prototype.switchTab = function (tabId) {
+        _.each(this.tabs(), function (tab) {
+            if (tab.id() == tabId) {
+                tab.active(true);
+            }
+            else {
+                tab.active(false);
+            }
+        });
+    };
+    return AppController;
+})();
+var GithubController = (function () {
+    function GithubController() {
+        this.URL_ROOT = "https://api.github.com";
+        this.OPTIONS = {
+            "Accept": "application/vnd.github.v3+json"
+        };
+        this.entryPoints = {
+            "repos": {
+                "get": new ApiEntryPoint(this.URL_ROOT, "/repos/:owner/:repo", this.OPTIONS)
+            }
+        };
+    }
+    return GithubController;
+})();
 var Log;
 (function (Log) {
     var INFO_TAG = "INFO";
@@ -55,37 +101,66 @@ var Log;
     }
     Log.e = e;
 })(Log || (Log = {}));
-var AppModel = (function () {
-    function AppModel() {
-        this.tabs = ko.observableArray();
-    }
-    /* Actions */
-    //Tabs
-    AppModel.prototype.addTab = function (tab) {
-        if (this.getTabById(tab.id()) == undefined) {
-            this.tabs().push(tab);
+var ApiEntryPoint = (function () {
+    function ApiEntryPoint(host, path, options) {
+        this.host = host;
+        this.path = path;
+        if (options) {
+            this.options = options;
         }
+    }
+    ApiEntryPoint.prototype.build = function (wildcards) {
+        var replacedPath = this.path;
+        _.each(wildcards, function (value, key) {
+            var pathParts = replacedPath.split(":" + key);
+            replacedPath = pathParts.join(value);
+        });
+        return this.host + replacedPath;
     };
-    AppModel.prototype.getTabById = function (tabId) {
-        return _.filter(this.tabs(), function (item) {
-            return item.id() === tabId;
-        })[0];
-    };
-    AppModel.prototype.shouldShowTab = function (tabId) {
-        var tab = this.getTabById(tabId);
-        return tab != undefined && tab.active();
-    };
-    AppModel.prototype.switchTab = function (tabId) {
-        _.each(this.tabs(), function (tab) {
-            if (tab.id() == tabId) {
-                tab.active(true);
+    ApiEntryPoint.prototype.call = function (wildcards, method, options) {
+        var promise = new Promise();
+        if (!options) {
+            options = {};
+        }
+        _.each(this.options, function (key, value) {
+            options[key] = value;
+        });
+        if (options.url == undefined) {
+            options.url = this.build(wildcards);
+        }
+        if (options.type == undefined) {
+            options.type = method;
+        }
+        options.complete = function (data) {
+            if (data.status != 200) {
+                promise.fireError(data);
             }
             else {
-                tab.active(false);
+                promise.fireDone(data);
             }
-        });
+        };
+        $.ajax(options);
+        return promise;
     };
-    return AppModel;
+    return ApiEntryPoint;
+})();
+var MultiPromise = (function () {
+    function MultiPromise(numStages) {
+        this.stages = {};
+        for (var i = 1; i < numStages; i++) {
+            this.stages[i] = {
+                "statuses": {
+                    "done": {
+                        "fired": false,
+                        "data": {},
+                        "callback": undefined
+                    },
+                    "error": {}
+                }
+            };
+        }
+    }
+    return MultiPromise;
 })();
 var Project = (function () {
     function Project(name, body, github) {
@@ -98,6 +173,22 @@ var Project = (function () {
     }
     Project.fromObject = function (obj) {
         return new Project(obj.name, obj.body, obj.github);
+    };
+    Project.prototype.getGithubUsername = function () {
+        var githubParts = this.github().split("/");
+        return githubParts[0];
+    };
+    Project.prototype.getGithubRepo = function () {
+        var githubParts = this.github().split("/");
+        return githubParts[1];
+    };
+    Project.prototype.getGithubOther = function () {
+        var githubParts = this.github().split("/");
+        githubParts.splice(0, 1);
+        return githubParts.join("/");
+    };
+    Project.prototype.getGithubUrl = function () {
+        return "https://github.com/" + this.github();
     };
     return Project;
 })();
@@ -192,27 +283,33 @@ var Tab = (function () {
     return Tab;
 })();
 $(document).ready(function () {
-    var model = new AppModel();
+    var githubController = new GithubController();
+    var appController = new AppController();
+    var donePromise = new Promise();
+    githubController.entryPoints.repos.get.call({ "owner": "Noah-Huppert", "repo": "NoahHuppert.com" }, "GET").onDone(function (data) {
+        //Log.d(data.responseJSON, "main.repo.get.onDone");
+    });
     //Add tabs
-    model.addTab(new Tab("projects", "Projects", true));
-    model.addTab(new Tab("skills", "Skills"));
-    model.addTab(new Tab("contact", "Contact Me"));
+    appController.addTab(new Tab("projects", "Projects", true));
+    appController.addTab(new Tab("skills", "Skills"));
+    appController.addTab(new Tab("contact", "Contact Me"));
     //Setup tabs
-    model.getTabById("projects").loadJsonContentFromUrl("/data/projects.json", "projects").onDone(function (tab) {
+    appController.getTabById("projects").loadJsonContentFromUrl("/data/projects.json", "projects").onDone(function (tab) {
         var newData = ko.observableArray();
         //Convert body to markdown and data to ko.observableArray
         _.each(tab.data(), function (project) {
             project.body = marked(project.body);
             newData.push(Project.fromObject(project));
         });
-        tab.data(newData);
+        tab.data(newData());
+        Log.d(tab.data());
     });
-    model.getTabById("skills").loadTextContextFromUrl("/data/skills.md").onDone(function (tab) {
+    appController.getTabById("skills").loadTextContextFromUrl("/data/skills.md").onDone(function (tab) {
         tab.data(marked(tab.data()));
     });
-    model.getTabById("contact").loadTextContextFromUrl("/data/contact.md").onDone(function (tab) {
+    appController.getTabById("contact").loadTextContextFromUrl("/data/contact.md").onDone(function (tab) {
         tab.data(marked(tab.data()));
     });
-    ko.applyBindings(model);
+    ko.applyBindings(appController);
 });
 //# sourceMappingURL=main.js.map

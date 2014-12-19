@@ -1,13 +1,20 @@
 ﻿$(document).ready(function () {
-    var model: AppModel = new AppModel();
+    var githubController: GithubController = new GithubController();
+    var appController: AppController = new AppController();
+
+    var donePromise = new Promise();
+
+    githubController.entryPoints.repos.get.call({ "owner": "Noah-Huppert", "repo": "NoahHuppert.com" }, "GET").onDone((data) => {
+        //Log.d(data.responseJSON, "main.repo.get.onDone");
+    });
 
     //Add tabs
-    model.addTab(new Tab("projects", "Projects", true));
-    model.addTab(new Tab("skills", "Skills"));
-    model.addTab(new Tab("contact", "Contact Me"));
+    appController.addTab(new Tab("projects", "Projects", true));
+    appController.addTab(new Tab("skills", "Skills"));
+    appController.addTab(new Tab("contact", "Contact Me"));
 
     //Setup tabs
-    model.getTabById("projects").loadJsonContentFromUrl("/data/projects.json", "projects")
+    appController.getTabById("projects").loadJsonContentFromUrl("/data/projects.json", "projects")
         .onDone((tab) => {
             var newData: KnockoutObservableArray<Project> = ko.observableArray<Project>();
 
@@ -18,16 +25,18 @@
                 newData.push(Project.fromObject(project));
             });
 
-            tab.data(newData);
+            tab.data(newData());
+
+            Log.d(tab.data());
         });
-    model.getTabById("skills").loadTextContextFromUrl("/data/skills.md")
+    appController.getTabById("skills").loadTextContextFromUrl("/data/skills.md")
         .onDone((tab) => {
             tab.data(marked(tab.data()));
         });
-    model.getTabById("contact").loadTextContextFromUrl("/data/contact.md")
+    appController.getTabById("contact").loadTextContextFromUrl("/data/contact.md")
         .onDone((tab) => {
             tab.data(marked(tab.data()));
         });
 
-    ko.applyBindings(model);
+    ko.applyBindings(appController);
 });

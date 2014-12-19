@@ -7,6 +7,7 @@
 *.sln
 *.suo
 obj
+.ntvs_analysis.dat.tmp
 
 #Bower
 libs

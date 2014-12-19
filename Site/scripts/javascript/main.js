@@ -87,6 +87,57 @@ var AppModel = (function () {
     };
     return AppModel;
 })();
+var Project = (function () {
+    function Project(name, body, github) {
+        this.name = ko.observable();
+        this.body = ko.observable();
+        this.github = ko.observable();
+        this.name(name);
+        this.body(body);
+        this.github(github);
+    }
+    Project.fromObject = function (obj) {
+        return new Project(obj.name, obj.body, obj.github);
+    };
+    return Project;
+})();
+var Promise = (function () {
+    function Promise() {
+        this.firedDone = false;
+        this.firedDoneData = {};
+        this.firedError = false;
+        this.firedErrorData = {};
+    }
+    /* Firing */
+    Promise.prototype.fireDone = function (data) {
+        this.firedDone = true;
+        this.firedDoneData = data;
+        if (this.doneCallback != undefined) {
+            this.doneCallback(data);
+        }
+    };
+    Promise.prototype.fireError = function (data) {
+        this.firedError = true;
+        this.firedErrorData = data;
+        if (this.errorCallback != undefined) {
+            this.errorCallback(data);
+        }
+    };
+    /* Mapping */
+    Promise.prototype.onDone = function (doneCallback) {
+        this.doneCallback = doneCallback;
+        if (this.firedDone) {
+            this.fireDone(this.firedDoneData);
+        }
+    };
+    Promise.prototype.onError = function (errorCallback) {
+        this.errorCallback = errorCallback;
+        if (this.firedError) {
+            this.fireError(this.firedErrorData);
+        }
+    };
+    return Promise;
+})();
 var Tab = (function () {
     function Tab(id, prettyName, active) {
         this.id = ko.observable();
@@ -102,21 +153,41 @@ var Tab = (function () {
             this.active(false);
         }
     }
-    Tab.prototype.loadContentFromUrl = function (url, key) {
+    Tab.prototype.loadJsonContentFromUrl = function (url, key) {
         var _this = this;
+        var promise = new Promise();
         $.getJSON(url, function (data, err) {
             if (err == "success") {
                 if (key) {
                     _this.data(data[key]);
+                    promise.fireDone(_this);
                 }
                 else {
                     _this.data(data);
+                    promise.fireDone(_this);
                 }
             }
             else {
-                Log.e("Tab-" + _this.id() + ".loadContentFromUrl", err);
+                Log.e("Tab-" + _this.id() + ".loadJsonContentFromUrl", err);
+                promise.fireError({ "this": _this, "err": err });
             }
         });
+        return promise;
+    };
+    Tab.prototype.loadTextContextFromUrl = function (url) {
+        var _this = this;
+        var promise = new Promise();
+        $.get(url, function (data, err) {
+            if (err == "success") {
+                _this.data(data);
+                promise.fireDone(_this);
+            }
+            else {
+                Log.e("Tab-" + _this.id() + ".loadTextContextFromUrl", err);
+                promise.fireError({ "this": _this, "err": err });
+            }
+        });
+        return promise;
     };
     return Tab;
 })();
@@ -127,7 +198,21 @@ $(document).ready(function () {
     model.addTab(new Tab("skills", "Skills"));
     model.addTab(new Tab("contact", "Contact Me"));
     //Setup tabs
-    model.getTabById("projects").loadContentFromUrl("/data/projects.json", "projects");
+    model.getTabById("projects").loadJsonContentFromUrl("/data/projects.json", "projects").onDone(function (tab) {
+        var newData = ko.observableArray();
+        //Convert body to markdown and data to ko.observableArray
+        _.each(tab.data(), function (project) {
+            project.body = marked(project.body);
+            newData.push(Project.fromObject(project));
+        });
+        tab.data(newData);
+    });
+    model.getTabById("skills").loadTextContextFromUrl("/data/skills.md").onDone(function (tab) {
+        tab.data(marked(tab.data()));
+    });
+    model.getTabById("contact").loadTextContextFromUrl("/data/contact.md").onDone(function (tab) {
+        tab.data(marked(tab.data()));
+    });
     ko.applyBindings(model);
 });
 //# sourceMappingURL=main.js.map

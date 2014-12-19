@@ -10,5 +10,8 @@
   "dependencies": {
     "DefinitelyTyped": "*",
     "bourbon": "~4.0.2"
+  },
+  "devDependencies": {
+    "marked": "~0.3.2"
   }
 }

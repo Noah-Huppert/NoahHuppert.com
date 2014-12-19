@@ -7,8 +7,13 @@
     },
     {
       "name": "Spikes",
-      "body": "Spikes is a game created in Ruby with Gosu. I decided to try and replicated the mobile game <a href=\"https://play.google.com/store/apps/details?id=com.ketchapp.donttouchthespikes&hl=en\">Don't Touch The Spikes</a>. One of the major challenges I encountered was making my own physics engine since Gosu does not come with a physics engine to start with.",
+      "body": "Spikes is a game created in Ruby with Gosu. I decided to try and replicated the mobile game [Don't Touch The Spikes](https://play.google.com/store/apps/details?id=com.ketchapp.donttouchthespikes&hl=en). One of the major challenges I encountered was making my own physics engine since Gosu does not come with a physics engine to start with.",
       "github": "https://github.com/Noah-Huppert/Intro-To-Programming-14-15/tree/master/Spikes"
+    },
+    {
+      "name": "NoahHuppert.com",
+      "body": "NoahHuppert.com is the web that is the current website. I designed this website using [Knockout Js](http://knockoutjs.com/) for a data binding library along with [Sass](http://sass-lang.com/) and [TypeScript](http://www.typescriptlang.org/). KnockoutJs makes it possible to bind the value of a varible TODO content",
+      "github": "https://github.com/Noah-Huppert/NoahHuppert.com"
     }
   ]
 }

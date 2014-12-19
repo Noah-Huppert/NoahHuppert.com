@@ -15,17 +15,40 @@
         }
     }
 
-    loadContentFromUrl(url: string, key?: string): void {
+    loadJsonContentFromUrl(url: string, key?: string): Promise {
+        var promise: Promise = new Promise();
+
         $.getJSON(url, (data, err) => {
             if (err == "success") {
                 if (key) {
                     this.data(data[key]);
+                    promise.fireDone(this);
                 } else {
                     this.data(data);
+                    promise.fireDone(this);
                 }
             } else {
-                Log.e("Tab-" + this.id() + ".loadContentFromUrl", err);
+                Log.e("Tab-" + this.id() + ".loadJsonContentFromUrl", err);
+                promise.fireError({ "this": this, "err": err });
             }
         });
+
+        return promise;
+    }
+
+    loadTextContextFromUrl(url: string): Promise {
+        var promise: Promise = new Promise();
+
+        $.get(url, (data, err) => {
+            if (err == "success") {
+                this.data(data);
+                promise.fireDone(this);
+            } else {
+                Log.e("Tab-" + this.id() + ".loadTextContextFromUrl", err);
+                promise.fireError({ "this": this, "err": err });
+            }
+        });
+
+        return promise;
     }
 }

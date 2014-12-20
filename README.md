@@ -1,3 +1,4 @@
+![Dev dependencies](https://david-dm.org/Noah-Huppert/NoahHuppert.com/dev-status.svg?style=flat)
 #Building
 ####Prerequisit
 To build NoahHuppert.com you must have [Grunt](http://gruntjs.com/) installed. If you do not have Grunt installed see this [Grunt guide](http://gruntjs.com/getting-started).  
@@ -36,3 +37,8 @@ To serve files and watch them just add the `--watch` flag onto `serve`
 ```bash
 grunt serve --watch
 ```
+
+
+#Testing
+Currently there is only testing for the Typescript. This is done with [Jasmine](http://jasmine.github.io/) and [Karma](http://karma-runner.github.io/). To run tests  
+TODO: FIGURE OUT HOW TO RUN TESTS WITH KARMA

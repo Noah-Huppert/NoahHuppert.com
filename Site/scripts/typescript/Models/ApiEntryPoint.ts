@@ -24,7 +24,7 @@
     }
 
     call(wildcards, method: string, options?): Promise {
-        var promise = new Promise();
+        var promise = new Promise(PromiseType.SuccessOrFail);
 
         if (!options) {
             options = {};
@@ -44,9 +44,9 @@
 
         options.complete = (data) => {
             if (data.status != 200) {
-                promise.fireError(data);
+                promise.fire(Promise.STAGE_SUCCESS, data);
             } else {
-                promise.fireDone(data);
+                promise.fire(Promise.STAGE_FAIL, data);
             }
         }
 

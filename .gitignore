@@ -11,3 +11,9 @@ obj
 
 #Bower
 libs
+
+#Compiled Javascript
+/Site/scripts/javascript
+
+#Compiled CSS
+/Site/styles/css

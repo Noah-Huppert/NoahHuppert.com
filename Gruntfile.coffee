@@ -1,5 +1,5 @@
 ﻿module.exports = (grunt) ->
-  serveInBackground = grunt.option("background") or grunt.option("serve")
+  watchFiles = grunt.option "watch"
 
   grunt.initConfig
     #Install Bower dependencies
@@ -46,7 +46,7 @@
         root: "Site"
         port: 9000
         host: "127.0.0.1"
-        runInBackground: serveInBackground
+        runInBackground: watchFiles
 
     #Watch files
     watch:
@@ -79,13 +79,11 @@
 
   #Register Grunt tasks
   grunt.registerTask "build", ["installBower", "buildSass", "buildManifests", "buildTypescript"]
-  grunt.registerTask "serve", ["http-server:main"]
 
-  wTaskTasks = []
-  if serveInBackground
-    wTaskTasks.push "serve"
-  wTaskTasks.push "watch"
-  grunt.registerTask "w", wTaskTasks
+  serveTasks = ["http-server:main"]
+  if watchFiles
+    serveTasks.push "watch"
+  grunt.registerTask "serve", serveTasks
 
   grunt.registerTask "installBower", ["bower:install"]
   grunt.registerTask "buildScss", ["clean:css", "sass:compile"]

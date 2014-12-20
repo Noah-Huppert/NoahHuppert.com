@@ -13,5 +13,6 @@
   },
   "devDependencies": {
     "marked": "~0.3.2"
-  }
+  },
+  "description": "Code for Noahhuppert.com"
 }

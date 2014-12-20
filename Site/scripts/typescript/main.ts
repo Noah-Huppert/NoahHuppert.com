@@ -2,9 +2,7 @@
     var githubController: GithubController = new GithubController();
     var appController: AppController = new AppController();
 
-    var donePromise = new Promise();
-
-    githubController.entryPoints.repos.get.call({ "owner": "Noah-Huppert", "repo": "NoahHuppert.com" }, "GET").onDone((data) => {
+    githubController.entryPoints.repos.get.call({ "owner": "Noah-Huppert", "repo": "NoahHuppert.com" }, "GET").on(Promise.STAGE_SUCCESS, (data) => {
         //Log.d(data.responseJSON, "main.repo.get.onDone");
     });
 
@@ -15,7 +13,7 @@
 
     //Setup tabs
     appController.getTabById("projects").loadJsonContentFromUrl("/data/projects.json", "projects")
-        .onDone((tab) => {
+        .on(Promise.STAGE_SUCCESS, (tab) => {
             var newData: KnockoutObservableArray<Project> = ko.observableArray<Project>();
 
             //Convert body to markdown and data to ko.observableArray
@@ -30,11 +28,11 @@
             Log.d(tab.data());
         });
     appController.getTabById("skills").loadTextContextFromUrl("/data/skills.md")
-        .onDone((tab) => {
+        .on(Promise.STAGE_SUCCESS, (tab) => {
             tab.data(marked(tab.data()));
         });
     appController.getTabById("contact").loadTextContextFromUrl("/data/contact.md")
-        .onDone((tab) => {
+        .on(Promise.STAGE_SUCCESS, (tab) => {
             tab.data(marked(tab.data()));
         });
 

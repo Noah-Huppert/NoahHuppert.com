@@ -101,6 +101,13 @@ var Log;
     }
     Log.e = e;
 })(Log || (Log = {}));
+var PromiseType;
+(function (PromiseType) {
+    PromiseType[PromiseType["SuccessOrFail"] = 0] = "SuccessOrFail";
+    PromiseType[PromiseType["Numbered"] = 1] = "Numbered";
+    PromiseType[PromiseType["Custom"] = 2] = "Custom";
+})(PromiseType || (PromiseType = {}));
+;
 var ApiEntryPoint = (function () {
     function ApiEntryPoint(host, path, options) {
         this.host = host;
@@ -118,7 +125,7 @@ var ApiEntryPoint = (function () {
         return this.host + replacedPath;
     };
     ApiEntryPoint.prototype.call = function (wildcards, method, options) {
-        var promise = new Promise();
+        var promise = new Promise(0 /* SuccessOrFail */);
         if (!options) {
             options = {};
         }
@@ -133,34 +140,16 @@ var ApiEntryPoint = (function () {
         }
         options.complete = function (data) {
             if (data.status != 200) {
-                promise.fireError(data);
+                promise.fire(Promise.STAGE_SUCCESS, data);
             }
             else {
-                promise.fireDone(data);
+                promise.fire(Promise.STAGE_FAIL, data);
             }
         };
         $.ajax(options);
         return promise;
     };
     return ApiEntryPoint;
-})();
-var MultiPromise = (function () {
-    function MultiPromise(numStages) {
-        this.stages = {};
-        for (var i = 1; i < numStages; i++) {
-            this.stages[i] = {
-                "statuses": {
-                    "done": {
-                        "fired": false,
-                        "data": {},
-                        "callback": undefined
-                    },
-                    "error": {}
-                }
-            };
-        }
-    }
-    return MultiPromise;
 })();
 var Project = (function () {
     function Project(name, body, github) {
@@ -193,40 +182,78 @@ var Project = (function () {
     return Project;
 })();
 var Promise = (function () {
-    function Promise() {
-        this.firedDone = false;
-        this.firedDoneData = {};
-        this.firedError = false;
-        this.firedErrorData = {};
+    function Promise(type, numOfStages) {
+        this.stages = [];
+        if (type == 0 /* SuccessOrFail */) {
+            this.addStage(Promise.STAGE_SUCCESS);
+            this.addStage(Promise.STAGE_FAIL);
+        }
+        else if (type == 1 /* Numbered */) {
+            if (numOfStages == undefined) {
+                Log.e("When creating a promise with type PromiseType.Numbered the second argument must be the number of stages", "Promise.constructor");
+            }
+            else {
+                for (var i = 1; i < numOfStages; i++) {
+                    this.addStage(i.toString());
+                }
+            }
+        }
     }
-    /* Firing */
-    Promise.prototype.fireDone = function (data) {
-        this.firedDone = true;
-        this.firedDoneData = data;
-        if (this.doneCallback != undefined) {
-            this.doneCallback(data);
+    /* Actions */
+    Promise.prototype.fire = function (stageName, data) {
+        var stage = this.getStage(stageName);
+        if (stage != undefined) {
+            stage.data = data;
+            stage.fired = true;
+            this.callStage(stageName);
+        }
+        else {
+            Log.e("Cannot fire non existant stage \"" + stageName + "\"", "Promise.fire(\"" + stageName + "\")");
         }
     };
-    Promise.prototype.fireError = function (data) {
-        this.firedError = true;
-        this.firedErrorData = data;
-        if (this.errorCallback != undefined) {
-            this.errorCallback(data);
+    Promise.prototype.callStage = function (stageName) {
+        var stage = this.getStage(stageName);
+        if (stage != undefined) {
+            if (stage.fired) {
+                if (stage.callback != undefined) {
+                    stage.callback(stage.data);
+                }
+            }
+        }
+        else {
+            Log.e("Cannot call non existant stage \"" + stageName + "\"", "Promise.callStage(\"" + stageName + "\")");
         }
     };
-    /* Mapping */
-    Promise.prototype.onDone = function (doneCallback) {
-        this.doneCallback = doneCallback;
-        if (this.firedDone) {
-            this.fireDone(this.firedDoneData);
+    /* Getters */
+    Promise.prototype.getStage = function (stageName) {
+        return _.filter(this.stages, function (stage) {
+            return stage.name == stageName;
+        })[0];
+    };
+    /* Setters */
+    Promise.prototype.addStage = function (name, fired, data, callback) {
+        if (fired == undefined) {
+            fired = false;
+        }
+        this.stages.push({
+            "name": name,
+            "fired": fired,
+            "data": data,
+            "callback": callback
+        });
+    };
+    Promise.prototype.on = function (stageName, callback) {
+        var stage = this.getStage(stageName);
+        if (stage != undefined) {
+            stage.callback = callback;
+            this.callStage(stageName);
+        }
+        else {
+            Log.e("Cannot set callback for not existant stage \"" + stageName + "\"", "Promise.on(\"" + stageName + "\")");
         }
     };
-    Promise.prototype.onError = function (errorCallback) {
-        this.errorCallback = errorCallback;
-        if (this.firedError) {
-            this.fireError(this.firedErrorData);
-        }
-    };
+    Promise.STAGE_SUCCESS = "success";
+    Promise.STAGE_FAIL = "fail";
     return Promise;
 })();
 var Tab = (function () {
@@ -246,36 +273,36 @@ var Tab = (function () {
     }
     Tab.prototype.loadJsonContentFromUrl = function (url, key) {
         var _this = this;
-        var promise = new Promise();
+        var promise = new Promise(0 /* SuccessOrFail */);
         $.getJSON(url, function (data, err) {
             if (err == "success") {
                 if (key) {
                     _this.data(data[key]);
-                    promise.fireDone(_this);
+                    promise.fire(Promise.STAGE_SUCCESS, _this);
                 }
                 else {
                     _this.data(data);
-                    promise.fireDone(_this);
+                    promise.fire(Promise.STAGE_SUCCESS, _this);
                 }
             }
             else {
                 Log.e("Tab-" + _this.id() + ".loadJsonContentFromUrl", err);
-                promise.fireError({ "this": _this, "err": err });
+                promise.fire(Promise.STAGE_FAIL, { "this": _this, "err": err });
             }
         });
         return promise;
     };
     Tab.prototype.loadTextContextFromUrl = function (url) {
         var _this = this;
-        var promise = new Promise();
+        var promise = new Promise(0 /* SuccessOrFail */);
         $.get(url, function (data, err) {
             if (err == "success") {
                 _this.data(data);
-                promise.fireDone(_this);
+                promise.fire(Promise.STAGE_SUCCESS, _this);
             }
             else {
                 Log.e("Tab-" + _this.id() + ".loadTextContextFromUrl", err);
-                promise.fireError({ "this": _this, "err": err });
+                promise.fire(Promise.STAGE_FAIL, { "this": _this, "err": err });
             }
         });
         return promise;
@@ -285,8 +312,7 @@ var Tab = (function () {
 $(document).ready(function () {
     var githubController = new GithubController();
     var appController = new AppController();
-    var donePromise = new Promise();
-    githubController.entryPoints.repos.get.call({ "owner": "Noah-Huppert", "repo": "NoahHuppert.com" }, "GET").onDone(function (data) {
+    githubController.entryPoints.repos.get.call({ "owner": "Noah-Huppert", "repo": "NoahHuppert.com" }, "GET").on(Promise.STAGE_SUCCESS, function (data) {
         //Log.d(data.responseJSON, "main.repo.get.onDone");
     });
     //Add tabs
@@ -294,7 +320,7 @@ $(document).ready(function () {
     appController.addTab(new Tab("skills", "Skills"));
     appController.addTab(new Tab("contact", "Contact Me"));
     //Setup tabs
-    appController.getTabById("projects").loadJsonContentFromUrl("/data/projects.json", "projects").onDone(function (tab) {
+    appController.getTabById("projects").loadJsonContentFromUrl("/data/projects.json", "projects").on(Promise.STAGE_SUCCESS, function (tab) {
         var newData = ko.observableArray();
         //Convert body to markdown and data to ko.observableArray
         _.each(tab.data(), function (project) {
@@ -304,10 +330,10 @@ $(document).ready(function () {
         tab.data(newData());
         Log.d(tab.data());
     });
-    appController.getTabById("skills").loadTextContextFromUrl("/data/skills.md").onDone(function (tab) {
+    appController.getTabById("skills").loadTextContextFromUrl("/data/skills.md").on(Promise.STAGE_SUCCESS, function (tab) {
         tab.data(marked(tab.data()));
     });
-    appController.getTabById("contact").loadTextContextFromUrl("/data/contact.md").onDone(function (tab) {
+    appController.getTabById("contact").loadTextContextFromUrl("/data/contact.md").on(Promise.STAGE_SUCCESS, function (tab) {
         tab.data(marked(tab.data()));
     });
     ko.applyBindings(appController);

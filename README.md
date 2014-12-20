@@ -1,3 +1,4 @@
+[ ![Codeship Status for Noah-Huppert/NoahHuppert.com](https://codeship.com/projects/d6c1cde0-6a97-0132-bb19-123b90e6e43d/status?branch=master)](https://codeship.com/projects/53754)
 ![Dev dependencies](https://david-dm.org/Noah-Huppert/NoahHuppert.com/dev-status.svg?style=flat)
 #Building
 ####Prerequisit

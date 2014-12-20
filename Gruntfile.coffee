@@ -28,6 +28,12 @@
           target: "ES5"
           sourceMap: true
           references: ["src/_references.ts"]
+      compileTests:
+        src: ["test/typescript/**/*.ts"]
+        dest: "test/javascript"
+        options:
+          target: "ES5"
+          sourceMap: true
 
     #Manifest Sync
     manifestSync:
@@ -39,6 +45,7 @@
     clean:
       css: ["build/styles/css"]
       javascript: ["build/scripts/javascript"]
+      testsJavascript: ["test/javascript"]
       build: ["build"]
 
     #Copy files
@@ -101,6 +108,9 @@
       typescript:
         files: "src/scripts/typescript/**/*"
         tasks: ["buildTypescript"]
+      typescriptTest:
+        files: "test/typescript/**/*"
+        tasks: ["buildTests"]
       data:
         files: "src/data/**/*"
         tasks: ["buildData"]
@@ -128,6 +138,7 @@
 
   #Register Grunt tasks
   grunt.registerTask "build", ["clean:build", "installBower", "buildScss", "buildManifests", "buildTypescript", "buildData", "buildImages", "buildViews"]
+  grunt.registerTask "buildTests", ["clean:testsJavascript", "typescript:compileTests"]
 
   serveTasks = ["http-server:main"]
   if watchFiles

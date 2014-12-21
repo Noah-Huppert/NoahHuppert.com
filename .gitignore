@@ -12,8 +12,14 @@ node_modules
 obj
 .ntvs_analysis.dat.tmp
 
+#Inteljj Webstorm
+.idea
+
 #Build dir
 build
 
 #Bower deps
 libs
+
+#Tests
+tests/javascript

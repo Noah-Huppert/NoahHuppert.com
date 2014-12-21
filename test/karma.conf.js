@@ -5,7 +5,7 @@ module.exports = function(config) {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
-    basePath: '',
+    basePath: '../',
 
 
     // frameworks to use
@@ -15,7 +15,12 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'javascript/**/*'
+      'http://underscorejs.org/underscore-min.js',
+      'http://code.jquery.com/jquery-1.11.0.min.js',
+      'http://cdnjs.cloudflare.com/ajax/libs/knockout/3.1.0/knockout-min.js',
+      'libs/marked/lib/marked.js',
+      'build/scripts/javascript/main.js',
+      'test/javascript/**/*'
     ],
 
 
@@ -55,11 +60,15 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['PhantomJS', 'Chrome', 'ChromeCanary', 'Firefox', 'Safari', 'Opera', 'IE'],
+    browsers: ['PhantomJS'],//browsers: ['Chrome', 'ChromeCanary', 'Firefox', 'IE', 'PhantomJS'],
 
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false
+    singleRun: true,
+
+    proxies: {
+      "/data/": "build/data/"
+    }
   });
 };

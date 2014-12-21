@@ -1,5 +1,6 @@
 ﻿module.exports = (grunt) ->
   watchFiles = grunt.option "watch"
+  serveInBg = grunt.option "background"
 
   grunt.initConfig
     #Install Bower dependencies
@@ -26,14 +27,15 @@
         dest: "build/scripts/javascript/main.js"
         options:
           target: "ES5"
-          sourceMap: true
+          declaration: true
           references: ["src/_references.ts"]
       compileTests:
         src: ["test/typescript/**/*.ts"]
-        dest: "test/javascript"
+        dest: "test/tmp/"
         options:
           target: "ES5"
-          sourceMap: true
+          sourceMap: false
+          references: ["test/_references.ts"]
 
     #Manifest Sync
     manifestSync:
@@ -46,6 +48,7 @@
       css: ["build/styles/css"]
       javascript: ["build/scripts/javascript"]
       testsJavascript: ["test/javascript"]
+      testsTpm: ["test/tmp"]
       build: ["build"]
 
     #Copy files
@@ -85,6 +88,13 @@
           src: ["**/*"]
           dest: "build/img"
         ]
+      typescriptTests:
+        files: [
+          expand: true
+          cwd: "test/tmp/test/typescript"
+          src: ["**/*"]
+          dest: "test/javascript"
+        ]
 
     #Serve files
     "http-server":
@@ -92,7 +102,7 @@
         root: "build"
         port: 9000
         host: "127.0.0.1"
-        runInBackground: watchFiles
+        runInBackground: watchFiles || serveInBg
 
     #Watch files
     watch:
@@ -137,8 +147,8 @@
   grunt.loadNpmTasks "grunt-contrib-copy"
 
   #Register Grunt tasks
-  grunt.registerTask "build", ["clean:build", "installBower", "buildScss", "buildManifests", "buildTypescript", "buildData", "buildImages", "buildViews"]
-  grunt.registerTask "buildTests", ["clean:testsJavascript", "typescript:compileTests"]
+  grunt.registerTask "build", ["clean:build", "installBower", "buildScss", "buildManifests", "buildTypescript", "buildData", "buildImages", "buildViews", "buildTests"]
+  grunt.registerTask "buildTests", ["clean:testsJavascript", "typescript:compileTests", "copy:typescriptTests", "clean:testsTpm"]
 
   serveTasks = ["http-server:main"]
   if watchFiles

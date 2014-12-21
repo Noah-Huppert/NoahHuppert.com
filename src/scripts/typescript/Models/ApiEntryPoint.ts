@@ -7,7 +7,7 @@
         this.host = host;
         this.path = path;
 
-        if (options) {
+        if (options == undefined) {
             this.options = options;
         }
     }

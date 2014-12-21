@@ -1,3 +1,4 @@
+/// <reference path="../../_references.ts" />
 describe("Tests the ApiEntryPoint model constructor", function () {
     var goodHost = "http://www.foo.com";
     var goodPath = "/:foo/:bazz";

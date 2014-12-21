@@ -7,8 +7,10 @@
         this.host = host;
         this.path = path;
 
-        if (options == undefined) {
+        if (options != undefined && typeof options == "object") {
             this.options = options;
+        } else {
+            this.options = {};
         }
     }
 
@@ -26,7 +28,7 @@
     call(wildcards, method: string, options?): Promise {
         var promise = new Promise(PromiseType.SuccessOrFail);
 
-        if (!options) {
+        if(options == undefined){
             options = {};
         }
 

@@ -20,12 +20,16 @@
 
     getGithubRepo(): string {
         var githubParts = this.github().split("/");
-        return githubParts[1];
+        if(githubParts.length >= 2){
+            return githubParts[1];
+        } else{
+            return "";
+        }
     }
 
     getGithubOther(): string {
         var githubParts = this.github().split("/");
-        githubParts.splice(0, 1);
+        githubParts.splice(0, 2);
 
         return githubParts.join("/");
     }

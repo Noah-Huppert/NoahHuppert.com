@@ -22,4 +22,4 @@ build
 libs
 
 #Tests
-tests/javascript
+test/javascript

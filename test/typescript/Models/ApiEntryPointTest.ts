@@ -34,4 +34,60 @@ describe("Tests the ApiEntryPoint model constructor", function () {
         expect(model.path).toEqual(goodPath);
         expect(model.options).toEqual({});
     });
+
+    it("has good host, good path, and options is string", function(){
+        var model: ApiEntryPoint = new ApiEntryPoint(goodHost, goodPath, "");
+
+        expect(model.host).toEqual(goodHost);
+        expect(model.path).toEqual(goodPath);
+        expect(model.options).toEqual({});
+    });
+
+    it("has good host, good path, and options is number", function(){
+        var model: ApiEntryPoint = new ApiEntryPoint(goodHost, goodPath, 1);
+
+        expect(model.host).toEqual(goodHost);
+        expect(model.path).toEqual(goodPath);
+        expect(model.options).toEqual({});
+  });
+});
+
+describe("Tests the ApiEntryPoint model build method", function () {
+    var goodHost: string = "http://www.foo.com";
+    var pathTypeHost: string = "/:foo/bazz/:bar";
+    var blankHost: string = "";
+
+    var goodPath: string = "/:foo/bazz/:bar";
+    var noWildcardPath: string = "/foo/bazz/bar";
+    var emptyPath: string = "";
+
+    var goodWildcards = { "foo": "v_foo", "bar": "v_bar" };
+    var built_goodWildCards = "/v_foo/bazz/v_bar";
+
+    var nonExistantWildcards = { "noFoo": "nv_foo", "noBar": "nv_bar" };
+    var emptyWildcards = {};
+
+    it("has good host, good path, good wildcards", function () {
+        var model: ApiEntryPoint = new ApiEntryPoint(goodHost, goodPath);
+
+        expect(model.build(goodWildcards)).toEqual(goodHost + "/v_foo/bazz/v_bar");
+    });
+
+    it("has path type host, good path, good wildcards", function () {
+        var model: ApiEntryPoint = new ApiEntryPoint(pathTypeHost, goodPath);
+
+        expect(model.build(goodWildcards)).toEqual(pathTypeHost + built_goodWildCards);
+    });
+
+    it("has blank host, good path, good wildcards", function () {
+        var model: ApiEntryPoint = new ApiEntryPoint(blankHost, goodPath);
+
+        expect(model.build(goodWildcards)).toEqual(blankHost + built_goodWildCards);
+    });
+
+    it("has good host, good path, non existant wildcards", function () {
+        var model: ApiEntryPoint = new ApiEntryPoint(goodHost, goodPath);
+
+        expect(model.build(nonExistantWildcards)).toEqual(goodHost + goodPath);
+    });
 });

@@ -173,3 +173,39 @@ describe("Test Project.getGithubUrl()", function(){
         expect(model.getGithubUrl()).toEqual("https://github.com/");
     });
 });
+
+describe("Tests creating Project from object", function(){
+    beforeEach(function(){
+        spyOn(console, "log");
+    });
+
+    it("has good name, good body, good github", function(){
+        var model: Project = Project.fromObject({ "name": "name", "body": "body", "github": "github"});
+
+        expect(model).toBeDefined();
+        expect(model.name()).toEqual("name");
+        expect(model.body()).toEqual("body");
+        expect(model.github()).toEqual("github");
+    });
+
+    it("has no name, good body, good github", function(){
+        var model: Project = Project.fromObject({ "body": "body", "github": "github" });
+
+        expect(model).toBeUndefined();
+        expect(console.log).toHaveBeenCalled();
+    });
+
+    it("has good name, no body, good github", function(){
+        var model: Project = Project.fromObject({ "name": "name", "github": "github" });
+
+        expect(model).toBeUndefined();
+        expect(console.log).toHaveBeenCalled();
+    });
+
+    it("has good name, good body, no github", function(){
+        var model: Project = Project.fromObject({ "name": "name", "body": "body" });
+
+        expect(model).toBeUndefined();
+        expect(console.log).toHaveBeenCalled();
+    });
+});

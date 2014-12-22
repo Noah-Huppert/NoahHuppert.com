@@ -71,6 +71,15 @@ describe("Tests Promise model constructor", function(){
         }
     });
 
+    it("throws error when tpye is numbered but numbers not specified", function(){
+        spyOn(console, "log");
+
+        var model: Promise = new Promise(PromiseType.Numbered);
+
+        expect(console.log).toHaveBeenCalled();
+        expect(model.getStages().length).toEqual(0);
+    });
+
     it("has no default stages because it is a custom promise", function(){
         var model: Promise = new Promise(PromiseType.Custom);
 
@@ -122,5 +131,67 @@ describe("Tests Promise.getStage()", function(){
 });
 
 describe("Tests Promise.getStages()", function(){
+    it("retrieves the correct amount, with two stages", function(){
+        var model: Promise = new Promise(PromiseType.Custom);
+        model.addStage("customStage1");
+        model.addStage("customStage2");
 
+        expect(model.getStages().length).toEqual(2);
+    });
+
+    it("retrieves the correct values, with two stages", function(){
+        var model: Promise = new Promise(PromiseType.Custom);
+        model.addStage("customStage1");
+        model.addStage("customStage2");
+
+        var stages: Array<PromiseStage> = model.getStages();
+        expect(stages[0].name).toEqual("customStage1");
+        expect(stages[1].name).toEqual("customStage2");
+    });
+
+    it("retrieves none with no stages", function(){
+        var model: Promise = new Promise(PromiseType.Custom);
+
+        expect(model.getStages().length).toEqual(0);
+    });
+});
+
+describe("Tests Promise.on()", function(){
+    var model: Promise;
+    var callbacks: any;
+
+    beforeEach(function(){
+        callbacks = {};
+        callbacks.success = function(){};
+        callbacks.fail = function(){};
+
+        spyOn(callbacks, "success");
+        spyOn(callbacks, "fail");
+
+        model = new Promise();
+    });
+
+    it("has good stage, good callback", function(){
+        model.on(Promise.STAGE_SUCCESS, callbacks.success);
+        model.on(Promise.STAGE_FAIL, callbacks.fail);
+
+        model.fire(Promise.STAGE_SUCCESS);
+        model.fire(Promise.STAGE_FAIL);
+
+        expect(callbacks.success).toHaveBeenCalled();
+        expect(callbacks.fail).toHaveBeenCalled();
+    });
+
+    it("has bad stage, good callback", function(){
+        spyOn(console, "log");
+
+        model.on("doesNotExist", callbacks.success);
+
+        model.fire(Promise.STAGE_SUCCESS);
+
+        expect(callbacks.success).not.toHaveBeenCalled();
+        expect(console.log).toHaveBeenCalled();
+    });
+
+    //TODO Figure out async tests and make async tests for above
 });

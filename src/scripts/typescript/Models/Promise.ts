@@ -84,7 +84,7 @@
 
             this.callStage(stageName);
         } else {
-            Log.e("Cannot set callback for not existant stage \"" + stageName + "\"", "Promise.on(\"" + stageName + "\")");
+            Log.e("Cannot set callback for not existent stage \"" + stageName + "\"", "Promise.on(\"" + stageName + "\")");
         }
     }
 }

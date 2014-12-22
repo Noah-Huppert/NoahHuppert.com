@@ -10,7 +10,25 @@
     }
 
     static fromObject(obj: any): Project {
-        return new Project(obj.name, obj.body, obj.github);
+        var validObj: boolean = true;
+
+        if(obj.name == undefined){
+            Log.e("Object must contain property \"name\"", "Project.fromObject");
+            validObj = false;
+        }
+
+        if(obj.body == undefined){
+            Log.e("Object must contain property \"body\"", "Project.fromObject");
+            validObj = false;
+        }
+        if(obj.github == undefined){
+            Log.e("Object must contain property \"github\"", "Project.fromObject");
+            validObj = false;
+        }
+
+        if(validObj) {
+            return new Project(obj.name, obj.body, obj.github);
+        }
     }
 
     getGithubUsername(): string {

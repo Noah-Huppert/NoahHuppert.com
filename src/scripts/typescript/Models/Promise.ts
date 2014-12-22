@@ -5,14 +5,14 @@
     private stages: Array<PromiseStage> = [];
 
     constructor(type?: PromiseType, numOfStages?: number) {
-        if (type == PromiseType.SuccessOrFail) {
+        if (type == PromiseType.SuccessOrFail || type == undefined) {
             this.addStage(Promise.STAGE_SUCCESS);
             this.addStage(Promise.STAGE_FAIL);
         } else if (type == PromiseType.Numbered) {
             if (numOfStages == undefined) {
                 Log.e("When creating a promise with type PromiseType.Numbered the second argument must be the number of stages", "Promise.constructor");
             } else {
-                for (var i: number = 1; i < numOfStages; i++) {
+                for (var i: number = 1; i <= numOfStages; i++) {
                     this.addStage(i.toString());
                 }
             }
@@ -29,7 +29,7 @@
 
             this.callStage(stageName);
         } else {
-            Log.e("Cannot fire non existant stage \"" + stageName + "\"", "Promise.fire(\"" + stageName + "\")");
+            Log.e("Cannot fire non existent stage \"" + stageName + "\"", "Promise.fire(\"" + stageName + "\")");
         }
     }
 
@@ -50,22 +50,30 @@
     /* Getters */
     getStage(stageName: string): PromiseStage {
         return _.filter(this.stages, function (stage) {
-            return stage.name == stageName;
+            return stage.name == stageName && stage.name != undefined;
         })[0];
+    }
+
+    getStages(): Array<PromiseStage>{
+        return this.stages;
     }
 
     /* Setters */
     addStage(name: string, fired?: boolean, data?, callback?: Function) {
-        if (fired == undefined) {
-            fired = false;
-        }
+        if(this.getStage(name) == undefined && name != undefined) {
+            if (fired == undefined) {
+                fired = false;
+            }
 
-        this.stages.push({
-            "name": name,
-            "fired": fired,
-            "data": data,
-            "callback": callback
-        });
+            this.stages.push({
+                "name": name,
+                "fired": fired,
+                "data": data,
+                "callback": callback
+            });
+        } else if(name == undefined){
+            Log.e("name cannot be undefined", "Promise.addStage");
+        }
     }
 
     on(stageName: string, callback: Function) {

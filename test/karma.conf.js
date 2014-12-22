@@ -5,22 +5,22 @@ module.exports = function(config) {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
-    basePath: '../',
+    basePath: "../",
 
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine'],
+    frameworks: ["jasmine"],
 
 
     // list of files / patterns to load in the browser
     files: [
-      'http://underscorejs.org/underscore-min.js',
-      'http://code.jquery.com/jquery-1.11.0.min.js',
-      'http://cdnjs.cloudflare.com/ajax/libs/knockout/3.1.0/knockout-min.js',
-      'libs/marked/lib/marked.js',
-      'build/scripts/javascript/main.js',
-      'test/javascript/**/*'
+      "http://underscorejs.org/underscore-min.js",
+      "http://code.jquery.com/jquery-1.11.0.min.js",
+      "http://cdnjs.cloudflare.com/ajax/libs/knockout/3.1.0/knockout-min.js",
+      "libs/marked/lib/marked.js",
+      "build/scripts/javascript/main.js",
+      "test/javascript/**/*"
     ],
 
 
@@ -32,13 +32,14 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+      "build/scripts/javascript/main.js": ["coverage"]
     },
 
 
     // test results reporter to use
-    // possible values: 'dots', 'progress'
+    // possible values: "dots", "progress"
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    reporters: ["progress", "coverage"],
 
 
     // web server port
@@ -60,7 +61,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['PhantomJS'],//browsers: ['Chrome', 'ChromeCanary', 'Firefox', 'IE', 'PhantomJS'],
+    browsers: ["PhantomJS"],//browsers: ["Chrome", "ChromeCanary", "Firefox", "IE", "PhantomJS"],
 
 
     // Continuous Integration mode
@@ -69,6 +70,13 @@ module.exports = function(config) {
 
     proxies: {
       "/data/": "build/data/"
+    },
+
+    coverageReporter: {
+      "dir": "test/coverage/",
+      reporters: [
+        { type: "lcov", subdir: "lcov" }
+      ]
     }
   });
 };

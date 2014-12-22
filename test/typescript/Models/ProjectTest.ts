@@ -152,4 +152,24 @@ describe("Tests Project.getGithubOther()", function(){
 
         expect(model.getGithubOther()).toEqual("");
     });
+
+    it("has empty user, empty user and empty other", function(){
+        var model: Project = new Project("name", "body", "//");
+
+        expect(model.getGithubOther()).toEqual("");
+    });
+});
+
+describe("Test Project.getGithubUrl()", function(){
+    it("has valid github", function(){
+        var model: Project = new Project("name", "body", "user/project");
+
+        expect(model.getGithubUrl()).toEqual("https://github.com/user/project");
+    });
+
+    it("has an empty github", function(){
+       var model: Project = new Project("name", "body", "");
+
+        expect(model.getGithubUrl()).toEqual("https://github.com/");
+    });
 });

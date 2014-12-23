@@ -43,7 +43,7 @@
                 }
             }
         } else {
-            Log.e("Cannot call non existant stage \"" + stageName + "\"", "Promise.callStage(\"" + stageName + "\")");
+            Log.e("Cannot call non existent stage \"" + stageName + "\"", "Promise.callStage(\"" + stageName + "\")");
         }
     }
 

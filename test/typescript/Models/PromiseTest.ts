@@ -159,6 +159,7 @@ describe("Tests Promise.getStages()", function(){
 describe("Tests Promise.on()", function(){
     var model: Promise;
     var callbacks: any;
+    var asyncCallDelay: number = 0.1;
 
     beforeEach(function(){
         callbacks = {};
@@ -173,25 +174,79 @@ describe("Tests Promise.on()", function(){
 
     it("has good stage, good callback", function(){
         model.on(Promise.STAGE_SUCCESS, callbacks.success);
-        model.on(Promise.STAGE_FAIL, callbacks.fail);
-
         model.fire(Promise.STAGE_SUCCESS);
-        model.fire(Promise.STAGE_FAIL);
 
         expect(callbacks.success).toHaveBeenCalled();
-        expect(callbacks.fail).toHaveBeenCalled();
+    });
+
+    it("has good stage, bad callback", function(){
+        model.on(Promise.STAGE_SUCCESS, undefined);
+        model.fire(Promise.STAGE_SUCCESS);
+
+        expect(callbacks.success).not.toHaveBeenCalled();
+        expect(callbacks.fail).not.toHaveBeenCalled();
     });
 
     it("has bad stage, good callback", function(){
         spyOn(console, "log");
 
         model.on("doesNotExist", callbacks.success);
-
         model.fire(Promise.STAGE_SUCCESS);
 
         expect(callbacks.success).not.toHaveBeenCalled();
         expect(console.log).toHaveBeenCalled();
     });
 
-    //TODO Figure out async tests and make async tests for above
+    it("has bad stage, bad callback", function(){
+        spyOn(console, "log");
+
+        model.on("doesNotExist", undefined);
+        model.fire(Promise.STAGE_SUCCESS);
+
+        expect(callbacks.success).not.toHaveBeenCalled();
+        expect(callbacks.fail).not.toHaveBeenCalled();
+
+        expect(console.log).toHaveBeenCalled();
+    });
+
+    it("has good stage, good callback, called before set", function(){
+        model.fire(Promise.STAGE_SUCCESS);
+        model.on(Promise.STAGE_SUCCESS, callbacks.success);
+
+        expect(callbacks.success).toHaveBeenCalled();
+    });
+
+    it("has good stage, bad callback, called before set", function(){
+        model.fire(Promise.STAGE_SUCCESS);
+        model.on(Promise.STAGE_SUCCESS, undefined);
+
+        expect(callbacks.success).not.toHaveBeenCalled();
+        expect(callbacks.fail).not.toHaveBeenCalled();
+    });
+
+    it("has bad stage, good callback, called before set", function(){
+        spyOn(console, "log");
+
+        model.fire(Promise.STAGE_SUCCESS);
+        model.on("doesNotExist", callbacks.success);
+
+        expect(callbacks.success).not.toHaveBeenCalled();
+        expect(console.log).toHaveBeenCalled();
+    });
+
+    it("has bad stage, bad callback, called before set", function(){
+        spyOn(console, "log");
+
+        model.fire(Promise.STAGE_SUCCESS);
+        model.on("doesNotExist", undefined);
+
+        expect(callbacks.success).not.toHaveBeenCalled();
+        expect(callbacks.fail).not.toHaveBeenCalled();
+
+        expect(console.log).toHaveBeenCalled();
+    });
+});
+
+describe("Tests Promise.fire()", function(){
+
 });

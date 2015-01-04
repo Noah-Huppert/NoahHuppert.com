@@ -12,8 +12,9 @@ node_modules
 obj
 .ntvs_analysis.dat.tmp
 
-#Inteljj Webstorm
+#Inteljj
 .idea
+*.iml
 
 #Build dir
 build

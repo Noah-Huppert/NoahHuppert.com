@@ -69,7 +69,8 @@ module.exports = function(config) {
     singleRun: true,
 
     proxies: {
-      "/data/": "build/data/"
+      "/data/": "build/data/",
+      "/test/data/": "test/data"
     },
 
     coverageReporter: {

@@ -71,7 +71,7 @@ describe("Tests Promise model constructor", function(){
         }
     });
 
-    it("throws error when tpye is numbered but numbers not specified", function(){
+    it("throws error when type is numbered but numbers not specified", function(){
         spyOn(console, "log");
 
         var model: Promise = new Promise(PromiseType.Numbered);
@@ -169,7 +169,7 @@ describe("Tests Promise.on()", function(){
         spyOn(callbacks, "success");
         spyOn(callbacks, "fail");
 
-        model = new Promise();
+        model = new Promise(PromiseType.SuccessOrFail);
     });
 
     it("has good stage, good callback", function(){
@@ -248,5 +248,146 @@ describe("Tests Promise.on()", function(){
 });
 
 describe("Tests Promise.fire()", function(){
+    var model: Promise;
+    var callbacks: any;
+    var fireData = { "foo": "bazz", "bar": "foo" };
 
+    beforeEach(function(){
+        callbacks = {};
+        callbacks.success = function(){};
+        callbacks.fail = function(){};
+
+        spyOn(callbacks, "success");
+        spyOn(callbacks, "fail");
+
+        model = new Promise(PromiseType.SuccessOrFail);
+        model.on(Promise.STAGE_SUCCESS, callbacks.success);
+        model.on(Promise.STAGE_FAIL, callbacks.fail);
+    });
+
+    it("has good stage", function(){
+        model.fire(Promise.STAGE_SUCCESS);
+
+        expect(callbacks.success).toHaveBeenCalled();
+        expect(callbacks.fail).not.toHaveBeenCalled();
+    });
+
+    it("has good stage, and data", function(){
+        model.fire(Promise.STAGE_SUCCESS, fireData);
+
+        expect(callbacks.success).toHaveBeenCalledWith(fireData);
+        expect(callbacks.fail).not.toHaveBeenCalled();
+    });
+
+    it("has bad stage", function(){
+        spyOn(console, "log");
+
+        model.fire("doesNotExist");
+
+        expect(console.log).toHaveBeenCalled();
+        expect(callbacks.success).not.toHaveBeenCalled();
+        expect(callbacks.fail).not.toHaveBeenCalled();
+    });
+});
+
+describe("Tests Promise.callStage()", function(){
+    var model: Promise;
+    var callbacks: any;
+
+    beforeEach(function(){
+        callbacks = {};
+        callbacks.success = function(){};
+        callbacks.fail = function(){};
+
+        spyOn(callbacks, "success");
+        spyOn(callbacks, "fail");
+
+        model = new Promise(PromiseType.SuccessOrFail);
+        model.on(Promise.STAGE_SUCCESS, callbacks.success);
+        model.on(Promise.STAGE_FAIL, callbacks.fail);
+    });
+
+    it("has good stage, been fired, good callback", function(){
+        model.getStage(Promise.STAGE_SUCCESS).fired = true;
+        model.callStage(Promise.STAGE_SUCCESS);
+
+        expect(callbacks.success).toHaveBeenCalled();
+        expect(callbacks.fail).not.toHaveBeenCalled();
+    });
+
+    it("has good stage, been fired, bad callback", function(){
+        model.getStage(Promise.STAGE_SUCCESS).callback = undefined;
+        model.getStage(Promise.STAGE_SUCCESS).fired = true;
+
+        model.callStage(Promise.STAGE_SUCCESS);
+
+        expect(callbacks.success).not.toHaveBeenCalled();
+        expect(callbacks.fail).not.toHaveBeenCalled();
+    });
+
+    it("has good stage, not been fired, bad callback", function(){
+        model.getStage(Promise.STAGE_SUCCESS).callback = undefined;
+        model.getStage(Promise.STAGE_SUCCESS).fired = false;
+
+        model.callStage(Promise.STAGE_SUCCESS);
+
+        expect(callbacks.success).not.toHaveBeenCalled();
+        expect(callbacks.fail).not.toHaveBeenCalled();
+    });
+
+    it("has bad stage", function(){
+        spyOn(console, "log");
+        model.callStage("doesNotExist");
+
+        expect(console.log).toHaveBeenCalled();
+
+        expect(callbacks.success).not.toHaveBeenCalled();
+        expect(callbacks.fail).not.toHaveBeenCalled();
+    });
+});
+
+describe("Tests Promise.addStage()", function(){
+    var model: Promise;
+    var callbacks: any;
+
+    beforeEach(function(){
+        callbacks = {};
+        callbacks.success = function(){};
+        callbacks.fail = function(){};
+
+        spyOn(callbacks, "success");
+        spyOn(callbacks, "fail");
+
+        model = new Promise(PromiseType.Custom);
+    });
+
+    it("has good name, good fired, good data, good callback", function(){
+        model.addStage(Promise.STAGE_SUCCESS, true, {"foo": "bazz"}, callbacks.success);
+
+        expect(model.getStage(Promise.STAGE_SUCCESS)).toEqual({
+            "name": Promise.STAGE_SUCCESS,
+            "fired": true,
+            "data": {"foo": "bazz"},
+            "callback": callbacks.success
+        });
+    });
+
+    it("has good name, no fired, no data, no callback", function(){
+        model.addStage(Promise.STAGE_SUCCESS);
+
+        expect(model.getStage(Promise.STAGE_SUCCESS)).toEqual({
+            "name": Promise.STAGE_SUCCESS,
+            "fired": false,
+            "data": undefined,
+            "callback": undefined
+        });
+    });
+
+    it("has bad name, no fired, no data, no callback", function(){
+        spyOn(console, "log");
+
+        model.addStage(undefined);
+
+        expect(console.log).toHaveBeenCalled();
+    });
 });

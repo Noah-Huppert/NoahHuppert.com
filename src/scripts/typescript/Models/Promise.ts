@@ -20,7 +20,7 @@
     }
 
     /* Actions */
-    fire(stageName: string, data?) {
+    fire(stageName: string, data?): Promise {
         var stage: PromiseStage = this.getStage(stageName);
 
         if (stage != undefined) {
@@ -31,9 +31,11 @@
         } else {
             Log.e("Cannot fire non existent stage \"" + stageName + "\"", "Promise.fire(\"" + stageName + "\")");
         }
+
+        return this;
     }
 
-    callStage(stageName: string) {
+    callStage(stageName: string): Promise {
         var stage: PromiseStage = this.getStage(stageName);
 
         if (stage != undefined) {
@@ -45,6 +47,8 @@
         } else {
             Log.e("Cannot call non existent stage \"" + stageName + "\"", "Promise.callStage(\"" + stageName + "\")");
         }
+
+        return this;
     }
 
     /* Getters */
@@ -59,7 +63,7 @@
     }
 
     /* Setters */
-    addStage(name: string, fired?: boolean, data?, callback?: Function) {
+    addStage(name: string, fired?: boolean, data?, callback?: Function): Promise {
         if(this.getStage(name) == undefined && name != undefined) {
             if (fired == undefined) {
                 fired = false;
@@ -74,9 +78,11 @@
         } else if(name == undefined){
             Log.e("name cannot be undefined", "Promise.addStage");
         }
+
+        return this;
     }
 
-    on(stageName: string, callback: Function) {
+    on(stageName: string, callback: Function): Promise {
         var stage: PromiseStage = this.getStage(stageName);
 
         if (stage != undefined) {
@@ -86,5 +92,7 @@
         } else {
             Log.e("Cannot set callback for not existent stage \"" + stageName + "\"", "Promise.on(\"" + stageName + "\")");
         }
+
+        return this;
     }
 }

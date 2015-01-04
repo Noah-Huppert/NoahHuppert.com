@@ -26,7 +26,7 @@
     }
 
     call(wildcards, method: string, options?): Promise {
-        var promise = new Promise(PromiseType.SuccessOrFail);
+        var promise: Promise = new Promise(PromiseType.SuccessOrFail);
 
         if(options == undefined){
             options = {};
@@ -40,20 +40,27 @@
             options.url = this.build(wildcards);
         }
 
+        if(method == undefined){
+            Log.e("method cannot be undefined", "ApiEntryPoint.call()");
+        }
+
         if (options.type == undefined) {
             options.type = method;
         }
 
         options.complete = (data) => {
-            if (data.status != 200) {
+            if (data.status == 200) {
                 promise.fire(Promise.STAGE_SUCCESS, data);
+                Log.d("CALLED SUCCESS", "ApiEntryPoint.call()");
             } else {
                 promise.fire(Promise.STAGE_FAIL, data);
+                Log.d("CALLED FAIL", "ApiEntryPoint.call()");
             }
         }
 
         $.ajax(options);
 
+        Log.d("RETURNING", "ApiEntryPoint.call()");
         return promise;
     }
 }

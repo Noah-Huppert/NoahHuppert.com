@@ -39,7 +39,7 @@ describe("Tests the ApiEntryPoint model constructor", function () {
         expect(model.options).toEqual({});
     });
 });
-describe("Tests the ApiEntryPoint model build method", function () {
+describe("Tests the ApiEntryPoint.build() method", function () {
     var goodHost = "http://www.foo.com";
     var pathTypeHost = "/:foo/bazz/:bar";
     var blankHost = "";
@@ -65,5 +65,28 @@ describe("Tests the ApiEntryPoint model build method", function () {
     it("has good host, good path, non existant wildcards", function () {
         var model = new ApiEntryPoint(goodHost, goodPath);
         expect(model.build(nonExistantWildcards)).toEqual(goodHost + goodPath);
+    });
+});
+describe("Tests ApiEntryPoint.call() method", function () {
+    var model;
+    var testData = {
+        "foo": "bazz"
+    };
+    var testFile = "testFile.json";
+    beforeEach(function () {
+        model = new ApiEntryPoint("/test/data", "/:file");
+    });
+    it("has good wildcards, good method, good options", function (done) {
+        var promise = model.call({ "file": testFile }, "GET", { "Accept": "application/json" });
+        var callbacks = {
+            "success": function (data) {
+                expect(data.body).toEqual(testData);
+                done();
+            },
+            "fail": function (data) {
+            }
+        };
+        promise.on(Promise.STAGE_SUCCESS, callbacks.success);
+        promise.on(Promise.STAGE_FAIL, callbacks.fail);
     });
 });

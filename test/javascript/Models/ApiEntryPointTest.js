@@ -77,16 +77,24 @@ describe("Tests ApiEntryPoint.call() method", function () {
         model = new ApiEntryPoint("/test/data", "/:file");
     });
     it("has good wildcards, good method, good options", function (done) {
-        var promise = model.call({ "file": testFile }, "GET", { "Accept": "application/json" });
+        var p = new ApiEntryPoint("http://127.0.0.1:9000/", "").call({}, "GET");
+        p.on(Promise.STAGE_SUCCESS, function (data) {
+            Log.d("p.success", "ApiEntryPointTest.p.onSuccess");
+            done();
+        });
+        /*var promise: Promise = model.call({"file": testFile}, "GET") ;
+
         var callbacks = {
-            "success": function (data) {
+            "success": function(data){
                 expect(data.body).toEqual(testData);
                 done();
             },
-            "fail": function (data) {
+            "fail": function(data){
+
             }
         };
+
         promise.on(Promise.STAGE_SUCCESS, callbacks.success);
-        promise.on(Promise.STAGE_FAIL, callbacks.fail);
+        promise.on(Promise.STAGE_FAIL, callbacks.fail);*/
     });
 });

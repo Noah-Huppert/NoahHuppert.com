@@ -36,9 +36,9 @@
             options[key] = value;
         });
 
-        if (options.url == undefined) {
+        /*if (options.url == undefined) {
             options.url = this.build(wildcards);
-        }
+        }*/
 
         if(method == undefined){
             Log.e("method cannot be undefined", "ApiEntryPoint.call()");
@@ -51,16 +51,14 @@
         options.complete = (data) => {
             if (data.status == 200) {
                 promise.fire(Promise.STAGE_SUCCESS, data);
-                Log.d("CALLED SUCCESS", "ApiEntryPoint.call()");
             } else {
                 promise.fire(Promise.STAGE_FAIL, data);
-                Log.d("CALLED FAIL", "ApiEntryPoint.call()");
             }
         }
 
-        $.ajax(options);
+        Log.d(this.build(wildcards), "ApiEntryPoint.call()");
+        $.ajax(this.build(wildcards), options);
 
-        Log.d("RETURNING", "ApiEntryPoint.call()");
         return promise;
     }
 }

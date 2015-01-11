@@ -92,7 +92,7 @@ describe("Tests ApiEntryPoint.call() method", function () {
         };*/
         model = new ApiEntryPoint("/test/data", "/:file");
     });
-    it("has good wildcards, good method, good options", function (done) {
+    xit("has good wildcards, good method, good options", function (done) {
         /*$(document).ready(function(){
             $.get("http://stackoverflow.com/questions/ask", (data, err) => {
                 if (err == "success") {

@@ -4,7 +4,7 @@
   "description": "Code for Noahhuppert.com",
   "main": "Gruntfile.coffee",
   "scripts": {
-    "test": "karma start test/karma.conf.js"
+    "test": "grunt test"
   },
   "repository": {
     "type": "git",
@@ -26,17 +26,9 @@
     "grunt-contrib-watch": "^0.6.1",
     "grunt-http-server": "^1.1.0",
     "grunt-manifest-sync": "^1.2.1",
+    "grunt-template-jasmine-istanbul": "^0.3.0",
     "grunt-typescript": "^0.4.6",
     "jasmine-core": "^2.1.3",
-    "karma": "^0.12.28",
-    "karma-chrome-launcher": "^0.1.7",
-    "karma-coverage": "^0.2.7",
-    "karma-firefox-launcher": "^0.1.3",
-    "karma-ie-launcher": "^0.1.5",
-    "karma-jasmine": "^0.3.2",
-    "karma-opera-launcher": "^0.1.0",
-    "karma-phantomjs-launcher": "^0.1.4",
-    "karma-safari-launcher": "^0.1.1",
     "typescript": "^1.3.0"
   },
   "dependencies": {}

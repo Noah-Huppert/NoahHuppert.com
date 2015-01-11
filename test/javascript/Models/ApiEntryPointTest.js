@@ -73,28 +73,47 @@ describe("Tests ApiEntryPoint.call() method", function () {
         "foo": "bazz"
     };
     var testFile = "testFile.json";
+    var ajaxFake;
     beforeEach(function () {
+        ajaxFake = {
+            "data": {},
+            "succeed": true
+        };
+        /*$.ajax = function(options: any): JQueryXHR{
+            if(options.complete != undefined){
+                if(ajaxFake.succeed){
+                    options.complete({ "body": ajaxFake.data, "status": 200});
+                } else{
+                    options.complete({ "body": ajaxFake.data, "status": 404});
+                }
+            }
+
+            return null;
+        };*/
         model = new ApiEntryPoint("/test/data", "/:file");
     });
     it("has good wildcards, good method, good options", function (done) {
-        var p = new ApiEntryPoint("http://127.0.0.1:9000/", "").call({}, "GET");
-        p.on(Promise.STAGE_SUCCESS, function (data) {
-            Log.d("p.success", "ApiEntryPointTest.p.onSuccess");
-            done();
-        });
-        /*var promise: Promise = model.call({"file": testFile}, "GET") ;
-
+        /*$(document).ready(function(){
+            $.get("http://stackoverflow.com/questions/ask", (data, err) => {
+                if (err == "success") {
+                    Log.d(data, "ApiEntryPointTest S4 T1 SUCCESS");
+                    done();
+                } else {
+                    Log.d(data, "ApiEntryPointTest S4 T1 FAIL")
+                    done();
+                }
+            });
+        });*/
+        //ajaxFake.data = testData;
+        var promise = model.call({ "file": testFile }, "GET");
         var callbacks = {
-            "success": function(data){
+            "success": function (data) {
                 expect(data.body).toEqual(testData);
-                done();
             },
-            "fail": function(data){
-
+            "fail": function (data) {
             }
         };
-
         promise.on(Promise.STAGE_SUCCESS, callbacks.success);
-        promise.on(Promise.STAGE_FAIL, callbacks.fail);*/
+        promise.on(Promise.STAGE_FAIL, callbacks.fail);
     });
 });

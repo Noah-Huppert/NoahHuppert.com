@@ -44,9 +44,9 @@
         options:
           specs: "test/javascript/**/*.js"
           vendor: [
-            "http://underscorejs.org/underscore-min.js",
-            "http://code.jquery.com/jquery-1.11.0.min.js",
-            "http://cdnjs.cloudflare.com/ajax/libs/knockout/3.1.0/knockout-min.js",
+            "libs/underscore/underscore-min.js",
+            "libs/jquery/dist/jquery.min.js",
+            "libs/knockout/dist/knockout.js",
             "libs/marked/lib/marked.js"
           ]
           template: require("grunt-template-jasmine-istanbul")

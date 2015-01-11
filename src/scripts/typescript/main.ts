@@ -3,7 +3,7 @@
     var appController: AppController = new AppController();
 
     githubController.entryPoints.repos.get.call({ "owner": "Noah-Huppert", "repo": "NoahHuppert.com" }, "GET").on(Promise.STAGE_SUCCESS, (data) => {
-        Log.d(data.responseJSON, "main.repo.get.onDone");
+        //Log.d(data.responseJSON, "main.repo.get.onDone");
     });
 
     //Add tabs

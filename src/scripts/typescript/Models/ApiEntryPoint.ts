@@ -36,9 +36,9 @@
             options[key] = value;
         });
 
-        /*if (options.url == undefined) {
+        if (options.url == undefined) {
             options.url = this.build(wildcards);
-        }*/
+        }
 
         if(method == undefined){
             Log.e("method cannot be undefined", "ApiEntryPoint.call()");
@@ -56,8 +56,7 @@
             }
         }
 
-        Log.d(this.build(wildcards), "ApiEntryPoint.call()");
-        $.ajax(this.build(wildcards), options);
+        $.ajax(options);
 
         return promise;
     }

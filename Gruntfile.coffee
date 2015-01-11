@@ -37,6 +37,34 @@
           sourceMap: false
           references: ["test/_references.ts"]
 
+    #Run Tests
+    jasmine:
+      coverage:
+        src: "build/scripts/javascript/main.js"
+        options:
+          specs: "test/javascript/**/*.js"
+          vendor: [
+            "http://underscorejs.org/underscore-min.js",
+            "http://code.jquery.com/jquery-1.11.0.min.js",
+            "http://cdnjs.cloudflare.com/ajax/libs/knockout/3.1.0/knockout-min.js",
+            "libs/marked/lib/marked.js"
+          ]
+          template: require("grunt-template-jasmine-istanbul")
+          templateOptions:
+            coverage: "test/coverage/coverage.json"
+            report: [
+              {
+                type: "html",
+                options:
+                  dir: "test/coverage/html"
+              },
+              {
+                type: "lcov"
+                options:
+                  dir: "test/coverage/lcov"
+              }
+            ]
+
     #Manifest Sync
     manifestSync:
       main:
@@ -145,10 +173,12 @@
   grunt.loadNpmTasks "grunt-typescript"
   grunt.loadNpmTasks "grunt-http-server"
   grunt.loadNpmTasks "grunt-contrib-copy"
+  grunt.loadNpmTasks "grunt-contrib-jasmine"
 
   #Register Grunt tasks
   grunt.registerTask "build", ["clean:build", "installBower", "buildScss", "buildManifests", "buildTypescript", "buildData", "buildImages", "buildViews", "buildTests"]
   grunt.registerTask "buildTests", ["clean:testsJavascript", "typescript:compileTests", "copy:typescriptTests", "clean:testsTpm"]
+  grunt.registerTask "test", ["jasmine:coverage"]
 
   serveTasks = ["http-server:main"]
   if watchFiles

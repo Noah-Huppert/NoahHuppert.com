@@ -15,6 +15,10 @@
     }
 
     build(wildcards) {
+        if(wildcards == undefined){
+            Log.e("wilcards can not be undefined", "ApiEntryPoint.build");
+            return;
+        }
         var replacedPath: string = this.path;
 
         _.each(wildcards, (value, key: string) => {
@@ -36,12 +40,20 @@
             options[key] = value;
         });
 
+        if(wildcards == undefined){
+            Log.e("wilcards can not be undefined", "ApiEntryPoint.call()");
+            promise.fire(Promise.STAGE_FAIL, "wildcards can not be undefined");
+            return promise;
+        }
+
         if (options.url == undefined) {
             options.url = this.build(wildcards);
         }
 
         if(method == undefined){
             Log.e("method cannot be undefined", "ApiEntryPoint.call()");
+            promise.fire(Promise.STAGE_FAIL, "method cannot be undefined");
+            return promise;
         }
 
         if (options.type == undefined) {

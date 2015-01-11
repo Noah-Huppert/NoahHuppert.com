@@ -5,8 +5,17 @@
     data: KnockoutObservable<any> = ko.observable<any>();
 
     constructor(id: string, prettyName: string, active?: boolean) {
-        this.id(id);
-        this.prettyName(prettyName);
+        if(id == undefined){
+            Log.e("id can not be undefined", "Tab.constructor");
+        } else {
+            this.id(id);
+        }
+
+        if(prettyName == undefined) {
+            Log.e("prettyName can not be undefined", "Tab.constructor");
+        } else {
+            this.prettyName(prettyName);
+        }
 
         if (active != undefined) {
             this.active(active);

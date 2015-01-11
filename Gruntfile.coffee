@@ -142,7 +142,6 @@
         headers:
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
-        #crossDomain: true
         runInBackground: true
 
     #Watch files
@@ -184,7 +183,6 @@
   grunt.loadNpmTasks "grunt-contrib-watch"
   grunt.loadNpmTasks "grunt-manifest-sync"
   grunt.loadNpmTasks "grunt-typescript"
-  #grunt.loadTasks "../grunt-http-server/tasks"
   grunt.loadNpmTasks "grunt-http-server"
   grunt.loadNpmTasks "grunt-contrib-copy"
   grunt.loadNpmTasks "grunt-contrib-jasmine"

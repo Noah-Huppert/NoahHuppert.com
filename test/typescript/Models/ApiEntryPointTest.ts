@@ -92,59 +92,29 @@ describe("Tests the ApiEntryPoint.build() method", function () {
     });
 });
 
-
-
 describe("Tests ApiEntryPoint.call() method", function(){
     var model: ApiEntryPoint;
     var testData: any = {
         "foo": "bazz"
     };
     var testFile: string = "testFile.json";
-    var ajaxFake: any;
 
     beforeEach(function(){
-        ajaxFake = {
-            "data": {},
-            "succeed": true
-        };
-
-        /*$.ajax = function(options: any): JQueryXHR{
-            if(options.complete != undefined){
-                if(ajaxFake.succeed){
-                    options.complete({ "body": ajaxFake.data, "status": 200});
-                } else{
-                    options.complete({ "body": ajaxFake.data, "status": 404});
-                }
-            }
-
-            return null;
-        };*/
-
-        model = new ApiEntryPoint("/test/data", "/:file");
+        model = new ApiEntryPoint(testServerUrl, "/:file");
     });
 
-    xit("has good wildcards, good method, good options", function(done){
-        /*$(document).ready(function(){
-            $.get("http://stackoverflow.com/questions/ask", (data, err) => {
-                if (err == "success") {
-                    Log.d(data, "ApiEntryPointTest S4 T1 SUCCESS");
-                    done();
-                } else {
-                    Log.d(data, "ApiEntryPointTest S4 T1 FAIL")
-                    done();
-                }
-            });
-        });*/
-
-        //ajaxFake.data = testData;
+    it("has good wildcards, good method, good options", function(done){
         var promise: Promise = model.call({"file": testFile}, "GET") ;
 
         var callbacks = {
             "success": function(data){
-                expect(data.body).toEqual(testData);
+                expect(data.responseJSON).toEqual(testData);
+                done();
             },
             "fail": function(data){
-
+                expect(false).toEqual(true);
+                Log.e(data, "ApiEntryPointTest S4 T1 callbacks.fail");
+                done();
             }
         };
 

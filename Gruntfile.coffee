@@ -129,10 +129,20 @@
         root: "build"
         port: 9000
         host: "127.0.0.1"
-      "background":
+      background:
         root: "build"
         port: 9000
         host: "127.0.0.1"
+        runInBackground: true
+      tests:
+        root: "test/data"
+        showDir: true
+        port: 8000
+        host: "127.0.0.1"
+        headers:
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+        #crossDomain: true
         runInBackground: true
 
     #Watch files
@@ -174,6 +184,7 @@
   grunt.loadNpmTasks "grunt-contrib-watch"
   grunt.loadNpmTasks "grunt-manifest-sync"
   grunt.loadNpmTasks "grunt-typescript"
+  #grunt.loadTasks "../grunt-http-server/tasks"
   grunt.loadNpmTasks "grunt-http-server"
   grunt.loadNpmTasks "grunt-contrib-copy"
   grunt.loadNpmTasks "grunt-contrib-jasmine"
@@ -182,7 +193,7 @@
   grunt.registerTask "build", ["clean:build", "installBower", "buildScss", "buildManifests", "buildTypescript", "buildData", "buildImages", "buildViews", "buildTests"]
   grunt.registerTask "buildTests", ["clean:testsJavascript", "typescript:compileTests", "copy:typescriptTests", "clean:testsTpm"]
 
-  grunt.registerTask "test", ["http-server:background", "jasmine:coverage"]
+  grunt.registerTask "test", ["http-server:tests", "jasmine:coverage"]
 
   serveTasks = ["http-server:main"]
   if watchFiles

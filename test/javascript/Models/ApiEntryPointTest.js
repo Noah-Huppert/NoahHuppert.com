@@ -80,7 +80,7 @@ describe("Tests ApiEntryPoint.call() method", function () {
     };
     var testFile = "testFile.json";
     beforeEach(function () {
-        model = new ApiEntryPoint(testServerUrl, "/:file");
+        model = new ApiEntryPoint(TestConfig.testServerUrl, "/:file");
     });
     it("has good wildcards, good method, good options", function (done) {
         var promise = model.call({ "file": testFile }, "GET");

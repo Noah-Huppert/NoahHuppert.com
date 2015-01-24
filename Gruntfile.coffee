@@ -151,7 +151,7 @@
         tasks: ["installBower"]
       sass:
         files: "src/styles/scss/**/*"
-        tasks: ["buildSass"]
+        tasks: ["buildScss"]
       manifests:
         files: "manifest.json"
         tasks: ["buildManifests"]

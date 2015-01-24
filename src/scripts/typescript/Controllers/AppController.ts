@@ -29,6 +29,16 @@
                     tab.active(false);
                 }
             });
+            
+            this.toggleMobileMenu();
+        }
+    }
+    
+    toggleMobileMenu(){
+        if($("#tabs").attr("data-active") == "true"){
+            $("#tabs").attr("data-active", "false");
+        } else{
+            $("#tabs").attr("data-active", "true");
         }
     }
 }

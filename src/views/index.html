@@ -3,8 +3,11 @@
 <head>
     <title>Noah Huppert</title>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <!-- Google Font Collection: https://www.google.com/fonts#UsePlace:use/Collection:Roboto:900,900italic,400italic,700italic,700,400 -->
     <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link href="/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="/styles/css/main.css" rel="stylesheet" type="text/css">
 
     <!-- 3rd Party libs-->
@@ -19,7 +22,8 @@
 <body>
     <div id="header">
         <div id="title">Noah Huppert</div>
-        <div id="tabs" data-bind="foreach: tabs()">
+        <span class="glyphicon glyphicon-menu-hamburger" data-bind="click: function(){toggleMobileMenu();}"></span>
+        <div id="tabs" data-bind="foreach: tabs()" data-active="false">
             <span class="tab" data-bind="text: prettyName,
                                         click: function(){ $parent.switchTab(id()) },
                                         attr: { 'data-active': $parent.shouldShowTab(id()) }"></span>

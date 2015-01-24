@@ -14,122 +14,173 @@ $color-pink: #FF4081;
 $color-red: #FF5252;
 
 /* Reset */
-html, body{
-    margin: 0;
-    padding: 0;
-    font-family: $font-primary;
-    @include texture(45deg, #E5E5E5, #E5E5E5, 40, 0);
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: $font-primary;
+  @include texture(45deg, #E5E5E5, #E5E5E5, 40, 0);
 }
 
 /* Global */
-a{
-    color: $color-red;
-    text-decoration: none;
+a {
+  color: $color-red;
+  text-decoration: none;
 }
 
-#content{
-    padding: 20px;
+#content {
+  padding: 20px;
+  padding-top: 80px;
 }
 
-.textTab{
-    width: 100%;
-    max-width: 1000px;
-    height: 100%;
-    min-height: 600px;
-    margin: auto;
-    padding: 20px;
-    background: darken(white, 5%);
+.textTab {
+  width: 100%;
+  max-width: 1000px;
+  height: 100%;
+  min-height: 600px;
+  margin: auto;
+  padding: 20px;
+  background: darken(white, 5%);
 }
 
 /* Header */
 #header {
+  width: 100%;
+  height: 80px;
+  background: $color-primary;
+  z-index: 2;
+  position: fixed;
+
+  #title {
     width: 100%;
-    height: 80px;
-    background: $color-primary;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 26px;
+    color: white;
+  }
 
-    #title {
-        width: 100%;
-        height: 40px;
-        line-height: 40px;
-        text-align: center;
-        font-size: 26px;
-        color: white;
-     }
+  #tabs {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    margin: 0 auto;
+    text-align: center;
+    cursor: pointer;
+    transition: height 1s;
+  }
 
-    #tabs {
-        width: 100%;
-        height: 40px;
-        line-height: 40px;
-        margin: 0 auto;
-        text-align: center;
-        cursor: pointer;
+  .tab {
+    width: 100%;
+    max-width: 150px;
+    height: 40px;
+    line-height: 40px;
+    display: inline-block;
+    text-align: center;
+    font-size: 16px;
+    color: $color-secondary;
+    @include transition(background 0.5s);
+  }
+
+  .tab:hover {
+    background: lighten($color-primary, 7%);
+  }
+
+  .tab[data-active="true"] {
+    @include box-sizing(border-box);
+    color: white;
+    border-bottom: solid 3px $color-yellow;
+  }
+
+  span{
+    display: none;
+  }
+}
+
+@media(max-width: 470px){
+  #content{
+    padding-top: 40px;
+  }
+
+  #header{
+    height: 40px;
+    padding-bottom: 40px;
+    
+    span{
+      margin-left: 10px;
+      margin-top: -33px;
+      display: inline-block;
+      float: left;
+      color: white;
+      font-size: 24px;
+    }
+    
+    #tabs[data-active="false"]{
+      display: none;
     }
 
-    .tab {
-        width: 100%;
-        max-width: 150px;
-        height: 40px;
-        line-height: 40px;
-        display: inline-block;
-        text-align: center;
-        font-size: 16px;
-        color: $color-secondary;
-        @include transition(background 0.5s);
+    #tabs[data-active="true"]{
+      width: 100%;
+      height: 120px;
+      display: block;
+      background: $color-primary;
+      
+      .tab{
+        max-width: none;
+        display: block;
+        margin-top: 0px;
+        margin-left: 0;
+      }
+      
+      .tab[data-active="true"]{
+        border-bottom: none !important;
+        border-left: solid 3px $color-yellow !important;
+      }
     }
-
-    .tab:hover{
-        background: lighten($color-primary, 7%);
-    }
-
-    .tab[data-active="true"] {
-        @include box-sizing(border-box);
-        color: white;
-        border-bottom: solid 3px $color-yellow;
-    }
+  }
 }
 
 /* Tab:Projects */
-#tabProjects{
-    margin-top: 10px;
+#tabProjects {
+  margin-top: 10px;
 
-    .project{
-        width: 100%;
-        max-width: 600px;
-        height: 100%;
-        margin: auto;
-        margin-bottom: 40px;
-        padding: 20px;
-        background: darken(white, 5%);
-        @include box-sizing(border-box);
-        border-left: solid 3px $color-pink;
+  .project {
+    width: 100%;
+    max-width: 600px;
+    height: 100%;
+    margin: auto;
+    margin-bottom: 40px;
+    padding: 20px;
+    background: darken(white, 5%);
+    @include box-sizing(border-box);
+    border-left: solid 3px $color-pink;
 
-        .projectName{
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        .projectLink{
-            /*display: inline-block;
-            margin-bottom: 10px;
-            font-size: 14px;
-            color: gray;*/
-            width: 20px;
-            height: 20px;
-            margin-top: -30px;
-            display: inline-block;
-            float: right;
-            background-image: url("/img/githubLogo.png");
-            background-size: 20px;
-            opacity: 0.3;
-            @include transition(opacity 0.5s);
-        }
-
-        .projectBody{
-            margin-top: 5px;
-        }
+    .projectName {
+      font-size: 24px;
+      font-weight: bold;
     }
 
-    .project:hover .projectLink{
-        opacity: 1;
+    .projectLink {
+      /*display: inline-block;
+      margin-bottom: 10px;
+      font-size: 14px;
+      color: gray;*/
+      width: 20px;
+      height: 20px;
+      margin-top: -30px;
+      display: inline-block;
+      float: right;
+      background-image: url("/img/githubLogo.png");
+      background-size: 20px;
+      opacity: 0.3;
+      @include transition(opacity 0.5s);
     }
+
+    .projectBody {
+      margin-top: 5px;
+    }
+  }
+
+  .project:hover .projectLink {
+    opacity: 1;
+  }
 }

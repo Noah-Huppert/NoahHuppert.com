@@ -12,11 +12,16 @@ node_modules
 obj
 .ntvs_analysis.dat.tmp
 
-#Bower
+#Inteljj
+.idea
+*.iml
+
+#Build dir
+build
+
+#Bower deps
 libs
 
-#Compiled Javascript
-/Site/scripts/javascript
-
-#Compiled CSS
-/Site/styles/css
+#Tests
+test/javascript
+test/coverage

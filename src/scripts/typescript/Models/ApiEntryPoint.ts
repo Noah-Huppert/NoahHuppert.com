@@ -7,12 +7,18 @@
         this.host = host;
         this.path = path;
 
-        if (options) {
+        if (options != undefined && typeof options == "object") {
             this.options = options;
+        } else {
+            this.options = {};
         }
     }
 
     build(wildcards) {
+        if(wildcards == undefined){
+            Log.e("wilcards can not be undefined", "ApiEntryPoint.build");
+            return;
+        }
         var replacedPath: string = this.path;
 
         _.each(wildcards, (value, key: string) => {
@@ -24,9 +30,9 @@
     }
 
     call(wildcards, method: string, options?): Promise {
-        var promise = new Promise(PromiseType.SuccessOrFail);
+        var promise: Promise = new Promise(PromiseType.SuccessOrFail);
 
-        if (!options) {
+        if(options == undefined){
             options = {};
         }
 
@@ -34,8 +40,20 @@
             options[key] = value;
         });
 
+        if(wildcards == undefined){
+            Log.e("wilcards can not be undefined", "ApiEntryPoint.call()");
+            promise.fire(Promise.STAGE_FAIL, "wildcards can not be undefined");
+            return promise;
+        }
+
         if (options.url == undefined) {
             options.url = this.build(wildcards);
+        }
+
+        if(method == undefined){
+            Log.e("method cannot be undefined", "ApiEntryPoint.call()");
+            promise.fire(Promise.STAGE_FAIL, "method cannot be undefined");
+            return promise;
         }
 
         if (options.type == undefined) {
@@ -43,7 +61,7 @@
         }
 
         options.complete = (data) => {
-            if (data.status != 200) {
+            if (data.status == 200) {
                 promise.fire(Promise.STAGE_SUCCESS, data);
             } else {
                 promise.fire(Promise.STAGE_FAIL, data);

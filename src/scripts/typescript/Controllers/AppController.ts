@@ -21,12 +21,14 @@
     }
 
     switchTab(tabId: string) {
-        _.each(this.tabs(), function (tab) {
-            if (tab.id() == tabId) {
-                tab.active(true);
-            } else {
-                tab.active(false);
-            }
-        });
+        if(this.getTabById(tabId) != undefined) {
+            _.each(this.tabs(), function (tab) {
+                if (tab.id() == tabId) {
+                    tab.active(true);
+                } else {
+                    tab.active(false);
+                }
+            });
+        }
     }
 }

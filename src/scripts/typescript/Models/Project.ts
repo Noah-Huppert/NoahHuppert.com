@@ -10,7 +10,25 @@
     }
 
     static fromObject(obj: any): Project {
-        return new Project(obj.name, obj.body, obj.github);
+        var validObj: boolean = true;
+
+        if(obj.name == undefined){
+            Log.e("Object must contain property \"name\"", "Project.fromObject");
+            validObj = false;
+        }
+
+        if(obj.body == undefined){
+            Log.e("Object must contain property \"body\"", "Project.fromObject");
+            validObj = false;
+        }
+        if(obj.github == undefined){
+            Log.e("Object must contain property \"github\"", "Project.fromObject");
+            validObj = false;
+        }
+
+        if(validObj) {
+            return new Project(obj.name, obj.body, obj.github);
+        }
     }
 
     getGithubUsername(): string {
@@ -20,12 +38,16 @@
 
     getGithubRepo(): string {
         var githubParts = this.github().split("/");
-        return githubParts[1];
+        if(githubParts.length >= 2){
+            return githubParts[1];
+        } else{
+            return "";
+        }
     }
 
     getGithubOther(): string {
         var githubParts = this.github().split("/");
-        githubParts.splice(0, 1);
+        githubParts.splice(0, 2);
 
         return githubParts.join("/");
     }

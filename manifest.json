@@ -1,9 +1,0 @@
-{
-  "name": "NoahHuppert.com",
-  "version": "0.0.1",
-  "description": "Code for Noahhuppert.com",
-  "manifests": {
-    "npm": "package.json",
-    "bower": "bower.json"
-  }
-}

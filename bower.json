@@ -1,0 +1,15 @@
+{
+  "name": "NoahHuppert.com",
+  "version": "0.0.1",
+  "homepage": "https://github.com/Noah-Huppert/NoahHuppert.com",
+  "authors": [
+    "Noah Huppert <noahhuppert@gmail.com>"
+  ],
+  "description": "The backend for NoahHuppert.com",
+  "main": "src/server/server.js",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "polymer": "~0.5.5"
+  }
+}

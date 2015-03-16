@@ -3,5 +3,8 @@
   "unused": true,
   "browser": true,
   "node": true,
-  "newcap": false
+  "newcap": false,
+  "globals": {
+    "$": false
+  }
 }

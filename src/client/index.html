@@ -1,6 +1,97 @@
 <!DOCTYPE HTML>
 <html>
+<head>
+  <title>NoahHuppert.com</title>
+
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <script src="/bower/webcomponentsjs/webcomponents.min.js"></script>
+
+  <script src="/bower/jquery/dist/jquery.min.js"></script>
+  <script src="/bower/jquery-cookie/jquery.cookie.js"></script>
+
+  <link rel="stylesheet" href="/client/css/styles.css">
+
+  <link rel="import" href="/bower/paper-progress/paper-progress.html">
+</head>
+
 <body>
+  <div id="loading" class="background-primary">
+    <paper-progress class="color-primary" indeterminate></paper-progress>
+  </div>
+
   <a href="/api/v1/auth/google/connect">Connect</a>
+
+  <script>
+    var LoginSession = {
+      userId: undefined,
+      created: undefined,
+      accessToken: $.cookie("accessToken")
+    };
+
+    var User = {
+      id: undefined,
+      name: undefined,
+      avatar: undefined,
+      authed: function(){
+        return User.id !== undefined &&
+               User.name !== undefined &&
+               User.avatar !== undefined;
+      }
+    };
+
+    //Load
+    Load();
+
+    function LoadingDone(err){
+      if(err !== undefined){
+        $("#loading").append(err);
+        return;
+      }
+
+      //$("#loading").hide();
+    }
+
+    function Load(){
+      getAccessTokenInfo();
+    }
+
+    function getAccessTokenInfo(){
+      $.getJSON("/api/v1/accessTokens/" + LoginSession.accessToken, getAccessTokenInfoCallback);
+    }
+
+    function getAccessTokenInfoCallback(data){
+      if(data.userId === undefined || data.created === undefined || data.accessToken === undefined){
+        LoadingDone("Invalid credentials");
+        return;
+      }
+
+      LoginSession.userId = data.userId;
+      LoginSession.created = new Date(data.created);
+      LoginSession.accessToken = data.accessToken;
+
+      User.id = LoginSession.userId;
+
+      getUserData();
+    }
+
+    function getUserData(){
+      $.getJSON("/api/v1/users/" + User.id + "?accessToken=" + LoginSession.accessToken, getUserDataCallback);
+    }
+
+    function getUserDataCallback(data){
+      if(data.id === undefined || data.name === undefined || data.avatar === undefined){
+        LoadingDone("Invalid user");
+        return;
+      }
+
+      User.name = data.name;
+      User.avatar = data.avatar;
+
+      LoadingDone();
+    }
+  </script>
 </body>
 </html>

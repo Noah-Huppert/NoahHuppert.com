@@ -31,11 +31,45 @@ var UserSchema = new Schema({
   avatar: String
 });
 
+UserSchema.statics.dump = function(user){
+  return {
+    id: user.id,
+    name: user.name,
+    avatar: user.avatar
+  };
+};
+
 var LoginSessionSchema = new Schema({
   userId: String,
   created: {type: Date, default: new Date(), expires: 1209600 },//Expires after 2 weeks
   accessToken: String
 });
+
+LoginSessionSchema.statics.dump = function(loginSession){
+  return {
+    userId: loginSession.userId,
+    created: loginSession.created,
+    accessToken: loginSession.accessToken
+  };
+};
+
+LoginSessionSchema.statics.belongsToUser = function(userId, accessToken, callback){
+  LoginSession.find({accessToken: accessToken}, function(err, loginSessions){
+    var loginSession = loginSessions[0];
+
+    if(err !== null){
+      callback(false);
+      return;
+    }
+
+    if(loginSession === undefined){
+      callback(false);
+      return;
+    }
+
+    callback(loginSession.userId === userId);
+  });
+};
 
 var User = mongoose.model("User", UserSchema);
 var LoginSession = mongoose.model("LoginSession", LoginSessionSchema);
@@ -160,8 +194,57 @@ app.get("/api/v1/auth/google/callback",
     });
 });
 
-app.get("/api/v1/user/:userId", function(req, res){
+app.get("/api/v1/accessTokens/:accessToken", function(req, res){
+  var accessToken = req.params.accessToken;
 
+  LoginSession.find({accessToken: accessToken}, function(err, loginSessions){
+    var loginSession = loginSessions[0];
+
+    if(err !== null){
+      res.status(500);
+      res.send({error: "Internal error"});
+      return;
+    }
+
+    if(loginSession === undefined){
+      res.status(404);
+      res.send({error: "No such user"});
+      return;
+    }
+
+    res.send(LoginSession.dump(loginSession));
+  });
+});
+
+app.get("/api/v1/users/:userId", function(req, res){
+  var accessToken = req.query.accessToken;
+  var userId = req.params.userId;
+
+  LoginSession.belongsToUser(userId, accessToken, function(belongsTo){
+    if(!belongsTo){
+      res.status(401);
+      res.send({error: "Unauthorized"});
+      return;
+    }
+
+    User.find({id: userId}, function(err, users){
+      var user = users[0];
+
+      if(err !== null){
+        res.status(500);
+        res.send({error: "Internal error"});
+        return;
+      }
+
+      if(user === undefined){
+        res.status(404);
+        res.send({error: "No such user"});
+        return;
+      }
+
+      res.send(User.dump(user));
+    });
+  });
 });
 
 //Launch

@@ -1,0 +1,52 @@
+$colorPrimary: #00E5FF;
+$colorSecondary: #F50057;
+
+.color-primary{
+  color: $colorPrimary;
+}
+
+.color-secondary{
+  color: $colorSecondary;
+}
+
+.background-primary{
+  background-color: $colorPrimary;
+}
+
+.background-secondary{
+  background-color: $colorSecondary;
+}
+
+/* Reset */
+html{
+  height: 100%;
+  position:relative
+}
+
+body{
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Loading Page */
+#loading{
+  width: 100%;
+  height: 100%;
+}
+
+#loading paper-progress{
+  width: 60%;
+  margin: auto;
+  display: block;
+}
+
+#loading paper-progress::shadow {
+  #progressContainer{
+    background-color: #FFFFFF;
+  }
+
+  #activeProgress{
+    background-color: $colorSecondary;
+  }
+}

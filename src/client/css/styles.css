@@ -1,0 +1,38 @@
+.color-primary {
+  color: #00E5FF; }
+
+.color-secondary {
+  color: #F50057; }
+
+.background-primary {
+  background-color: #00E5FF; }
+
+.background-secondary {
+  background-color: #F50057; }
+
+/* Reset */
+html {
+  height: 100%;
+  position: relative; }
+
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0; }
+
+/* Loading Page */
+#loading {
+  width: 100%;
+  height: 100%; }
+
+#loading paper-progress {
+  width: 60%;
+  margin: auto;
+  display: block; }
+
+#loading paper-progress::shadow #progressContainer {
+  background-color: #FFFFFF; }
+#loading paper-progress::shadow #activeProgress {
+  background-color: #F50057; }
+
+/*# sourceMappingURL=styles.css.map */

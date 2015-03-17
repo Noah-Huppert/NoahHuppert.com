@@ -76,10 +76,13 @@ var LoginSession = mongoose.model("LoginSession", LoginSessionSchema);
 
 mongoose.connect(secrets.db.url);
 
-app.use(cookieParser());
+app.use(cookieParser({
+  maxAge: 1209600//2 Weeks
+}));
+
 app.use(session({
   secret: secrets.session.secret,
-  resave: false,
+  resave: true,
   saveUninitialized: false
 }));
 
@@ -192,6 +195,32 @@ app.get("/api/v1/auth/google/callback",
       res.cookie("accessToken", loginSession.accessToken);
       res.redirect("/");
     });
+});
+
+app.get("/api/v1/auth/disconnect", function(req, res){
+  var accessToken = req.query.accessToken;
+
+  LoginSession.find({accessToken: accessToken}, function(err, loginSessions){
+    var loginSession = loginSessions[0];
+
+    if(err !== null){
+      res.status(500);
+      res.send({error: "Internal error"});
+      return;
+    }
+
+    if(loginSession === undefined){
+      res.status(404);
+      res.send({error: "No such login session"});
+      return;
+    }
+
+    console.log(loginSessions);
+    res.status(200);
+    res.send({todo: "IMPLEMENT LOGOUT METHOD"});
+    console.log("TODO: IMPLEMENT LOGOUT METHOD");
+    //loginSessions.remove();
+  });
 });
 
 app.get("/api/v1/accessTokens/:accessToken", function(req, res){

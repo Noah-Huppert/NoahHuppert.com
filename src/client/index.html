@@ -16,95 +16,24 @@
   <link href="/client/css/styles.css" rel="stylesheet" type="text/css">
 
   <link rel="import" href="/bower/paper-progress/paper-progress.html">
+  <link rel="import" href="/bower/core-toolbar/core-toolbar.html">
+  <link rel="import" href="/bower/core-icon-button/core-icon-button.html">
 </head>
 
 <body>
-  <div id="loading" class="background-primary">
-    <paper-progress class="color-primary" indeterminate></paper-progress>
-    <div id="loading-status">Loading</div>
-    <div id="loading-error" class="color-secondary"></div>
+  <div id="loading">
+    <paper-progress indeterminate></paper-progress>
+    <div class="loading-message">Loading</div>
+    <div class="loading-message" id="loading-error"></div>
   </div>
 
-  <div id="content">
-    <a href="/api/v1/auth/google/connect">Connect</a>
-  </div>
+  <core-toolbar id="header" class="background-primary">
+    <div id="{{User.getLogoutUrl()}}"></div>
+    <img id="header-avatar">
+  </core-toolbar>
 
-  <script>
-    var LoginSession = {
-      userId: undefined,
-      created: undefined,
-      accessToken: $.cookie("accessToken")
-    };
+  <a href="/api/v1/auth/google/connect">Connect</a>
 
-    var User = {
-      id: undefined,
-      name: undefined,
-      avatar: undefined,
-      authed: function(){
-        return User.id !== undefined &&
-               User.name !== undefined &&
-               User.avatar !== undefined;
-      }
-    };
-
-    //Load
-    Load();
-
-    function LoadingDone(err){
-      if(err !== undefined){
-        $("#loading-error").text(err);
-        $("#loading paper-progress").attr("indeterminate", false);
-        $("#loading paper-progress").attr("value", 100);
-        return;
-      }
-
-      $("#loading").addClass("loadingComplete");
-      $("#content").addClass("loadingComplete");
-    }
-
-    function Load(){
-      getAccessTokenInfo();
-    }
-
-    function getAccessTokenInfo(){
-      if(LoginSession.accessToken === undefined){
-        LoadingDone();
-        return;
-      }
-
-      $.getJSON("/api/v1/accessTokens/" + LoginSession.accessToken, getAccessTokenInfoCallback);
-    }
-
-    function getAccessTokenInfoCallback(data){
-      if(data.userId === undefined || data.created === undefined || data.accessToken === undefined){
-        LoadingDone("Invalid credentials");
-        return;
-      }
-
-      LoginSession.userId = data.userId;
-      LoginSession.created = new Date(data.created);
-      LoginSession.accessToken = data.accessToken;
-
-      User.id = LoginSession.userId;
-
-      getUserData();
-    }
-
-    function getUserData(){
-      $.getJSON("/api/v1/users/" + User.id + "?accessToken=" + LoginSession.accessToken, getUserDataCallback);
-    }
-
-    function getUserDataCallback(data){
-      if(data.id === undefined || data.name === undefined || data.avatar === undefined){
-        LoadingDone("Invalid user");
-        return;
-      }
-
-      User.name = data.name;
-      User.avatar = data.avatar;
-
-      LoadingDone();
-    }
-  </script>
+  <script src="/client/js/client.js"></script>
 </body>
 </html>

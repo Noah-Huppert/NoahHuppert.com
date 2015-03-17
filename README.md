@@ -2,7 +2,7 @@
 The backend for NoahHuppert.com
 
 #Sass
-Run this command from the root
+Run this command from the project root
 
 ```
 sass --watch src/client/scss:src/client/css

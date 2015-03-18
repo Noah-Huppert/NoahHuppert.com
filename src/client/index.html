@@ -12,6 +12,8 @@
   <script src="/bower/jquery/dist/jquery.min.js"></script>
   <script src="/bower/jquery-cookie/jquery.cookie.js"></script>
 
+  <script src="/bower/routie/dist/routie.min.js"></script>
+
   <link href="http://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet" type="text/css"><!-- Collection: http://www.google.com/fonts/#UsePlace:use -->
   <link href="/client/css/styles.css" rel="stylesheet" type="text/css">
 
@@ -22,7 +24,7 @@
   <link rel="import" href="/bower/paper-button/paper-button.html">
   <link rel="import" href="/bower/paper-icon-button/paper-icon-button.html">
   <link rel="import" href="/bower/paper-tabs/paper-tabs.html">
-  <link rel="import" href="/bower/core-drawer-panel/core-drawer-panel.html">
+  <link rel="import" href="/bower/core-pages/core-pages.html">
 </head>
 
 <body fullbleed unresolved>
@@ -69,13 +71,19 @@
         </template>
 
         <div class="bottom fit" horizontal center-justified layout>
-          <paper-tabs selected="0" flex>
-            <paper-tab>Projects</paper-tab>
-            <paper-tab>Skills</paper-tab>
-            <paper-tab>Contact</paper-tab>
+          <paper-tabs id="toolbar-tabs" selected="{{SelectedPageIndex}}" flex>
+            <paper-tab id="toolbar-tab-0">Projects</paper-tab>
+            <paper-tab id="toolbar-tab-1">Skills</paper-tab>
+            <paper-tab id="toolbar-tab-2">Contact</paper-tab>
           </paper-tabs>
         </div>
       </core-toolbar>
+
+      <core-pages selected="{{SelectedPageIndex}}">
+        <div>Projects</div>
+        <div>Skills</div>
+        <div>Contact</div>
+      </core-pages>
     </core-header-panel>
 
   </template>

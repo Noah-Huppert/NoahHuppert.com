@@ -107,10 +107,12 @@ core-header-panel{
     max-width: 600px;
     font-size: 16px;
   }
-}
 
-#drawer{
-  #drawer-content{
-    background: white;
+  .tab-link{
+    height: 100%;
+    margin: 0 12px;
+    text-decoration: none;
+    color: inherit;
+    display: block;
   }
 }

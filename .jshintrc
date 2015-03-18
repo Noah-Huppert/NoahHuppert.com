@@ -5,6 +5,7 @@
   "node": true,
   "newcap": false,
   "globals": {
-    "$": false
+    "$": false,
+    "routie": false
   }
 }

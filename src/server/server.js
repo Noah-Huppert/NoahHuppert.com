@@ -76,7 +76,7 @@ var LoginSession = mongoose.model("LoginSession", LoginSessionSchema);
 
 mongoose.connect(secrets.db.url);
 
-app.use(cookieParser({
+app.use(cookieParser("", {
   maxAge: 1209600//2 Weeks
 }));
 
@@ -199,10 +199,9 @@ app.get("/api/v1/auth/google/callback",
 
 app.get("/api/v1/auth/disconnect", function(req, res){
   var accessToken = req.query.accessToken;
+  var returnTo = req.query.returnTo;
 
-  LoginSession.find({accessToken: accessToken}, function(err, loginSessions){
-    var loginSession = loginSessions[0];
-
+  LoginSession.findOneAndRemove({accessToken: accessToken}, function(err, loginSession){
     if(err !== null){
       res.status(500);
       res.send({error: "Internal error"});
@@ -215,11 +214,14 @@ app.get("/api/v1/auth/disconnect", function(req, res){
       return;
     }
 
-    console.log(loginSessions);
-    res.status(200);
-    res.send({todo: "IMPLEMENT LOGOUT METHOD"});
-    console.log("TODO: IMPLEMENT LOGOUT METHOD");
-    //loginSessions.remove();
+    res.clearCookie("accessToken");
+    
+    if(returnTo !== undefined && returnTo.length !== 0){
+      res.redirect(returnTo);
+    } else {
+      res.status(200);
+      res.send("Ok");
+    }
   });
 });
 

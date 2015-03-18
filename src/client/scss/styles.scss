@@ -20,14 +20,14 @@ $colorSecondary: #F50057;
 /* Reset */
 html{
   height: 100%;
-  position:relative
 }
 
 body{
-  height: 100%;
-  margin: 0;
-  padding: 0;
   font-family: 'Roboto', sans-serif;
+}
+
+core-header-panel{
+  height: 100%;
 }
 
 /* Loading */
@@ -76,11 +76,41 @@ body{
 }
 
 /* Header */
-#header{
-  #header-avatar{
-    width: 50px;
-    height: 50px;
-    border: 4px solid $colorSecondary;
-    border-radius: 50px;
+#toolbar{
+  height: 112px;
+
+  #toolbar-title{
+    color: darken($colorPrimary, 30%);
+  }
+
+  paper-button{
+    font-size: 12px;
+    color: white;
+
+    a{
+      text-decoration: none;
+      color: white;
+    }
+  }
+
+  #toolbar-user-avatar::shadow #icon{
+    width: 35px;
+    height: 35px;
+
+    div{
+      border: 2px solid white;
+      border-radius: 35px;
+    }
+  }
+
+  paper-tabs{
+    max-width: 600px;
+    font-size: 16px;
+  }
+}
+
+#drawer{
+  #drawer-content{
+    background: white;
   }
 }

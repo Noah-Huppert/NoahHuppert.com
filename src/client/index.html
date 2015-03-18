@@ -15,25 +15,85 @@
   <link href="http://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet" type="text/css"><!-- Collection: http://www.google.com/fonts/#UsePlace:use -->
   <link href="/client/css/styles.css" rel="stylesheet" type="text/css">
 
-  <link rel="import" href="/bower/paper-progress/paper-progress.html">
+  <link rel="import" href="/bower/polymer/polymer.html">
+  <link rel="import" href="/bower/core-ajax/core-ajax.html">
+  <link rel="import" href="/bower/core-header-panel/core-header-panel.html">
   <link rel="import" href="/bower/core-toolbar/core-toolbar.html">
-  <link rel="import" href="/bower/core-icon-button/core-icon-button.html">
+  <link rel="import" href="/bower/paper-button/paper-button.html">
+  <link rel="import" href="/bower/paper-icon-button/paper-icon-button.html">
+  <link rel="import" href="/bower/paper-tabs/paper-tabs.html">
+  <link rel="import" href="/bower/core-drawer-panel/core-drawer-panel.html">
 </head>
 
-<body>
-  <div id="loading">
+<body fullbleed unresolved>
+  <template id="template" is="auto-binding">
+    <template if="{{UserConnected}}">
+
+      <core-ajax
+        auto
+        url="/api/v1/accessTokens/{{LoginSession.accessToken}}"
+        handleAs="json"
+        on-core-response="{{UpdateLoginSession}}"></core-ajax>
+
+      <core-ajax id="ajax-getUserInfo"
+        auto
+        url=""
+        params='{"accessToken": "{{LoginSession.accessToken}}" }'
+        handleAs="json"
+        on-core-response="{{UpdateUser}}"></core-ajax>
+
+    </template>
+
+    <core-header-panel>
+      <core-toolbar id="toolbar" class="background-primary">
+        <span id="toolbar-title" flex>Noah Huppert</span>
+
+        <!-- User Authenticated -->
+        <template if="{{UserAuthenticated}}">
+
+          <paper-button class="background-secondary" raised>
+            <a href="{{GetLogoutUrl()}}">Logout</a>
+          </paper-button>
+
+          <paper-icon-button id="toolbar-user-avatar" src="{{User.avatar}}" title="{{User.name}}"></paper-icon-button>
+
+        </template>
+
+        <!-- User UnAuthenticated -->
+        <template if="{{!UserAuthenticated}}">
+
+          <paper-button class="background-secondary" raised>
+            <a href="/api/v1/auth/google/connect">Login</a>
+          </paper-button>
+
+        </template>
+
+        <div class="bottom fit" horizontal center-justified layout>
+          <paper-tabs selected="0" flex>
+            <paper-tab>Projects</paper-tab>
+            <paper-tab>Skills</paper-tab>
+            <paper-tab>Contact</paper-tab>
+          </paper-tabs>
+        </div>
+      </core-toolbar>
+    </core-header-panel>
+
+  </template>
+  <script src="/client/js/client.js"></script>
+  <!--<div id="loading">
     <paper-progress indeterminate></paper-progress>
     <div class="loading-message">Loading</div>
     <div class="loading-message" id="loading-error"></div>
   </div>
 
-  <core-toolbar id="header" class="background-primary">
-    <div id="{{User.getLogoutUrl()}}"></div>
-    <img id="header-avatar">
-  </core-toolbar>
+  <core-header-panel id="header">
+    <core-toolbar id="toolbar" class="background-primary">
+      <paper-button raised id="toolbar-logout" class="background-secondary">Logout</paper-button>
+      <img id="toolbar-avatar">
+    </core-toolbar>
 
-  <a href="/api/v1/auth/google/connect">Connect</a>
-
-  <script src="/client/js/client.js"></script>
+    <a href="/api/v1/auth/google/connect">Connect</a>
+  </core-header-panel>
+  <script src="/client/js/client.js"></script>-->
 </body>
 </html>

@@ -12,14 +12,13 @@
 
 /* Reset */
 html {
-  height: 100%;
-  position: relative; }
+  height: 100%; }
 
 body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
   font-family: 'Roboto', sans-serif; }
+
+core-header-panel {
+  height: 100%; }
 
 /* Loading */
 #loading {
@@ -54,10 +53,27 @@ body {
     font-size: 36px; }
 
 /* Header */
-#header #header-avatar {
-  width: 50px;
-  height: 50px;
-  border: 4px solid #F50057;
-  border-radius: 50px; }
+#toolbar {
+  height: 112px; }
+  #toolbar #toolbar-title {
+    color: #005c66; }
+  #toolbar paper-button {
+    font-size: 12px;
+    color: white; }
+    #toolbar paper-button a {
+      text-decoration: none;
+      color: white; }
+  #toolbar #toolbar-user-avatar::shadow #icon {
+    width: 35px;
+    height: 35px; }
+    #toolbar #toolbar-user-avatar::shadow #icon div {
+      border: 2px solid white;
+      border-radius: 35px; }
+  #toolbar paper-tabs {
+    max-width: 600px;
+    font-size: 16px; }
+
+#drawer #drawer-content {
+  background: white; }
 
 /*# sourceMappingURL=styles.css.map */

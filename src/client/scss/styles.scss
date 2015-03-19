@@ -34,19 +34,24 @@ core-header-panel{
 #loading{
   width: 100%;
   height: 100%;
-  margin: auto;
-  position: fixed;
   top: 0;
-  z-index: 2;
+  z-index: 1;
   background: $colorPrimary;
   transition: top 1s;
 
-  paper-progress{
-    width: 60%;
+  #loading-message{
+    width: 100%;
     margin: auto;
-    top: 50%;
-    position: relative;
+    top: 40%;
     display: block;
+    position: relative;
+    text-align: center;
+    font-size: 112px;
+    color: white;
+  }
+
+  #loading-message[error="true"]{
+    color: $colorSecondary;
   }
 
   paper-progress::shadow {
@@ -59,20 +64,18 @@ core-header-panel{
     }
   }
 
-  .loading-message{
-    width: 100%;
-    margin-top: 20px;
-    top: 50%;
-    color: white;
+  paper-progress{
+    width: 60%;
+    margin: auto;
+    top: 45%;
+    display: block;
     position: relative;
-    text-align: center;
-    font-size: 48px;
   }
+}
 
-  #loading-error{
-    color: $colorSecondary;
-    font-size: 36px;
-  }
+#loading[done="true"]{
+  top: -100%;
+  position: fixed;
 }
 
 /* Header */

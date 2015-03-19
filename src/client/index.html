@@ -25,6 +25,8 @@
   <link rel="import" href="/bower/paper-icon-button/paper-icon-button.html">
   <link rel="import" href="/bower/paper-tabs/paper-tabs.html">
   <link rel="import" href="/bower/core-pages/core-pages.html">
+  <link rel="import" href="/bower/paper-progress/paper-progress.html">
+  <link rel="import" href="/bower/paper-fab/paper-fab.html">
 </head>
 
 <body fullbleed unresolved>
@@ -45,6 +47,11 @@
         on-core-response="{{UpdateUser}}"></core-ajax>
 
     </template>
+
+    <div id="loading">
+      <div id="loading-message">Loading</div>
+      <paper-progress indeterminate></paper-progress>
+    </div>
 
     <core-header-panel>
       <core-toolbar id="toolbar" class="background-primary">
@@ -72,9 +79,9 @@
 
         <div class="bottom fit" horizontal center-justified layout>
           <paper-tabs id="toolbar-tabs" selected="{{SelectedPageIndex}}" flex>
-            <paper-tab id="toolbar-tab-0">Projects</paper-tab>
-            <paper-tab id="toolbar-tab-1">Skills</paper-tab>
-            <paper-tab id="toolbar-tab-2">Contact</paper-tab>
+            <paper-tab onclick="routie('projects');">Projects</paper-tab>
+            <paper-tab onclick="routie('skills');">Skills</paper-tab>
+            <paper-tab onclick="routie('contact');">Contact</paper-tab>
           </paper-tabs>
         </div>
       </core-toolbar>

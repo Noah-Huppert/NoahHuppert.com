@@ -28,14 +28,16 @@ var Schema = mongoose.Schema;
 var UserSchema = new Schema({
   id: String,
   name: String,
-  avatar: String
+  avatar: String,
+  admin: Boolean
 });
 
 UserSchema.statics.dump = function(user){
   return {
     id: user.id,
     name: user.name,
-    avatar: user.avatar
+    avatar: user.avatar,
+    admin: user.admin
   };
 };
 
@@ -54,25 +56,50 @@ LoginSessionSchema.statics.dump = function(loginSession){
 };
 
 LoginSessionSchema.statics.belongsToUser = function(userId, accessToken, callback){
-  LoginSession.find({accessToken: accessToken}, function(err, loginSessions){
-    var loginSession = loginSessions[0];
-
+  LoginSession.findOne({accessToken: accessToken}, function(err, loginSession){
     if(err !== null){
       callback(false);
       return;
     }
 
-    if(loginSession === undefined){
+    if(loginSession === null){
       callback(false);
       return;
     }
 
-    callback(loginSession.userId === userId);
+    callback(loginSession.userId === userId, loginSession.userId);
   });
 };
 
+LoginSessionSchema.statics.userIsAdmin = function(accessToken, callback){//callback(Boolean isAdmin, LoginSession loginSession, User user)
+  LoginSession.findOne({accessToken: accessToken}, function(err, loginSession){
+    if(err !== null){
+      callback(false);
+      return;
+    }
+
+    if(loginSession())
+  });
+};
+
+var ProjectSchema = new Schema({
+  id: String,
+  date: Date,
+  content: String
+});
+
+ProjectSchema.statics.dump = function(project){
+  return {
+    id: project.id,
+    date: project.date,
+    content: project.content
+  };
+};
+
+
 var User = mongoose.model("User", UserSchema);
 var LoginSession = mongoose.model("LoginSession", LoginSessionSchema);
+var Project = mongoose.model("Project", ProjectSchema);
 
 mongoose.connect(secrets.db.url);
 
@@ -96,14 +123,13 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(userId, done) {
-  User.find({id: userId}, function(err, users){
+  User.findOne({id: userId}, function(err, user){
     if(err !== null){
       done(err, null);
       return;
     }
 
-    var user = users[0];
-    if(user === undefined){
+    if(user === null){
       done("Failed to find user", null);
       return;
     }
@@ -123,10 +149,12 @@ function PassportFlow(accessToken, refreshToken, profile, done){
   var userName = profile.displayName;
   var userAvatar = profile.photos[0].value;
 
-  User.find({id: userId}, function(err, users){
-    var user = users[0];
+  User.findOne({id: userId}, function(err, user){
+    if(err !== null){
+      return done("Internal error", false);
+    }
 
-    if(user === undefined){
+    if(user === null){
       user = new User();
       user.id = userId;
     }
@@ -146,10 +174,12 @@ function PassportFlow(accessToken, refreshToken, profile, done){
 }
 
 function PassportFlowLoginSession(user, done){
-  LoginSession.find({userId: user.id}, function(err, loginSessions){
-    var loginSession = loginSessions[0];
+  LoginSession.findOne({userId: user.id}, function(err, loginSession){
+    if(err !== null){
+      return done("Internal error", false);
+    }
 
-    if(loginSession === undefined){
+    if(loginSession === null){
       loginSession = new LoginSession();
       loginSession.userId = user.id;
       loginSession.accessToken = uuid.v4();
@@ -184,10 +214,14 @@ app.get("/api/v1/auth/google/connect", passport.authenticate("google", {scope: "
 app.get("/api/v1/auth/google/callback",
   passport.authenticate("google", { failureRedirect: "/?error=Failed to login"}),//Fail
   function(req, res){//Success
-    LoginSession.find({userId: req.user.id}, function(err, loginSessions){
-      var loginSession = loginSessions[0];
+    LoginSession.findOne({userId: req.user.id}, function(err, loginSession){
+      if(err !== null){
+        res.status(500);
+        res.redirect("/?error=Internal error");
+        return;
+      }
 
-      if(loginSession === undefined){
+      if(loginSession === null){
         res.redirect("/?error=No Login Session");
         return;
       }
@@ -208,14 +242,14 @@ app.get("/api/v1/auth/disconnect", function(req, res){
       return;
     }
 
-    if(loginSession === undefined){
+    if(loginSession === null){
       res.status(404);
       res.send({error: "No such login session"});
       return;
     }
 
     res.clearCookie("accessToken");
-    
+
     if(returnTo !== undefined && returnTo.length !== 0){
       res.redirect(returnTo);
     } else {
@@ -228,16 +262,14 @@ app.get("/api/v1/auth/disconnect", function(req, res){
 app.get("/api/v1/accessTokens/:accessToken", function(req, res){
   var accessToken = req.params.accessToken;
 
-  LoginSession.find({accessToken: accessToken}, function(err, loginSessions){
-    var loginSession = loginSessions[0];
-
+  LoginSession.findOne({accessToken: accessToken}, function(err, loginSession){
     if(err !== null){
       res.status(500);
       res.send({error: "Internal error"});
       return;
     }
 
-    if(loginSession === undefined){
+    if(loginSession === null){
       res.status(404);
       res.send({error: "No such user"});
       return;
@@ -258,16 +290,14 @@ app.get("/api/v1/users/:userId", function(req, res){
       return;
     }
 
-    User.find({id: userId}, function(err, users){
-      var user = users[0];
-
+    User.findOne({id: userId}, function(err, user){
       if(err !== null){
         res.status(500);
         res.send({error: "Internal error"});
         return;
       }
 
-      if(user === undefined){
+      if(user === null){
         res.status(404);
         res.send({error: "No such user"});
         return;
@@ -277,6 +307,136 @@ app.get("/api/v1/users/:userId", function(req, res){
     });
   });
 });
+
+app.get("/api/v1/projects", function(req, res){
+  Project.find(function(err, projects){
+    var projectsDump = [];
+
+    if(err !== null){
+      res.status(500);
+      res.send({error: "Internal error"});
+      return;
+    }
+
+    for(var i = 0; i < projects.length; i++){
+      projectsDump.push(projects[i]);
+    }
+
+    res.send({projects: projectsDump});
+  });
+});
+
+app.post("/api/v1/projects", function(req, res){
+
+});
+
+/*
+app.get("/api/v1/projects", function(req, res){
+  Project.find(function(err, projects){
+    var projectsDump = [];
+
+    if(err !== null){
+      res.status(500);
+      res.send({error: "Internal error"});
+      return;
+    }
+
+    for(var i = 0; i < projects.length; i++){
+      projectsDump.push(projects[i]);
+    }
+
+    res.send({projects: projectsDump});
+  });
+});
+
+app.post("/api/v1/projects", function(req, res){
+  var project = req.project;
+
+  if(project === undefined){
+    res.status(400);
+    res.send({error: "New project must be included in request"});
+    return;
+  }
+
+  if(project.ownerId === undefined ||
+     project.date === undefined ||
+     project.content === undefined){
+       res.status(400);
+       res.send({error: "New project must include all keys"});
+       return;
+  }
+
+  project.id = uuid.v4();
+
+  Project.insert(project, function(err){
+    if(err !== null){
+      res.status(500);
+      res.send({error: "Internal error"});
+      return;
+    }
+
+    res.send("Ok");
+  });
+});
+
+app.put("/api/v1/projects/:projectId", function(req, res){
+  var project = req.project;
+  var projectId = req.params.projectId;
+
+  if(project === undefined){
+    res.status(400);
+    res.send({error: "Project to update must be included in request"});
+    return;
+  }
+
+  if(projectId === undefined){
+    res.status(400);
+    res.send({error: "Project Id to update must be included"});
+    return;
+  }
+
+  Project.findOneAndUpdate({id: projectId}, {$set: project}, function(err, project){
+    if(err !== null){
+      res.status(500);
+      res.send({error: "Internal error"});
+      return;
+    }
+
+    if(project === null){
+      res.status(404);
+      res.send({error: "Project not found"});
+      return;
+    }
+
+    res.send(project);
+  });
+});
+
+app.delete("/api/v1/projects/:projectId", function(req, res){
+  var projectId = req.params.projectId;
+
+  if(projectId === undefined){
+    res.status(400);
+    res.send({error: "Project Id to delete must be included"});
+    return;
+  }
+
+  Project.findOneAndRemove({id: projectId}, function(err, project){
+    if(err !== null){
+      res.status(500);
+      res.send({error: "Internal error"});
+      return;
+    }
+
+    if(project === null){
+      res.status(404);
+      res.send({error: "Project not found"});
+      return;
+    }
+
+    res.send("Ok");
+  });
+});*/
 
 //Launch
 app.listen(port, function(){

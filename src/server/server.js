@@ -78,13 +78,46 @@ LoginSessionSchema.statics.userIsAdmin = function(accessToken, callback){//callb
       return;
     }
 
-    if(loginSession())
+    if(loginSession === null){
+      callback(false);
+      return;
+    }
+
+    User.findOne({id: loginSession.userId}, function(err, user){
+      if(err !== null){
+        callback(false);
+        return;
+      }
+
+      if(user === null){
+        callback(false);
+        return;
+      }
+
+      callback(user.admin, loginSession, user);
+    });
+  });
+};
+
+LoginSessionSchema.statics.userIsAdminMiddleware = function(req, res, next){
+  var accessTokenParam = req.query.accessToken;
+
+  LoginSession.userIsAdmin(accessTokenParam, function(isAdmin, loginSession, user){
+    if(isAdmin){
+      next();
+      return;
+    } else {
+      res.status(403);
+      res.send({error: "Forbidden"});
+      return;
+    }
   });
 };
 
 var ProjectSchema = new Schema({
   id: String,
   date: Date,
+  title: String,
   content: String
 });
 
@@ -92,6 +125,7 @@ ProjectSchema.statics.dump = function(project){
   return {
     id: project.id,
     date: project.date,
+    title: project.title,
     content: project.content
   };
 };
@@ -157,6 +191,7 @@ function PassportFlow(accessToken, refreshToken, profile, done){
     if(user === null){
       user = new User();
       user.id = userId;
+      user.admin = false;
     }
 
     user.name = userName;
@@ -326,60 +361,36 @@ app.get("/api/v1/projects", function(req, res){
   });
 });
 
-app.post("/api/v1/projects", function(req, res){
-
-});
-
-/*
-app.get("/api/v1/projects", function(req, res){
-  Project.find(function(err, projects){
-    var projectsDump = [];
-
-    if(err !== null){
-      res.status(500);
-      res.send({error: "Internal error"});
-      return;
-    }
-
-    for(var i = 0; i < projects.length; i++){
-      projectsDump.push(projects[i]);
-    }
-
-    res.send({projects: projectsDump});
-  });
-});
-
-app.post("/api/v1/projects", function(req, res){
+app.post("/api/v1/projects", LoginSession.userIsAdminMiddleware, function(req, res){
   var project = req.project;
 
   if(project === undefined){
     res.status(400);
-    res.send({error: "New project must be included in request"});
+    res.send({error: "New project data must be include in request"});
     return;
   }
 
-  if(project.ownerId === undefined ||
-     project.date === undefined ||
+  if(project.date === undefined ||
      project.content === undefined){
        res.status(400);
-       res.send({error: "New project must include all keys"});
+       res.send({error: "New project data must include all keys"});
        return;
-  }
+   }
 
-  project.id = uuid.v4();
+   project.id = uuid.v4();
 
-  Project.insert(project, function(err){
-    if(err !== null){
-      res.status(500);
-      res.send({error: "Internal error"});
-      return;
-    }
+   Project.insert(project, function(err){
+     if(err !== null){
+       res.status(500);
+       res.send({error: "Internal error"});
+       return;
+     }
 
-    res.send("Ok");
-  });
+     res.send("Ok");
+   });
 });
 
-app.put("/api/v1/projects/:projectId", function(req, res){
+app.put("/api/v1/projects/:projectId", LoginSession.userIsAdminMiddleware, function(req, res){
   var project = req.project;
   var projectId = req.params.projectId;
 
@@ -412,7 +423,7 @@ app.put("/api/v1/projects/:projectId", function(req, res){
   });
 });
 
-app.delete("/api/v1/projects/:projectId", function(req, res){
+app.delete("/api/v1/projects/:projectId", LoginSession.userIsAdminMiddleware, function(req, res){
   var projectId = req.params.projectId;
 
   if(projectId === undefined){
@@ -436,7 +447,7 @@ app.delete("/api/v1/projects/:projectId", function(req, res){
 
     res.send("Ok");
   });
-});*/
+});
 
 //Launch
 app.listen(port, function(){

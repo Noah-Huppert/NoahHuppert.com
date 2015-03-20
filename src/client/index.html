@@ -27,27 +27,14 @@
   <link rel="import" href="/bower/core-pages/core-pages.html">
   <link rel="import" href="/bower/paper-progress/paper-progress.html">
   <link rel="import" href="/bower/paper-fab/paper-fab.html">
+  <link rel="import" href="/bower/paper-shadow/paper-shadow.html">
+  <link rel="import" href="/bower/paper-input/paper-input.html">
+  <link rel="import" href="/bower/paper-input/paper-input-decorator.html">
+  <link rel="import" href="/bower/paper-input/paper-autogrow-textarea.html">
 </head>
 
 <body fullbleed unresolved>
   <template id="template" is="auto-binding">
-    <template if="{{UserConnected}}">
-
-      <core-ajax
-        auto
-        url="/api/v1/accessTokens/{{LoginSession.accessToken}}"
-        handleAs="json"
-        on-core-response="{{UpdateLoginSession}}"></core-ajax>
-
-      <core-ajax id="ajax-getUserInfo"
-        auto
-        url=""
-        params='{"accessToken": "{{LoginSession.accessToken}}" }'
-        handleAs="json"
-        on-core-response="{{UpdateUser}}"></core-ajax>
-
-    </template>
-
     <div id="loading">
       <div id="loading-message">Loading</div>
       <paper-progress indeterminate></paper-progress>
@@ -87,28 +74,40 @@
       </core-toolbar>
 
       <core-pages selected="{{SelectedPageIndex}}">
-        <div>Projects</div>
-        <div>Skills</div>
-        <div>Contact</div>
+        <!-- Projects -->
+        <div class="page">
+          <template if="{{User.admin}}">
+            <paper-fab id="page-projects-add-project" on-tap="{{ShowCreateProjectBox}}" icon="add"></paper-fab>
+          </template>
+
+          <template if="{{ShouldShowCreateProjectBox}}">
+            <paper-shadow id="page-projects-create-project-box" class="card">
+              <paper-input label="Title"></paper-input>
+
+              <paper-input-decorator label="Content">
+                <paper-autogrow-textarea>
+                  <textarea></textarea>
+                </paper-autogrow-textarea>
+              </paper-input-decorator>
+
+              <paper-input type="date"></paper-input>
+
+            </paper-shadow>
+          </template>
+
+          <template repeat="{{project in Projects}}">
+
+          </template>
+        </div>
+
+        <!-- Skills -->
+        <div class="page">Skills</div>
+
+        <!-- Contact -->
+        <div class="page">Contact</div>
       </core-pages>
     </core-header-panel>
-
   </template>
   <script src="/client/js/client.js"></script>
-  <!--<div id="loading">
-    <paper-progress indeterminate></paper-progress>
-    <div class="loading-message">Loading</div>
-    <div class="loading-message" id="loading-error"></div>
-  </div>
-
-  <core-header-panel id="header">
-    <core-toolbar id="toolbar" class="background-primary">
-      <paper-button raised id="toolbar-logout" class="background-secondary">Logout</paper-button>
-      <img id="toolbar-avatar">
-    </core-toolbar>
-
-    <a href="/api/v1/auth/google/connect">Connect</a>
-  </core-header-panel>
-  <script src="/client/js/client.js"></script>-->
 </body>
 </html>

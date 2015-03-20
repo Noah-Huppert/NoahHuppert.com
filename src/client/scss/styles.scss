@@ -30,6 +30,17 @@ core-header-panel{
   height: 100%;
 }
 
+
+/* Common */
+.card{
+  max-width: 500px;
+  padding: 10px;
+}
+
+.page{
+  padding-top: 20px;
+}
+
 /* Loading */
 #loading{
   width: 100%;
@@ -46,7 +57,7 @@ core-header-panel{
     display: block;
     position: relative;
     text-align: center;
-    font-size: 112px;
+    font-size: 80px;
     color: white;
   }
 
@@ -117,5 +128,33 @@ core-header-panel{
     text-decoration: none;
     color: inherit;
     display: block;
+  }
+}
+
+/* Projects Page */
+#page-projects-add-project{
+  top: calc(100% - 76px);
+  left: calc(100% - 76px);
+  position: fixed;
+}
+
+#page-projects-create-project-box{
+  margin: auto;
+
+  paper-input{
+    width: 100%;
+  }
+
+  paper-input::shadow paper-input-decorator{
+    padding-top: 0;
+  }
+
+  paper-autogrow-textarea{
+    width: 100%;
+    min-height: 100px;
+  }
+
+  paper-input-decorator{
+    padding-top: 0;
   }
 }

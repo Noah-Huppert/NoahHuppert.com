@@ -24,6 +24,7 @@ html{
 
 body{
   font-family: 'Roboto', sans-serif;
+  word-wrap: break-word
 }
 
 core-header-panel{
@@ -34,23 +35,54 @@ core-header-panel{
 /* Common */
 .card{
   max-width: 500px;
+  margin: auto;
   padding: 10px;
+
+  .title{
+    padding-top: 2px;
+    padding-bottom: 2px;
+    font-size: 24px;
+    border-bottom: 1px solid #C4C4C4;
+  }
+
+  .subtitle{
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    color: gray;
+    font-size: 16px;
+  }
+
+  .content{
+    margin-top: 10px;
+  }
 }
 
 .page{
   padding-top: 20px;
 }
 
+a{
+  color: $colorSecondary;
+  text-decoration: none;
+}
+
 /* Loading */
+#loading[done="false"], body{
+  overflow: hidden;
+}
+
 #loading{
   width: 100%;
   height: 100%;
   top: 0;
-  z-index: 1;
+  z-index: 999;
   background: $colorPrimary;
   transition: top 1s;
+  color: white;
+  position: fixed;
 
-  #loading-message{
+  #loading-title-message{
     width: 100%;
     margin: auto;
     top: 40%;
@@ -58,11 +90,31 @@ core-header-panel{
     position: relative;
     text-align: center;
     font-size: 80px;
-    color: white;
   }
 
-  #loading-message[error="true"]{
-    color: $colorSecondary;
+  #loading-report-error-button{
+    display: none;
+  }
+
+  #loading-report-error-instructions{
+    width: 50%;
+    max-width: 600px;
+    top: 40%;
+    display: none;
+    position: relative;
+    background: white;
+    color: black;
+  }
+
+  #loading-progress-message{
+    width: 100%;
+    margin: auto;
+    margin-top: 100px;
+    top: 40%;
+    display: block;
+    position: relative;
+    text-align: center;
+    font-size: 40px;
   }
 
   paper-progress::shadow {
@@ -81,6 +133,26 @@ core-header-panel{
     top: 45%;
     display: block;
     position: relative;
+  }
+}
+
+#loading[error="true"]{
+  color: $colorSecondary;
+
+  #loading-title-message{
+    display: none;
+  }
+
+  #loading-report-error-button{
+    width: 50%;
+    max-width: 600px;
+    margin: auto;
+    top: 40%;
+    display: block;
+    position: relative;
+    text-align: center;
+    font-size: 60px;
+    color: white;
   }
 }
 
@@ -132,7 +204,7 @@ core-header-panel{
 }
 
 /* Projects Page */
-#page-projects-add-project{
+/*#page-projects-add-project{
   top: calc(100% - 76px);
   left: calc(100% - 76px);
   position: fixed;
@@ -156,5 +228,58 @@ core-header-panel{
 
   paper-input-decorator{
     padding-top: 0;
+  }
+}*/
+#page-projects{
+  #add-project-fab{
+    top: calc(100% - 76px);
+    left: calc(100% - 76px);
+    position: fixed;
+  }
+
+  #create-project-box{
+    paper-tabs{
+      color: white;
+    }
+
+    paper-tabs::shadow #selectionBar{
+      background-color: black;
+    }
+
+    core-pages .core-selected.create-project-page{
+      position: relative;
+    }
+
+    label{
+      font-weight: bold;
+      display: block;
+      margin-top: 15px;
+    }
+
+    paper-input{
+      width: 100%;
+    }
+
+    paper-input::shadow paper-input-decorator{
+      padding-top: 0;
+    }
+
+    paper-autogrow-textarea{
+      width: 100%;
+      min-height: 100px;
+    }
+
+    paper-input-decorator{
+      padding-top: 0;
+    }
+
+    #create-project-compose paper-shadow{
+      min-height: 100px;
+      background: lightgrey;
+    }
+
+    #create-project-date{
+      width: auto;
+    }
   }
 }

@@ -10,6 +10,7 @@ var app = express();
 
 var uuid = require("node-uuid");
 var mongoose = require("mongoose");
+var marky = require("marky-markdown");
 var passport = require("passport");
 var GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
 
@@ -102,7 +103,7 @@ LoginSessionSchema.statics.userIsAdmin = function(accessToken, callback){//callb
 };
 
 LoginSessionSchema.statics.userIsAdminMiddleware = function(req, res, next){
-  var accessTokenParam = req.query.accessToken;
+  var accessTokenParam = req.query.access_token;
 
   LoginSession.userIsAdmin(accessTokenParam, function(isAdmin){
     if(isAdmin){
@@ -124,12 +125,16 @@ var ProjectSchema = new Schema({
   content: String
 });
 
-ProjectSchema.statics.dump = function(project){
+ProjectSchema.statics.dump = function(project, contentAsHTML){
+  if(contentAsHTML === undefined){
+    contentAsHTML = false;
+  }
+
   return {
     id: project.id,
     date: project.date,
     title: project.title,
-    content: project.content
+    content: contentAsHTML ? marky(project.content).html() : project.content
   };
 };
 
@@ -273,7 +278,7 @@ app.get("/api/v1/auth/google/callback",
 });
 
 app.get("/api/v1/auth/disconnect", function(req, res){
-  var accessToken = req.query.accessToken;
+  var accessToken = req.query.access_token;
   var returnTo = req.query.returnTo;
 
   LoginSession.findOneAndRemove({accessToken: accessToken}, function(err, loginSession){
@@ -322,7 +327,7 @@ app.get("/api/v1/accessTokens/:accessToken", function(req, res){
 
 //Api User
 app.get("/api/v1/users/:userId", function(req, res){
-  var accessToken = req.query.accessToken;
+  var accessToken = req.query.access_token;
   var userId = req.params.userId;
 
   LoginSession.belongsToUser(userId, accessToken, function(belongsTo){
@@ -366,6 +371,33 @@ app.get("/api/v1/projects", function(req, res){
     }
 
     res.send({projects: projectsDump});
+  });
+});
+
+app.get("/api/v1/projects/:projectId", function(req, res){
+  var projectId = req.params.projectId;
+  var contentAsHtml = req.query.content_as_html;
+
+  if(projectId === undefined){
+    res.status(400);
+    res.send({error: "Project Id to get must be includede"});
+    return;
+  }
+
+  Project.findOne({id: projectId}, function(err, project){
+    if(err !== null){
+      res.status(500);
+      res.send({error: "Internal error"});
+      return;
+    }
+
+    if(project === null){
+      res.status(404);
+      res.send({error: "No such project"});
+      return;
+    }
+
+    res.send({project: Project.dump(User, contentAsHTML)});
   });
 });
 
@@ -455,6 +487,19 @@ app.delete("/api/v1/projects/:projectId", LoginSession.userIsAdminMiddleware, fu
 
     res.send("Ok");
   });
+});
+
+//Api Markdown
+app.get("/api/v1/markdown/html", LoginSession.userIsAdminMiddleware, function(req, res){
+  var markdown = req.query.markdown;
+
+  if(markdown === undefined){
+    res.status(400);
+    res.send({error: "Markdown content must be included"});
+    return;
+  }
+
+  res.send({html: marky(markdown).html()});
 });
 
 /* Launch */

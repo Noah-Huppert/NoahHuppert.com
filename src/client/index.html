@@ -9,8 +9,7 @@
 
   <script src="/bower/webcomponentsjs/webcomponents.min.js"></script>
 
-  <script src="/bower/jquery/dist/jquery.min.js"></script>
-  <script src="/bower/jquery-cookie/jquery.cookie.js"></script>
+  <link rel="import" href="/client/js/jquery-import.html">
 
   <script src="/bower/routie/dist/routie.min.js"></script>
 
@@ -31,7 +30,8 @@
   <link rel="import" href="/bower/paper-input/paper-input.html">
   <link rel="import" href="/bower/paper-input/paper-input-decorator.html">
   <link rel="import" href="/bower/paper-input/paper-autogrow-textarea.html">
-  <link rel="import" href="/bower/mark-down/mark-down.html">
+
+  <link rel="import" href="/client/components/server-markdown.html">
 </head>
 
 <body fullbleed unresolved>
@@ -124,7 +124,7 @@
 
                     <label>Content Preview:</label>
                     <paper-shadow class="card">
-                      <mark-down id="content-preview" text="{{NewProject.content}}"></mark-down>
+                      <server-markdown id="content-preview" accessToken="{{LoginSession.accessToken}}" src="{{NewProject.content}}"></server-markdown>
                     </paper-shadow>
 
                     <label>Date:</label>
@@ -139,7 +139,7 @@
                       <span class="subtitle">{{GetNewProjectDateString()}}</span>
                     </div>
                     <div class="content">
-                      <mark-down text="{{NewProject.content}}"></mark-down>
+                      <server-markdown accessToken="{{LoginSession.accessToken}}" src="{{NewProject.content}}"></server-markdown>
                     </div>
                   </div>
                 </core-pages>

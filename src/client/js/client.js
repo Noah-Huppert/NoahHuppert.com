@@ -75,7 +75,7 @@ function LoadAccessTokenInfo(){
 
   $.ajax({
     url: "/api/v1/accessTokens/" + Template.LoginSession.accessToken,
-    data: {accessToken: Template.LoginSession.accessToken}
+    data: {access_token: Template.LoginSession.accessToken}
   })
     .done(function(accessToken){
       Template.User.id = accessToken.userId;
@@ -94,7 +94,7 @@ function LoadUserInfo(){
 
   $.ajax({
     url: "/api/v1/users/" + Template.User.id,
-    data: {accessToken: Template.LoginSession.accessToken}
+    data: {access_token: Template.LoginSession.accessToken}
   })
     .done(function(user){
       Template.User.name = user.name;

@@ -1,0 +1,393 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "src/client/index.html",
+			"settings":
+			{
+				"buffer_size": 8113,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "bower.json",
+			"settings":
+			{
+				"buffer_size": 646,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 368.0,
+		"last_filter": "color",
+		"selected_items":
+		[
+			[
+				"color",
+				"Colorsublime: Install Theme"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"Package Control: remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"build",
+				"Build: Cancel"
+			],
+			[
+				"sass",
+				"Build With: Sass Watch"
+			],
+			[
+				"cancle",
+				"Build: Cancel"
+			],
+			[
+				"Sass",
+				"Build With: Sass"
+			],
+			[
+				"Build With",
+				"Build With: Run"
+			],
+			[
+				"gitignore",
+				"Git: Update Project Ignored Files"
+			],
+			[
+				"package contol:in",
+				"Package Control: Install Package"
+			],
+			[
+				"git status",
+				"Git: Status"
+			],
+			[
+				"git: com",
+				"Git: Commit"
+			],
+			[
+				"git: add",
+				"Git: Add..."
+			],
+			[
+				"git:",
+				"Git: Gitk"
+			],
+			[
+				"git: log",
+				"Git: Log Current File"
+			],
+			[
+				"git",
+				"Git: Gui"
+			],
+			[
+				"stats",
+				"Git: Status"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"colors",
+				"Colorsublime: Browse Themes"
+			],
+			[
+				"install pack",
+				"Package Control: Install Package"
+			],
+			[
+				"Color s",
+				"Colorsublime: Install Theme"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 496.0
+	},
+	"console":
+	{
+		"height": 194.0,
+		"history":
+		[
+			"npm",
+			"npm start",
+			"npm starrt",
+			"import urllib.request,os,hashlib; h = 'eb2297e1a458f27d836c04bb0cbaf282' + 'd0e7a3098092775ccb37ca9d6b2e4b7d'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/Users/noahh_000/Noah/Programing/NoahHuppert.com/SiteV2",
+		"/C/Users/noahh_000/Noah/Programing/NoahHuppert.com/SiteV2/src",
+		"/C/Users/noahh_000/Noah/Programing/NoahHuppert.com/SiteV2/src/client",
+		"/C/Users/noahh_000/Noah/Programing/NoahHuppert.com/SiteV2/src/server"
+	],
+	"file_history":
+	[
+		"/C/Users/noahh_000/Noah/Programing/NoahHuppert.com/SiteV2/src/server/server.js",
+		"/C/Users/noahh_000/Noah/Programing/NoahHuppert.com/SiteV2/.gitignore",
+		"/C/Users/noahh_000/Noah/Programing/NoahHuppert.com/SiteV2/NoahHuppert.com",
+		"/C/Users/noahh_000/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/C/Users/noahh_000/AppData/Roaming/Sublime Text 3/Packages/Colorsublime - Themes/Ocean-Dark-Soda.tmTheme",
+		"/C/Users/noahh_000/Noah/Programing/Polymer/Polymer-Markdown-Tag/README.md",
+		"/C/Users/noahh_000/Noah/Programing/NoahHuppert.com/SiteV2/src/client/scss/styles.scss",
+		"/C/Users/noahh_000/Noah/Programing/NoahHuppert.com/SiteV2/README.md",
+		"/C/Users/noahh_000/Noah/Programing/HTML/CAU-SES/causes-wp-theme5/wp-content/themes/causes/archive.php",
+		"/C/Users/noahh_000/AppData/Roaming/Sublime Text 3/Packages/Emmet/Default (Windows).sublime-keymap",
+		"/C/Users/noahh_000/Noah/Programing/HTML/CAU-SES/causes-wp-theme5/wp-content/themes/causes/content.php",
+		"/C/Users/noahh_000/Noah/Programing/HTML/CAU-SES/causes-wp-theme5/wp-content/themes/causes/bower.json",
+		"/C/Users/noahh_000/AppData/Roaming/Sublime Text 3/Packages/User/Default (Windows).sublime-keymap",
+		"/C/Users/noahh_000/AppData/Roaming/Sublime Text 3/Packages/SublimeCodeIntel/SublimeCodeIntel.sublime-settings",
+		"/C/Users/noahh_000/AppData/Roaming/Sublime Text 3/Packages/SublimeCodeIntel/Default (Windows).sublime-keymap",
+		"/C/Users/noahh_000/Noah/Programing/Android/Workspace/Reflect/app/src/main/java/com/noahhuppert/reflect/messaging/providers/MessagingProviderManager.java",
+		"/C/Users/noahh_000/AppData/Roaming/Sublime Text 3/Packages/User/GitGutter.sublime-settings",
+		"/C/Users/noahh_000/Noah/Programing/HTML/CAU-SES/causes-wp-theme5/wp-content/themes/causes/style.scss",
+		"/C/Users/noahh_000/Noah/Programing/HTML/CAU-SES/causes-wp-theme5/wp-content/themes/causes/footer.php",
+		"/C/Users/noahh_000/AppData/Roaming/Sublime Text 3/Packages/Colorsublime/Colorsublime.sublime-settings",
+		"/C/Users/noahh_000/AppData/Roaming/Sublime Text 3/Packages/User/Colorsublime.sublime-settings",
+		"/C/Users/noahh_000/Noah/Programing/HTML/CAU-SES/causes-wp-theme5/wp-content/themes/causes/index.php",
+		"/C/Users/noahh_000/Noah/Programing/HTML/CAU-SES/causes-wp-theme5/wp-content/themes/causes/header.php",
+		"/C/Users/noahh_000/AppData/Roaming/Sublime Text 3/Packages/Package Control/Package Control.sublime-settings",
+		"/C/Users/noahh_000/Noah/Programing/HTML/CAU-SES/causes-wp-theme5/wp-content/themes/causes/page.php"
+	],
+	"find":
+	{
+		"height": 23.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"=====================================+",
+			"======================================",
+			"RESTART",
+			"sublime",
+			"theme",
+			"\"></",
+			"Back",
+			"\">\n"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "src/client/index.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8113,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2954,
+								2954
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1260.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "bower.json",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 646,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								403,
+								424
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 98.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.git":
+	{
+		"height": 98.0
+	},
+	"pinned_build_system": "",
+	"project": "NoahHuppert.com",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 266.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

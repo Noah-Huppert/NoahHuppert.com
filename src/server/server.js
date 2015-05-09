@@ -25,6 +25,7 @@ var paths = {
 
 var Schema = mongoose.Schema;
 
+/* User Schema */
 var UserSchema = new Schema({
   id: String,
   name: String,
@@ -41,6 +42,7 @@ UserSchema.statics.dump = function(user){
   };
 };
 
+/* Login Session Schema */
 var LoginSessionSchema = new Schema({
   userId: String,
   created: {type: Date, default: new Date(), expires: 1209600 },//Expires after 2 weeks
@@ -102,7 +104,7 @@ LoginSessionSchema.statics.userIsAdmin = function(accessToken, callback){//callb
 LoginSessionSchema.statics.userIsAdminMiddleware = function(req, res, next){
   var accessTokenParam = req.query.accessToken;
 
-  LoginSession.userIsAdmin(accessTokenParam, function(isAdmin, loginSession, user){
+  LoginSession.userIsAdmin(accessTokenParam, function(isAdmin){
     if(isAdmin){
       next();
       return;
@@ -114,6 +116,7 @@ LoginSessionSchema.statics.userIsAdminMiddleware = function(req, res, next){
   });
 };
 
+/* Project Schema */
 var ProjectSchema = new Schema({
   id: String,
   date: Date,
@@ -130,23 +133,14 @@ ProjectSchema.statics.dump = function(project){
   };
 };
 
-
+/* Setup Mongoose */
 var User = mongoose.model("User", UserSchema);
 var LoginSession = mongoose.model("LoginSession", LoginSessionSchema);
 var Project = mongoose.model("Project", ProjectSchema);
 
 mongoose.connect(secrets.db.url);
 
-app.use(cookieParser("", {
-  maxAge: 1209600//2 Weeks
-}));
-
-app.use(session({
-  secret: secrets.session.secret,
-  resave: true,
-  saveUninitialized: false
-}));
-
+/* Setup Passport */
 passport.serializeUser(function(user, done) {
   if(user.id === undefined){
     done("No user", null);
@@ -233,17 +227,29 @@ function PassportFlowLoginSession(user, done){
   });
 }
 
+/* Setup Express */
+app.use(cookieParser("", {
+  maxAge: 1209600//2 Weeks
+}));
+
+app.use(session({
+  secret: secrets.session.secret,
+  resave: true,
+  saveUninitialized: false
+}));
+
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.use("/client", express.static(paths.client));
 app.use("/bower", express.static(paths.bower));
 
-//Routes
+/* Routes */
 app.get("/", function(req, res){
   res.sendFile(paths.client + "/index.html");
 });
 
+//Api Authorization
 app.get("/api/v1/auth/google/connect", passport.authenticate("google", {scope: "profile"}));
 
 app.get("/api/v1/auth/google/callback",
@@ -314,6 +320,7 @@ app.get("/api/v1/accessTokens/:accessToken", function(req, res){
   });
 });
 
+//Api User
 app.get("/api/v1/users/:userId", function(req, res){
   var accessToken = req.query.accessToken;
   var userId = req.params.userId;
@@ -343,6 +350,7 @@ app.get("/api/v1/users/:userId", function(req, res){
   });
 });
 
+//Api Projects
 app.get("/api/v1/projects", function(req, res){
   Project.find(function(err, projects){
     var projectsDump = [];
@@ -449,7 +457,7 @@ app.delete("/api/v1/projects/:projectId", LoginSession.userIsAdminMiddleware, fu
   });
 });
 
-//Launch
+/* Launch */
 app.listen(port, function(){
   console.log("Server running on 127.0.0.1:" + port);
 });

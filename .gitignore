@@ -1,27 +1,6 @@
-#NodeJs
 node_modules
-
-#Sass
+bower_components
 .sass-cache
-
-#Visual Studio
-*.ntvs_analysis.dat
-*.njsproj
-*.sln
-*.suo
-obj
-.ntvs_analysis.dat.tmp
-
-#Inteljj
-.idea
-*.iml
-
-#Build dir
-build
-
-#Bower deps
-libs
-
-#Tests
-test/javascript
-test/coverage
+secrets.js
+npm-debug.log
+src/client/css

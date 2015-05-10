@@ -5,16 +5,20 @@
   "authors": [
     "Noah Huppert <noahhuppert@gmail.com>"
   ],
+  "description": "The backend for NoahHuppert.com",
+  "main": "src/server/server.js",
   "license": "MIT",
   "private": true,
-  "dependencies": {},
-  "devDependencies": {
-    "marked": "~0.3.2",
-    "knockout": "~3.2.0",
+  "dependencies": {
     "jquery": "~2.1.3",
-    "underscore": "~1.7.0",
-    "bourbon": "~4.0.2",
-    "DefinitelyTyped": "1.3.0"
+    "jquery-cookie": "~1.4.1",
+    "core-elements": "Polymer/core-elements#~0.5.5",
+    "paper-elements": "Polymer/paper-elements#~0.5.5",
+    "routie": "~0.3.2"
   },
-  "description": "Code for Noahhuppert.com"
+  "resolutions": {
+    "polymer": "^0.5",
+    "core-component-page": "^0.5",
+    "webcomponentsjs": "^0.5"
+  }
 }

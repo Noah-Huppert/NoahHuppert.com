@@ -1,0 +1,11 @@
+{
+  "undef": true,
+  "unused": true,
+  "browser": true,
+  "node": true,
+  "newcap": false,
+  "globals": {
+    "$": false,
+    "routie": false
+  }
+}

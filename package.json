@@ -4,7 +4,7 @@
   "description": "The backend for NoahHuppert.com",
   "main": "src/server/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"Error: no test specified\" && exit 0",
     "start": "node src/server/server.js"
   },
   "repository": {

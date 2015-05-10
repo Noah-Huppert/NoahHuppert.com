@@ -14,7 +14,13 @@ var marky = require("marky-markdown");
 var passport = require("passport");
 var GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
 
-var secrets = require("./secrets.js");
+var secrets;
+if(process.env.SECRETS_USE_ENV){
+  console.log("Using Env Secrets");
+  secrets = require("./secrets-env.js");
+} else {
+  secrets = require("./secrets.js");
+}
 
 //Config
 var port = process.env.PORT || 9000;

@@ -3,4 +3,4 @@ bower_components
 .sass-cache
 secrets.js
 npm-debug.log
-css
+src/client/css

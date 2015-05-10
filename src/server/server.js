@@ -23,7 +23,7 @@ if(process.env.SECRETS_USE_ENV){
 }
 
 //Config
-var port = process.env.PORT || 9000;
+var port = process.env.PORT || 5000;
 var url = process.env.PORT !== undefined ? "https://noahhuppert.com" : "http://127.0.0.1:9000";
 var paths = {
   client: path.resolve(__dirname, "../client"),

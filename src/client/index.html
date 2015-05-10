@@ -131,6 +131,9 @@
                     <paper-input-decorator id="create-project-date">
                       <input type="date" value="{{NewProject.date}}">
                     </paper-input-decorator>
+
+                    <paper-button on-tap="{{HideCreateProjectBox}}" class="background-secondary">Cancel</paper-button>
+                    <paper-button on-tap="{{CreateProject}}" class="background-primary" raised>Create</paper-button>
                   </div>
 
                   <div class="create-project-page">

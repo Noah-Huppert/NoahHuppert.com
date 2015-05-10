@@ -21,7 +21,7 @@ Template.Projects = [];
 Template.NewProject = {
   title: undefined,
   content: undefined,
-  date: undefined
+  date: new Date().toString("yyy-mm-dd")
 };
 
 /* Setup */
@@ -199,8 +199,13 @@ function UpdateUserAuthStates(){
  Template.UserConnected = Template.LoginSession.accessToken !== undefined;
 }
 
+/* Project Creation */
 Template.ShowCreateProjectBox = function(){
   Template.ShouldShowCreateProjectBox = true;
+};
+
+Template.HideCreateProjectBox = function(){
+  Template.ShouldShowCreateProjectBox = false;
 };
 
 Template.GetNewProjectDateString = function(){
@@ -211,4 +216,8 @@ Template.GetNewProjectDateString = function(){
   }
 
   return MakeNumber2DigitString(date.getMonth()) + "/" + MakeNumber2DigitString(date.getDate()) + "/" + MakeNumber2DigitString(date.getFullYear()).substr(2, 2);
+};
+
+Template.CreateProject = function(){
+  console.log("Create Project", Template.NewProject);
 };

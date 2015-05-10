@@ -184,7 +184,7 @@ Template.GetReportErrorMailto = function(){
               "Error Message: ?%0D%0A %0D%0A" +
               "Contents of developer console: ?%0D%0A %0D%0A" +
               "Other:";
-}
+};
 
 Template.GetLogoutUrl = function(){
     return "/api/v1/auth/disconnect?accessToken=" + Template.LoginSession.accessToken + "&returnTo=" + window.location;

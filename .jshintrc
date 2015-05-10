@@ -6,6 +6,7 @@
   "newcap": false,
   "globals": {
     "$": false,
-    "routie": false
+    "routie": false,
+    "Polymer": false
   }
 }

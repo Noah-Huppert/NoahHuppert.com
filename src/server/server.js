@@ -257,7 +257,8 @@ app.use("/bower", express.static(paths.bower));
 
 /* Routes */
 app.get("/", function(req, res){
-  res.sendFile(paths.client + "/index.html");
+  res.json(paths);
+  //res.sendFile(paths.client + "/index.html");
 });
 
 //Api Authorization
@@ -403,7 +404,7 @@ app.get("/api/v1/projects/:projectId", function(req, res){
       return;
     }
 
-    res.send({project: Project.dump(User, contentAsHTML)});
+    res.send({project: Project.dump(User, contentAsHtml)});
   });
 });
 

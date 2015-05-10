@@ -257,8 +257,7 @@ app.use("/bower", express.static(paths.bower));
 
 /* Routes */
 app.get("/", function(req, res){
-  res.json(paths);
-  //res.sendFile(paths.client + "/index.html");
+  res.sendFile(paths.client + "/index.html");
 });
 
 //Api Authorization

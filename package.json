@@ -5,6 +5,7 @@
   "main": "src/server/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0",
+    "preinstall": "if[\"$RUN_PRE_INSTALL\" = \"true\"];then: npm install bower -g;bower install;fi;",
     "start": "node src/server/server.js"
   },
   "repository": {

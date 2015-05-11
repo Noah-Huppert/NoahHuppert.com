@@ -1,0 +1,18 @@
+language: node_js
+node_js:
+- '0.12'
+before_install:
+- rvm use 2.2.2
+- npm install bower -g
+- gem install sass
+install:
+- npm install
+- bower install
+- sass --update src/client/scss:src/client/css
+script:
+- npm test
+deploy:
+  provider: heroku
+  api_key:
+    secure: GIKIDnUppbLU5WjCIDwOdp8a/Yga+YPANip84SpvO0ZOvnrSvgDxLLXPXa0LZOl1CoGVp07IMNeW2hZkbj/RCQrUhT4O9Yv4X1boveWPyJRcos5w/R14dzUIXLl+kaCF1xKUaWcs8CAyYDnegXQgkzgZqFCmZVknogGOHpgAb1k=
+  app: noahhuppert

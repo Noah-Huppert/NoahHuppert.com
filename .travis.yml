@@ -1,16 +1,17 @@
 language: node_js
 node_js:
-- '0.12'
+  - '0.12'
 before_install:
-- rvm use 2.2.2
-- npm install bower -g
-- gem install sass
+  - rvm install ruby-2.2.2
+  - rvm use 2.2.2
+  - npm install bower -g
+  - gem install sass
 install:
-- npm install
-- bower install
-- sass --update src/client/scss:src/client/css
+  - npm install
+  - bower install
+  - sass --update src/client/scss:src/client/css
 script:
-- npm test
+  - npm test
 deploy:
   provider: heroku
   api_key:

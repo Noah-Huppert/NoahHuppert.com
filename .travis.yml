@@ -1,24 +1,39 @@
+#Language Setup
 language: node_js
 node_js:
 - '0.12'
-before_install:
-#################### Currently not doing before_install or install because
-#################### tests are not being run
+
+#Caching
+sudo: false #Enable container based infrastructure
+cache:
+- npm
+- bower
+
+#Setup
+#Currently not doing before_install or install because tests are not being run
+#
+#before_install:
 #- rvm install ruby-2.2.2
 #- rvm use 2.2.2
 #- npm install bower -g
 #- gem install sass
-install:
+#install:
 #- npm install
 #- bower install
 #- sass --update src/client/scss:src/client/css
+
+#Test
 script:
   - npm test
+
+#Deploy
 deploy:
   provider: heroku
   api_key:
     secure: GIKIDnUppbLU5WjCIDwOdp8a/Yga+YPANip84SpvO0ZOvnrSvgDxLLXPXa0LZOl1CoGVp07IMNeW2hZkbj/RCQrUhT4O9Yv4X1boveWPyJRcos5w/R14dzUIXLl+kaCF1xKUaWcs8CAyYDnegXQgkzgZqFCmZVknogGOHpgAb1k=
   app: noahhuppert
+
+#Global Setup
 env:
   global:
   - secure: N5OqozdnOCJAVjvxIzHfa7eBQtEwn6le0I71pU8UNbnhmgqo+0XXWU0MbizOc8Z2NF7QNEm6muwQZQspL3AUk/pp7u+jVHSfpzzq73DzNQFTj9vp61cglQIeRQwf7XbwpfUH6C2OOMgizs8m+wfY3fK+wpDTT4UQe9B/AKO8PoY=

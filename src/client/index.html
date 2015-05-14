@@ -30,8 +30,10 @@
   <link rel="import" href="/bower/paper-input/paper-input.html">
   <link rel="import" href="/bower/paper-input/paper-input-decorator.html">
   <link rel="import" href="/bower/paper-input/paper-autogrow-textarea.html">
+  <link rel="import" href="/bower/paper-icon-button/paper-icon-button.html">
 
   <link rel="import" href="/client/components/server-markdown.html">
+  <link rel="import" href="/client/components/raw-html.html">
 </head>
 
 <body fullbleed unresolved>
@@ -39,11 +41,11 @@
     <div id="loading">
       <paper-button id="loading-report-error-button" class="background-secondary" on-tap="{{ShowLoadingReportErrorInstructions}}" title="Email noah.programmer@gmail.com" raised>REPORT ERROR</paper-button>
       <paper-shadow id="loading-report-error-instructions" class="card">
-        <div class="title">Email <a href="{{GetReportErrorMailto()}}">noah.programmer@gmail.com</a></div>
+        <div class="title">Email <a href="{{ReportErrorMailto}}" target="_blank">noah.programmer@gmail.com</a></div>
         <div class="content">
           It helps if you include:
           <ul>
-            <li>Your browsers name and version</li>
+            <li>Your browser name and version</li>
             <li>Description of where on the site the error occured</li>
             <li>Error message, if present</li>
             <li>
@@ -109,6 +111,10 @@
                 <paper-tab>Preview</paper-tab>
               </paper-tabs>
 
+              <template if="{{NewProjectError.length !== 0}}">
+                <div id="create-project-error">{{NewProjectError}}</div>
+              </template>
+
               <div class="content">
                 <core-pages selected="{{CreateProjectTab}}">
                   <div id="create-project-compose" class="create-project-page">
@@ -118,7 +124,7 @@
                     <label>Content:</label>
                     <paper-input-decorator label="A fantastic description">
                       <paper-autogrow-textarea>
-                        <textarea id="create-project-content" value="{{NewProject.content}}"></textarea>
+                        <textarea id="create-project-content" value="{{NewProject.content}}" required></textarea>
                       </paper-autogrow-textarea>
                     </paper-input-decorator>
 
@@ -126,6 +132,12 @@
                     <paper-shadow class="card">
                       <server-markdown id="content-preview" accessToken="{{LoginSession.accessToken}}" src="{{NewProject.content}}"></server-markdown>
                     </paper-shadow>
+
+                    <label>Github:</label>
+                    <paper-input type="text" label="Username/Repo" value="{{NewProject.github}}"></paper-input>
+
+                    <label>Website: </label>
+                    <paper-input type="text" label="http://www.cool.io" value="{{NewProject.website}}"></paper-input>
 
                     <label>Date:</label>
                     <paper-input-decorator id="create-project-date">
@@ -151,11 +163,38 @@
             </paper-shadow>
           </template>
 
-          <template repeat="{{project in Projects}}">
-            <paper-shadow class="card">
-              <div class="title">{{project.title}}</div>
-              <div class="content">{{project.content}}</div>
-            </paper-shadow>
+          <template if="{{!ShouldShowCreateProjectBox}}">
+            <template repeat="{{project in Projects}}">
+              <paper-shadow class="card">
+                <div class="title">
+                  {{project.title}}
+                  <div class="subtitle">{{GetProjectDateString(project)}}</div>
+                </div>
+                <div class="content">
+                  <raw-html content="{{project.content}}"></raw-html>
+                </div>
+
+                <template if="{{project.github || project.website}}">
+                  <div class="footer">
+                    <template if="{{project.github !== undefined}}">
+                      <a class="extra-icon" href="https://github.com/{{project.github}}" target="_blank">
+                        <paper-icon-button src="/client/img/github.png"></paper-icon-button>
+                      </a>
+                    </template>
+
+                    <template if="{{project.website !== undefined}}">
+                      <a class="extra-icon" href="{{project.website}}" target="_blank">
+                        <paper-icon-button src="/client/img/website.png"></paper-icon-button>
+                      </a>
+                    </template>
+
+                    <template if="{{User.admin}}">
+                      <paper-icon-button class="project-edit" src="/client/img/edit.png"></paper-icon-button>
+                    </template>
+                  </div>
+                </template>
+              </paper-shadow>
+            </template>
           </template>
         </div>
 
@@ -190,7 +229,8 @@
         </div>
       </core-pages>
     </core-header-panel>
+
+    <script src="/client/js/client.js"></script>
   </template>
-  <script src="/client/js/client.js"></script>
 </body>
 </html>

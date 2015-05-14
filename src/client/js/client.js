@@ -1,6 +1,43 @@
-var Template = document.querySelector('#template');
+"use strict";
+
+try{
+  var Template = document.getElementById('template');
+
+  /* Error Reporting */
+  Template.TriggerErrorState = function(error){
+    document.getElementById("loading").removeAttribute("done");
+    document.getElementById("loading").setAttribute("error", true);
+    document.querySelector("#loading paper-progress").setAttribute("value", 100);
+    document.querySelector("#loading paper-progress").removeAttribute("indeterminate");
+  };
+
+  Template.ShowLoadingReportErrorInstructions = function(){
+    document.getElementById("loading-report-error-button").style.display = "none";
+    document.getElementById("loading-report-error-instructions").style.display = "block";
+  };
+
+  Template.ReportErrorMailto = 
+    "mailto:noah.programmer@gmail.com?" +
+     "subject=NoahHuppert.com Error&" +
+     "body=Browser Name: ?%0D%0A %0D%0A" +
+          "Browser Version: ?%0D%0A %0D%0A" +
+          "Error Message: ?%0D%0A %0D%0A" +
+          "Contents of developer console: ?%0D%0A %0D%0A" +
+          "Other:";
+
+  console._error = console.error;
+  console.error = function(){
+    Template.TriggerErrorState();
+    console._error.apply(this, arguments);
+  };
+} catch(e) {
+  alert("A fatal error has occured, please email noah.programmer@gmail.com with your browser name, browser version");
+}
+
+try{
 
 Template.addEventListener("template-bound", function(){
+  console.log("Template Bound");
   Template.TemplateLoaded = true;
 });
 
@@ -18,10 +55,14 @@ Template.LoginSession = {
 
 Template.Projects = [];
 
+Template.NewProjectError = "";
+
 Template.NewProject = {
   title: undefined,
   content: undefined,
-  date: new Date().toString("yyy-mm-dd")
+  date: undefined,
+  github: undefined,
+  website: undefined
 };
 
 /* Setup */
@@ -85,6 +126,7 @@ function LoadAccessTokenInfo(){
     .fail(function(err){
       ErrorLoading();
       Template.LoadingProgressMessage = "Failed To Autheticate";
+      $.removeCookie("accessToken");
       console.error("Failed to load AccessToken info", err);
     });
 }
@@ -113,9 +155,14 @@ function LoadUserInfo(){
 function LoadProjects(){
   Template.LoadingProgressMessage = "Getting Projects";
 
-  $.ajax("/api/v1/projects")
+  $.ajax({
+    url: "/api/v1/projects",
+    data: {
+      content_as_html: true
+    }
+  })
     .done(function(projects){
-      Template.Projects = projects;
+      Template.Projects = projects.projects;
 
       Template.LoadingProgressMessage = "Done";
       CompleteLoading();
@@ -139,10 +186,7 @@ function ErrorLoading(){
 }
 
 function _ErrorLoading(){
-  $("#loading").attr("error", true);
-  $("#loading-title-message").text("Error");
-  $("#loading paper-progress").attr("value", 100);
-  $("#loading paper-progress").removeAttr("indeterminate");
+  Template.TriggerErrorState();
 }
 
 function CompleteLoading(){
@@ -152,6 +196,8 @@ function CompleteLoading(){
     Template.addEventListener("template-bound", function(){
       _CompleteLoading();
     });
+
+    setTimeout(_CompleteLoading, 1000);
   }
 }
 
@@ -159,6 +205,9 @@ function _CompleteLoading(){
   UpdateUserAuthStates();
   Template.dispatchEvent(new Event("loading-complete"));
   $("#loading").attr("done", true);
+  Template.LoadingProgressMessage = "Error";
+
+  console.log(Template.Projects);
 }
 
 /* Helpers */
@@ -170,22 +219,15 @@ function MakeNumber2DigitString(num){
   return "0" + num;
 }
 
+function DateToString(date){
+  var month = MakeNumber2DigitString(date.getMonth() + 1);
+  var dDate = MakeNumber2DigitString(date.getDate() + 1);
+  var year = date.getFullYear();
+
+  return month + "/" + dDate + "/" + year;
+}
+
 /* Model Specific Methods */
-Template.ShowLoadingReportErrorInstructions = function(){
-  $("#loading-report-error-button").hide();
-  $("#loading-report-error-instructions").show();
-};
-
-Template.GetReportErrorMailto = function(){
-  return "mailto:noah.programmer@gmail.com?" +
-         "subject=NoahHuppert.com Error&" +
-         "body=Browser Name: ?%0D%0A %0D%0A" +
-              "Browser Version: ?%0D%0A %0D%0A" +
-              "Error Message: ?%0D%0A %0D%0A" +
-              "Contents of developer console: ?%0D%0A %0D%0A" +
-              "Other:";
-};
-
 Template.GetLogoutUrl = function(){
     return "/api/v1/auth/disconnect?accessToken=" + Template.LoginSession.accessToken + "&returnTo=" + window.location;
 };
@@ -198,6 +240,11 @@ function UpdateUserAuthStates(){
 
  Template.UserConnected = Template.LoginSession.accessToken !== undefined;
 }
+
+Template.GetProjectDateString = function(project){
+  var date = new Date(project.date);
+  return DateToString(date);
+};
 
 /* Project Creation */
 Template.ShowCreateProjectBox = function(){
@@ -215,9 +262,42 @@ Template.GetNewProjectDateString = function(){
     date = new Date();
   }
 
-  return MakeNumber2DigitString(date.getMonth()) + "/" + MakeNumber2DigitString(date.getDate()) + "/" + MakeNumber2DigitString(date.getFullYear()).substr(2, 2);
+  return DateToString(date);  
 };
 
 Template.CreateProject = function(){
-  console.log("Create Project", Template.NewProject);
+  if(Template.NewProject.title === undefined || Template.NewProject.title.length === 0){
+    Template.NewProjectError = "New project must have a title";
+    return;
+  }
+
+  if(Template.NewProject.content === undefined || Template.NewProject.content.length === 0){
+    Template.NewProjectError = "New project must have content";
+    return;
+  }
+
+  if(Template.NewProject.date === undefined || Template.NewProject.date.length === 0){
+    Template.NewProjectError = "New project must have a date";
+    return;
+  }
+
+  $.ajax({
+    url: "/api/v1/projects",
+    data: {
+      access_token: Template.LoginSession.accessToken,
+      project: Template.NewProject
+    },
+    method: "POST"
+  })
+  .done(function(data){
+    console.log("done", data);
+  })
+  .fail(function(err){
+    console.log("error", err);
+  });
 };
+
+} catch(e){
+  console.error(e);
+  Template.LoadingProgressMessage = e.toString();
+}

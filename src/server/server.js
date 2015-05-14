@@ -5,6 +5,7 @@ var path = require("path");
 
 var express = require("express");
 var cookieParser = require("cookie-parser");
+var bodyParser = require("body-parser");
 var session = require("express-session");
 var app = express();
 
@@ -24,7 +25,8 @@ if(process.env.SECRETS_USE_ENV){
 
 //Config
 var port = process.env.PORT || 5000;
-var url = process.env.PORT !== undefined ? "https://noahhuppert.com" : "http://127.0.0.1:9000";
+var url = process.env.PORT !== undefined ? "https://noahhuppert.com" : "http://127.0.0.1:" + port;
+
 var paths = {
   client: path.resolve(__dirname, "../client"),
   bower: path.resolve(__dirname, "../../bower_components")
@@ -37,7 +39,7 @@ var UserSchema = new Schema({
   id: String,
   name: String,
   avatar: String,
-  admin: Boolean
+  admin: {type: Boolean, default: false}
 });
 
 UserSchema.statics.dump = function(user){
@@ -109,9 +111,9 @@ LoginSessionSchema.statics.userIsAdmin = function(accessToken, callback){//callb
 };
 
 LoginSessionSchema.statics.userIsAdminMiddleware = function(req, res, next){
-  var accessTokenParam = req.query.access_token;
+  var accessToken = req.query.access_token || req.body.access_token;
 
-  LoginSession.userIsAdmin(accessTokenParam, function(isAdmin){
+  LoginSession.userIsAdmin(accessToken, function(isAdmin){
     if(isAdmin){
       next();
       return;
@@ -128,7 +130,9 @@ var ProjectSchema = new Schema({
   id: String,
   date: Date,
   title: String,
-  content: String
+  content: String,
+  github: {type: String, default: ""},
+  website: {type: String, default: ""}
 });
 
 ProjectSchema.statics.dump = function(project, contentAsHTML){
@@ -140,7 +144,9 @@ ProjectSchema.statics.dump = function(project, contentAsHTML){
     id: project.id,
     date: project.date,
     title: project.title,
-    content: contentAsHTML ? marky(project.content).html() : project.content
+    content: contentAsHTML ? marky(project.content).html() : project.content,
+    github: project.github,
+    website: project.website
   };
 };
 
@@ -249,8 +255,14 @@ app.use(session({
   saveUninitialized: false
 }));
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+
 app.use(passport.initialize());
 app.use(passport.session());
+
 
 app.use("/client", express.static(paths.client));
 app.use("/bower", express.static(paths.bower));
@@ -363,6 +375,8 @@ app.get("/api/v1/users/:userId", function(req, res){
 
 //Api Projects
 app.get("/api/v1/projects", function(req, res){
+  var contentAsHtml = req.query.content_as_html;
+
   Project.find(function(err, projects){
     var projectsDump = [];
 
@@ -373,7 +387,7 @@ app.get("/api/v1/projects", function(req, res){
     }
 
     for(var i = 0; i < projects.length; i++){
-      projectsDump.push(projects[i]);
+      projectsDump.push(Project.dump(projects[i], contentAsHtml));
     }
 
     res.send({projects: projectsDump});
@@ -408,7 +422,7 @@ app.get("/api/v1/projects/:projectId", function(req, res){
 });
 
 app.post("/api/v1/projects", LoginSession.userIsAdminMiddleware, function(req, res){
-  var project = req.project;
+  var project = req.body.project;
 
   if(project === undefined){
     res.status(400);
@@ -416,8 +430,9 @@ app.post("/api/v1/projects", LoginSession.userIsAdminMiddleware, function(req, r
     return;
   }
 
-  if(project.date === undefined ||
-     project.content === undefined){
+  if(project.title === undefined ||
+      project.date === undefined ||
+      project.content === undefined){
        res.status(400);
        res.send({error: "New project data must include all keys"});
        return;
@@ -425,8 +440,9 @@ app.post("/api/v1/projects", LoginSession.userIsAdminMiddleware, function(req, r
 
    project.id = uuid.v4();
 
-   Project.insert(project, function(err){
-     if(err !== null){
+   var projectModel = new Project(project);
+   projectModel.save(function(err){
+    if(err !== null){
        res.status(500);
        res.send({error: "Internal error"});
        return;

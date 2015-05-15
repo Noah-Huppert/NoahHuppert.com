@@ -1,3 +1,6 @@
 # Onyx
-The new Ruby backend for NoahHuppert.com.  
-This repository replaces [Noah-Huppert/NoahHuppert.com]
+The new Ruby backend for NoahHuppert.com.
+
+#What is different
+- Using a Ruby backend made with Sinatra
+- Using Polymer 1.0

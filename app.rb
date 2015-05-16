@@ -12,7 +12,7 @@ module Onyx
 	# @author Noah Huppert <developer.noah@gmail.com>
 	class App < Base
 		get '/' do
-			return 'Root
+			return 'Root'
 		end
 	end# class app
 end# module Onyx

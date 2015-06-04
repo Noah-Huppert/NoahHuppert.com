@@ -1,0 +1,13 @@
+development:
+  database:
+    host: localhost
+    port: 3306
+    username: development
+    password: password
+
+production:
+  database:
+    host: <%= ENV['OPENSHIFT_mysql_DB_HOST'] %>
+    port: <%= ENV['OPENSHIFT_mysql_DB_PORT'] %>
+    username: <%= ENV['OPENSHIFT_mysql_DB_USERNAME'] %>
+    password: <%= ENV['OPENSHIFT_mysql_DB_PASSWORD'] %>

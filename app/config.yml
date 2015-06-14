@@ -5,6 +5,13 @@ development:
     username: development
     password: password
 
+test:
+  database:
+    host: 127.0.0.1
+    port: 3306
+    username: travis
+    password: ''
+
 production:
   database:
     host: <%= ENV['OPENSHIFT_mysql_DB_HOST'] %>

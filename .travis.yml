@@ -1,9 +1,19 @@
 language: ruby
 rvm:
-- 2.2.2
+  - 2.2.2
+
+# Use MySQL database for tests
+services:
+  - mysql
+
+# Setup MySQL database for tests
+before_script:
+  - mysql -e 'CREATE DATABASE onyx_test'
+
+# Run tests, right now there are none, so return 0
 script: return 0
-env:
-- RACK_ENV=test
+
+# Deploy To Openshift
 deploy:
   provider: openshift
   user: noahhuppert@gmail.com
@@ -14,3 +24,6 @@ deploy:
   on:
     repo: Noah-Huppert/NoahHuppert.com
     branch: onyx-sinatra
+
+env:
+- RACK_ENV=test

@@ -1,0 +1,39 @@
+user: &user
+  - user.self.get
+  - user.self.set
+  - user.self.delete
+  - user.peers.get
+  - user.self.provider_access_token.identity.get
+  - user.self.provider_access_token.delete
+  - user.self.api_access_token.get
+  - user.self.api_access_token.delete
+  - user.self.post.get
+  - user.peers.post.get
+  - user.self.post.meta.get
+  - user.peers.post.meta.get
+creator:
+  - user.self.post.set
+  - post.create
+  - user.self.post.meta.set
+  - post.meta.create
+editor:
+  - user.self.post.delete
+  - user.peers.post.set
+  - user.peers.post.delete
+  - user.self.post.meta.delete
+  - user.peers.post.meta.set
+  - user.peers.post.meta.delete
+admin:
+  - user.peers.set
+  - user.peers.delete
+  - user.self.provider_access_token.get
+  - user.self.provider_access_token.set
+  - user.peers.provider_access_token.get
+  - user.peers.provider_access_token.set
+  - user.peers.provider_access_token.delete
+  - provider_access_token.create
+  - user.self.api_access_token.set
+  - user.peers.api_access_token.get
+  - user.peers.api_access_token.set
+  - user.peers.api_access_token.delete
+  - api_access_token.create

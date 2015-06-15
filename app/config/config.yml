@@ -16,8 +16,7 @@ test:
 
 production:
   database:
-    host: <%= ENV['OPENSHIFT_mysql_DB_HOST'] %>
-    port: <%= ENV['OPENSHIFT_mysql_DB_PORT'] %>
-    username: onyx_production
-    username: <%= ENV['OPENSHIFT_mysql_DB_USERNAME'] %>
-    password: <%= ENV['OPENSHIFT_mysql_DB_PASSWORD'] %>
+    host: _ENV_OPENSHIFT_mysql_DB_HOST
+    port: _ENV_OPENSHIFT_mysql_DB_PORT
+    username: _ENV_OPENSHIFT_mysql_DB_USERNAME
+    password: _ENV_OPENSHIFT_mysql_DB_PASSWORD

@@ -1,14 +1,15 @@
-[![Build Status](https://travis-ci.org/Noah-Huppert/NoahHuppert.com.svg)](https://travis-ci.org/Noah-Huppert/NoahHuppert.com)
-[![Dependency Status](https://david-dm.org/Noah-Huppert/noahhuppert.com.svg)](https://david-dm.org/Noah-Huppert/noahhuppert.com)
-[![Code Climate](https://codeclimate.com/github/Noah-Huppert/NoahHuppert.com/badges/gpa.svg)](https://codeclimate.com/github/Noah-Huppert/NoahHuppert.com)
-[![Test Coverage](https://codeclimate.com/github/Noah-Huppert/NoahHuppert.com/badges/coverage.svg)](https://codeclimate.com/github/Noah-Huppert/NoahHuppert.com/coverage)
+#Onyx Sinatra
+A new version of NoahHuppert.com using Sinatra instead of NodeJs
 
-#NoahHuppert.com V2
-The backend for NoahHuppert.com
+#Using with Openshift
+I am using Openshift to host NoahHuppert.com  
 
-#Sass
-Run this command from the project root
+For the app to launch correctly you must ssh install your Openshift app and run
 
 ```
-sass --watch src/client/scss:src/client/css
+gem install rack
 ```
+
+This is because for some reason Openshift wants to use Rack `1.5.2` but Sinatra 
+has Rack `1.6.1` as a dependency so the 2 versions conflict. Explicitly installing
+Rack `1.6.1` fixes this issue

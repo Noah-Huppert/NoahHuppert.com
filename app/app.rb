@@ -11,6 +11,7 @@ module Onyx
       register Sinatra::RespondWith
       respond_to :json
 
+      use Rack::Static, :urls => ['/css'], :root => './public'
       use Rack::Static, :urls => ['/bower_components'],
                         :index => './views/index.html'
 

@@ -11,14 +11,24 @@
 
     <!-- Styles -->
     <link rel="import" href="/bower_components/paper-styles/paper-styles.html">
+    <link rel="import" href="/css/styles.html">
 
     <!-- Web Components -->
     <link rel="import" href="/bower_components/polymer/polymer.html">
     <link rel="import" href="/bower_components/paper-toolbar/paper-toolbar.html">
+    <link rel="import" href="/bower_components/paper-tabs/paper-tabs.html">
 </head>
-<body unresolved>
-    <paper-toolbar>
+<body class="fullbleed" unresolved>
+    <template is="dom-bind">
+        <paper-toolbar class="medium-tall">
+          <div class="title">Noah Huppert</div>
 
-    </paper-toolbar>
+          <paper-tabs selected="0" class="bottom self-end flex">
+              <paper-tab>Projects</paper-tab>
+              <paper-tab>Skills</paper-tab>
+              <paper-tab>About Me</paper-tab>
+          </paper-tabs>
+        </paper-toolbar>
+    </template>
 </body>
 </html>

@@ -8,11 +8,7 @@
   "license": "MIT",
   "dependencies": {
     "polymer": "Polymer/polymer#^1.0.0",
-    "iron-elements": "PolymerElements/iron-elements#^1.0.0",
-    "paper-elements": "PolymerElements/paper-elements#^1.0.0",
-    "molecules": "PolymerElements/molecules#^1.0.0",
-    "platinum-elements": "PolymerElements/platinum-elements#^1.0.0",
-    "gold-elements": "PolymerElements/gold-elements#^1.0.0",
-    "neon-elements": "PolymerElements/neon-elements#^1.0.0"
+    "paper-toolbar": "PolymerElements/paper-toolbar#^1.0.0",
+    "paper-tabs": "PolymerElements/paper-tabs#^1.0.0"
   }
 }

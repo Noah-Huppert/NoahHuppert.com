@@ -1,6 +1,6 @@
 module Onyx
   module Config
-
+=begin
     def self.load_permission_groups
       yaml = YAML.load_file(File.join(__dir__, 'permission_groups.yml'))
       groups = {}
@@ -38,9 +38,10 @@ module Onyx
 
     puts "#{YAML.load_file(File.join(__dir__, 'config.yml'))['production']}"
 
+
     class << self
       attr_accessor :CONFIG, :PERMISSIONS, :PERMISSION_GROUPS
     end
-
+=end
   end# Config
 end# Onyx

@@ -12,7 +12,8 @@ module Onyx
                         :get => "#{model_name}.peers.get",
                         :set => "#{model_name}.peers.set",
                         :delete => "#{model_name}.peers.delete"
-                    }
+                    },
+                    :create => "#{model_name}.create"
                 }
             end# self.generate_permissions_hash
         end# Helpers

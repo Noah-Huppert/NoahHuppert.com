@@ -11,29 +11,29 @@ module Onyx
       register Sinatra::RespondWith
       respond_to :json
 
-      use Rack::Static, :urls => ['/css'], :root => './public'
+      use Rack::Static, :urls => ['/css', '/js'], :root => './public'
+      use Rack::Static, :urls => ['/components', '/pages'], :root => './views'
       use Rack::Static, :urls => ['/bower_components'],
                         :index => './views/index.html'
 
       DB = Sequel.connect(
         :adapter => 'mysql',
-        :host => Onyx.CONFIG[:database][:host],
-        :port => Onyx.CONFIG[:database][:port],
-        :database => Onyx.CONFIG[:database][:database],
-        :user => Onyx.CONFIG[:database][:username],
-        :password => Onyx.CONFIG[:database][:password]
+        :host => Onyx::Config.CONFIG[:database][:host],
+        :port => Onyx::Config.CONFIG[:database][:port],
+        :database => Onyx::Config.CONFIG[:database][:database],
+        :user => Onyx::Config.CONFIG[:database][:username],
+        :password => Onyx::Config.CONFIG[:database][:password]
       )
 
       Sequel.extension :migration, :core_extensions
       Sequel::Migrator.apply DB, './app/migrations'
 
       require './app/models/base'
+
+      # Load permission_groups after models are set up
+      require './app/config/permission_groups'
+
+      puts Onyx::Config.permission_group_contains? :creator, Models::User.permissions[:create]
     end
-=begin
-    get '/' do
-        content_type 'text/html'
-        send_file './app/frontend/index.html'
-    end
-=end
   end
 end

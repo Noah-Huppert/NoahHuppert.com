@@ -1,28 +1,10 @@
 <style is="custom-style">
-  html, body{
-    @apply(--paper-font-common-base);
-  }
-
-  :root{
-      /* before was --paper-green-* */
-    --dark-primary-color: var(--paper-teal-a700);
-    --default-primary-color: var(--paper-teal-a400);
-    --light-primary-color: var(--paper-teal-a100);
-    --text-primary-color: #FFFFFF;
-    --accent-color: var(--paper-purple-a700);
-    --primary-background-color: #c5cae9;
-    --primary-text-color: #212121;
-    --secondary-text-color: #727272;
-    --disabled-text-color: #bdbdbd;
-    --divider-color: #B6B6B6;
-
-    --paper-tabs-selection-bar-color: var(--accent-color);
-    --paper-tab-ink: var(--accent-color);
-    --paper-tabs: {
-        margin-right: auto;
-        margin-left: auto;
-        max-width: 600px;
-        font-size: 16px;
+    html{
+        @apply(--paper-font-common-base);
     }
-  }
+
+    a{
+        color: var(--text-primary-color);
+        text-decoration: none;
+    }
 </style>

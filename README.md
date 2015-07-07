@@ -1,6 +1,19 @@
 #Onyx Sinatra
 A new version of NoahHuppert.com using Sinatra instead of NodeJs
 
+#Running
+To run Onyx use the following command while in the project root
+
+```bash
+rackup
+```
+
+To run the project with autoreload run the following command while in the project root
+
+```bash
+rerun rackup
+```
+
 #Using with Openshift
 I am using Openshift to host NoahHuppert.com  
 

@@ -2,11 +2,19 @@ require 'sinatra'
 require 'sinatra/respond_with'
 require 'sequel'
 require 'yaml'
+require 'better_errors'
 
 require './app/config/config'
 
 module Onyx
   class App < Sinatra::Base
+    configure :development do
+      use BetterErrors::Middleware
+      # you need to set the application root in order to abbreviate filenames
+      # within the application:
+      BetterErrors.application_root = File.expand_path('..', __FILE__)
+    end
+
     configure do
       register Sinatra::RespondWith
       respond_to :json
@@ -32,8 +40,6 @@ module Onyx
 
       # Load permission_groups after models are set up
       require './app/config/permission_groups'
-
-      puts Onyx::Config.permission_group_contains? :creator, Models::User.permissions[:create]
     end
   end
 end

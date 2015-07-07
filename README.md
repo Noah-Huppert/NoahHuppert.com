@@ -38,6 +38,7 @@ Then run the following commands:
 ```sql
 CREATE USER 'onyx_dev'@'localhost' IDENTIFIED BY 'password';
 GRANT ALL PRIVILEGES ON *.* TO 'onyx_dev'@'localhost';
+FLUSH PRIVILEGES;
 ```
 
 You must also create the `onyx_dev` database. To do so access the

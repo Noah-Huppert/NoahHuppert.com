@@ -7,13 +7,13 @@ module Onyx
                 Models::Post.permissions[:self][:get],
                 Models::Post.permissions[:peers][:get],
                 Models::PostMeta.permissions[:self][:get],
-                Models::PostMeta.permissions[:peers][:get]
+                Models::PostMeta.permissions[:peers][:get],
+                Models::Post.permissions[:peers][:identity][:get],
             ],
             :user => [
                 Models::User.permissions[:self][:get],
                 Models::User.permissions[:self][:set],
                 Models::User.permissions[:self][:delete],
-                Models::User.permissions[:peers][:get],
                 Models::ProviderAccessToken.permissions[:self][:identity][:get],
                 Models::ProviderAccessToken.permissions[:self][:delete],
                 Models::ApiAccessToken.permissions[:self][:get],
@@ -34,6 +34,7 @@ module Onyx
                 Models::PostMeta.permissions[:peers][:delete]
             ],
             :admin => [
+                Models::User.permissions[:peers][:get],
                 Models::User.permissions[:peers][:set],
                 Models::User.permissions[:peers][:delete],
                 Models::User.permissions[:create],

@@ -8,13 +8,15 @@ To run Onyx use the following command while in the project root
 rackup
 ```
 
-To run the project with autoreload run the following command while in the project root
+To run the project with autoreload run the following command while in the project root  
+
+***Note:*** *You must have the `rerun` gem installed(`gem install rerun`)*
 
 ```bash
 rerun rackup
 ```
 
-#Using with Openshift
+#Running on Openshift
 I am using Openshift to host NoahHuppert.com  
 
 For the app to launch correctly you must ssh install your Openshift app and run
@@ -46,3 +48,19 @@ Then run the following commands:
 ```sql
 CREATE DATABASE 'onyx_dev';
 ```
+#Git Commit Style Guide
+Usually I will try to write my commit messages as sentences. For example
+
+```text
+Switched backend config from .yml to .rb files
+```
+However, on occasion I will forget to commit all day and a commit will contain a
+large amount of changes. In this case I use the following shorthand in my commit
+messages
+
+- Changes split by `,`
+- `[B]` prepending a change indicates it is a ***backend*** change
+- `[F]` prepending a change indicates it is a ***frontend*** change
+- `+` added
+- `-` removed
+- `~` changed

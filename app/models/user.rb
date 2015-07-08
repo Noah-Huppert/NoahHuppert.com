@@ -6,7 +6,7 @@ module Onyx
         plugin :json_serializer
 
         @permissions = Helpers.generate_permissions_hash 'user'
-        @permissions[:peers][:identity] = {:get => 'user.peers.identity.get'}
+        @permissions[:peers][:identity] = { :get => 'user.peers.identity.get' }
 
         class << self
             attr_accessor :permissions

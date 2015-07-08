@@ -8,7 +8,7 @@ module Onyx
                 Models::Post.permissions[:peers][:get],
                 Models::PostMeta.permissions[:self][:get],
                 Models::PostMeta.permissions[:peers][:get],
-                Models::Post.permissions[:peers][:identity][:get],
+                Models::User.permissions[:peers][:identity][:get]
             ],
             :user => [
                 Models::User.permissions[:self][:get],
@@ -52,20 +52,27 @@ module Onyx
             ]
         }
 
-        def self.permission_group_contains?(group, permission)
-            @PERMISSION_GROUPS.each do |permission_group, permissions|
-                if permissions.include? permission
-                    return true
-                end
-
-                if permission_group == group
-                    return false
-                end
-            end
-        end# self.permission_group_contains?
-
         class << self
             attr_accessor :PERMISSION_GROUPS
         end
+
+        module Permissions
+            # Determines if the given permission group contains the given permission
+            #
+            # @param group [Symbol] The user group to check
+            # @param permission [String] The permission to check for
+            # @return [Boolean] If the permission group contains the permission
+            def self.permission_group_contains?(group, permission)
+                Config.PERMISSION_GROUPS.each do |permission_group, permissions|
+                    if permissions.include? permission
+                        return true
+                    end
+
+                    if permission_group.to_s == group.to_s
+                        return false
+                    end
+                end
+            end# self.permission_group_contains?
+        end# Permissions
     end# Config
 end# Onyx

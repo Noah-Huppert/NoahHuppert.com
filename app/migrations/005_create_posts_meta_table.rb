@@ -1,7 +1,7 @@
 Sequel.migration do
   up do
     create_table :posts_meta do
-      primary_key :id
+      primary_key :id             , :null => false
       foreign_key :post_id, :posts, :null => false
       String      :type   ,         :null => false
       String      :data   ,         :null => false

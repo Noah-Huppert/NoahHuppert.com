@@ -30,6 +30,13 @@ has Rack `1.6.1` as a dependency so the 2 versions conflict. Explicitly installi
 Rack `1.6.1` fixes this issue
 
 #Setting up MySql for local development
+When using Ubuntu I had issues installing the mysql gem, to fix this I had to install
+`libmysqlclient-dev`  
+
+```bash
+sudo apt-get install libmysqlclient-dev
+```
+
 For development you must create the user `onyx_dev`. To do so access the
 Mysql console(`mysql -u root -p`)
 
@@ -47,7 +54,7 @@ Mysql console(`mysql -u root -p`)
 Then run the following commands:
 
 ```sql
-CREATE DATABASE 'onyx_dev';
+CREATE DATABASE onyx_dev;
 ```
 #Git Commit Style Guide
 Usually I will try to write my commit messages as sentences. For example

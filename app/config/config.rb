@@ -14,12 +14,14 @@ module Onyx
                 :test => {
                     :host => '127.0.0.1',
                     :port => 3306,
+                    :database => 'onyx_test',
                     :username => 'travis',
                     :password => ''
                 },
                 :production => {
                     :host => ENV['OPENSHIFT_mysql_DB_HOST'],
                     :port => ENV['OPENSHIFT_mysql_DB_PORT'],
+                    :database => ENV['OPENSHIFT_mysql_DB_DATABASE']
                     :username => ENV['OPENSHIFT_mysql_DB_USERNAME'],
                     :password => ENV['OPENSHIFT_mysql_DB_PASSWORD']
                 }

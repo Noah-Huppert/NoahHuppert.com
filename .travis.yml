@@ -24,6 +24,7 @@ after_success:
     - ls -a
     - git config --global user.email "travis@host.tld"
     - git config --global user.name "Travis CI"
+    - git add .gitignore
     - git add bower_components -f
     - git commit -m "Travis Build #$TRAVIS_BUILD_NUMBER(GH Commit $TRAVIS_COMMIT)"
 

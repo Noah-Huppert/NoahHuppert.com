@@ -27,10 +27,10 @@ deploy:
         secure: GODmU1SxOafBKN5EtqZzHZGx+WlV9wBnFn66D3HjTsUVyuWrWFzJQ9RR0PElibyw9+fX4xt4ThaK4HhcgP8YNmy+T1NgIz7ZNGM2yWF9bMyGeCMKKnbdZ9oAvKod3PVtZOsxdfl+h0mU+IDySDr2nu34adyX5sZe/Dy6XMiq0X4=
     app: onyx
     domain: noahhuppert
+    deployment_branch: master
     on:
         repo: Noah-Huppert/NoahHuppert.com
         branch: onyx-sinatra
-        deployment_branch: master
 
 env:
     - RACK_ENV=test

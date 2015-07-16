@@ -19,6 +19,12 @@ before_script:
 # Run tests, right now there are none, so return 0
 script: return 0
 
+after_success:
+    - git config user.email "travis@host.tld" --global
+    - git config user.name "Travis CI"
+    - git add --all
+    - git commit -m "Travis build $TRAVIS_COMMIT"
+
 # Deploy To Openshift
 deploy:
     provider: openshift

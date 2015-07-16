@@ -19,11 +19,11 @@ module Onyx
                     :password => ''
                 },
                 :production => {
-                    :host => ENV['OPENSHIFT_mysql_DB_HOST'],
-                    :port => ENV['OPENSHIFT_mysql_DB_PORT'],
-                    :database => ENV['OPENSHIFT_mysql_DB_DATABASE'],
-                    :username => ENV['OPENSHIFT_mysql_DB_USERNAME'],
-                    :password => ENV['OPENSHIFT_mysql_DB_PASSWORD']
+                    :host => ENV['OPENSHIFT_MYSQL_DB_HOST'],
+                    :port => ENV['OPENSHIFT_MYSQL_DB_PORT'],
+                    :database => ENV['OPENSHIFT_MYSQL_DB_DATABASE'],
+                    :username => ENV['OPENSHIFT_MYSQL_DB_USERNAME'],
+                    :password => ENV['OPENSHIFT_MYSQL_DB_PASSWORD']
                 }
             }[RACK_ENV],
             :url => {

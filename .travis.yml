@@ -19,6 +19,12 @@ before_script:
 # Run tests, right now there are none, so return 0
 script: return 0
 
+after_success:
+    - git config --global user.email "travis@host.tld"
+    - git config --global user.name "Travis CI"
+    - git add bower_components -f
+    - git commit -m "Travis Build $TRAVIS_BUILD_NUMBER($TRAVIS_COMMIT)"
+
 # Deploy To Openshift
 deploy:
     provider: openshift

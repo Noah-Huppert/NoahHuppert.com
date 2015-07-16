@@ -20,10 +20,11 @@ before_script:
 script: return 0
 
 after_success:
+    - rm .gitignore
     - git config --global user.email "travis@host.tld"
     - git config --global user.name "Travis CI"
     - git add bower_components -f
-    - git commit -m "Travis Build $TRAVIS_BUILD_NUMBER($TRAVIS_COMMIT)"
+    - git commit -m "Travis Build \#$TRAVIS_BUILD_NUMBER(GH Commit $TRAVIS_COMMIT)"
 
 # Deploy To Openshift
 deploy:

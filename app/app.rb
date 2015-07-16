@@ -2,8 +2,6 @@ require 'sinatra/base'
 require 'sinatra/respond_with'
 require 'sequel'
 require 'dotenv'
-require 'omniauth'
-require 'omniauth-google-oauth2'
 
 Dotenv.load
 
@@ -19,15 +17,6 @@ module Onyx
                                        :path => '/',
                                        :expire_after => 1209600,# 2 weeks
                                        :secret => Config.CONFIG[:cookies_secret]
-
-            use OmniAuth::Builder do
-                provider :google_oauth2, Config.CONFIG[:api][:v2][:auth][:google][:client_id], Config.CONFIG[:api][:v2][:auth][:google][:client_secret],
-                {
-                    :name => 'google',
-                    :path_prefix => "#{Config.CONFIG[:api][:v2][:root]}/auth",
-                    :callback_path => "#{Config.CONFIG[:api][:v2][:root]}/auth/google/callback"
-                }
-            end
 
             use Rack::Static, :urls => ['/css', '/js'], :root => './public'
             use Rack::Static, :urls => ['/components', '/pages'], :root => './views'

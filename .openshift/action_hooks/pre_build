@@ -1,5 +1,8 @@
 #!/bin/bash
 echo "[Onyx] Pre-Build"
-if !hash bower 2>/dev/null; then
+if hash bower 2>/dev/null; then
+    echo "[Onyx] Bower installed"
+else
+    echo "[Onyx] Bower not installed"
     npm install -g bower
 fi

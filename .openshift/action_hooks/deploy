@@ -1,4 +1,5 @@
 #!/bin/bash
 echo "[Onyx] Deploy"
 cd ../../
+pwd
 bundle exec rackup

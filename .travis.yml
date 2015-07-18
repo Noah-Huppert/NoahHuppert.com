@@ -7,7 +7,7 @@ rvm:
 
 # Use MySQL database for tests
 services:
-    - mysql
+    # - mysql
 
 before_script:
     # Setup MySQL database for tests

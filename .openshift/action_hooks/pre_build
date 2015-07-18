@@ -4,5 +4,5 @@ if hash bower 2>/dev/null; then
     echo "[Onyx] Bower installed"
 else
     echo "[Onyx] Bower not installed"
-    npm install -g bower
+    sudo npm install -g bower
 fi

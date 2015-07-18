@@ -1,3 +1,4 @@
 #!/bin/bash
 echo "[Onyx] Pre-Build NULL"
-#npm install bower
+cd ~/app-root/repo
+npm install bower

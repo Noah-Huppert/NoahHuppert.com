@@ -1,3 +1,4 @@
 #!/bin/bash
 echo "[Onyx] Build NULL"
-#node node_modules/bower/bin/bower install
+cd ~/app-root/repo
+node node_modules/bower/bin/bower install

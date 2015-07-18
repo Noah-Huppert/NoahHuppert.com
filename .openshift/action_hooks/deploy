@@ -1,4 +1,0 @@
-#!/bin/bash
-echo "[Onyx] Deploy"
-cd ~/app-root/repo
-bundle exec rackup

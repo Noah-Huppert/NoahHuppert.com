@@ -1,6 +1,4 @@
 #!/bin/bash
 echo "[Onyx] Build"
 cd ~/app-root/repo
-pwd
-ls -a
 node node_modules/bower/bin/bower install

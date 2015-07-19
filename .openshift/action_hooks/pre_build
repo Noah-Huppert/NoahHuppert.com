@@ -1,6 +1,4 @@
 #!/bin/bash
 echo "[Onyx] Pre-Build"
 cd ~/app-root/repo
-pwd
-ls -a
 npm install bower

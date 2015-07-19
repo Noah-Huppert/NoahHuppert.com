@@ -13,23 +13,21 @@ before_script:
     # Setup MySQL database for tests
     # - mysql -e 'CREATE DATABASE onyx_test'
     # Install Bower libs
-    # - npm install -g bower
-    # - bower install
+    - npm install -g bower
+    - bower install
 
 # Run tests, right now there are none, so return 0
 script: return 0
 
-# Deploy To Openshift
-deploy:
-    provider: openshift
-    user: noahhuppert@gmail.com
-    password:
-        secure: GODmU1SxOafBKN5EtqZzHZGx+WlV9wBnFn66D3HjTsUVyuWrWFzJQ9RR0PElibyw9+fX4xt4ThaK4HhcgP8YNmy+T1NgIz7ZNGM2yWF9bMyGeCMKKnbdZ9oAvKod3PVtZOsxdfl+h0mU+IDySDr2nu34adyX5sZe/Dy6XMiq0X4=
-    app: onyx
-    domain: noahhuppert
-    on:
-        repo: Noah-Huppert/NoahHuppert.com
-        branch: onyx-sinatra
+# Deploy to Dokku
+after_success:
+    - git config --global user.email "noahhuppert@gmail.com"
+    - git config --global user.name "Noah Huppert"
+    - git add remote dokku dokku:noahhuppert.com:www
+    - git add bower_components -f
+    - git commit -m "Travis Build $TRAVIS_BUILD_NUMBER(GH Commit $TRAVIS_COMMIT)"
+    - git status
+    - git push dokku master
 
 env:
     - RACK_ENV=test

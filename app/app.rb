@@ -1,7 +1,7 @@
 require 'sinatra/base'
 require 'sinatra/respond_with'
 require 'sequel'
-require 'dotenv'
+require 'oauth2'
 
 Dotenv.load
 
@@ -15,8 +15,8 @@ module Onyx
             use Rack::Session::Cookie, :key => 'rack.session',
                                        :domain => Config.CONFIG[:url],
                                        :path => '/',
-                                       :expire_after => 1209600,# 2 weeks
-                                       :secret => Config.CONFIG[:cookies_secret]
+                                       :expire_after => Config.CONFIG[:cookies][:expire_after],
+                                       :secret => Config.CONFIG[:cookies][:secret]
 
             use Rack::Static, :urls => ['/css', '/js'], :root => './public'
             use Rack::Static, :urls => ['/components', '/pages'], :root => './views'

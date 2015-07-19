@@ -31,7 +31,10 @@ module Onyx
                 :test => '127.0.0.1:9292',
                 :production => 'http://www.noahhuppert.com'
             }[RACK_ENV],
-            :cookies_secret => ENV['COOKIES_SECRET'],
+            :cookies => {
+                :secret => ENV['COOKIES_SECRET'],
+                :expire_after => 1209600# 2 weeks
+            },
             :api => {
                 :v2 => {
                     :root => '/api/v2',
@@ -41,6 +44,7 @@ module Onyx
                     },
                     :auth => {
                         :google => {
+                            :api_root => 'https://accounts.google.com/'
                             :client_id => ENV['GOOGLE_CLIENT_ID'],
                             :client_secret => ENV['GOOGLE_CLIENT_SECRET']
                         }

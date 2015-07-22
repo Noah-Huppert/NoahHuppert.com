@@ -3,7 +3,10 @@ require 'sinatra/respond_with'
 require 'sequel'
 require 'oauth2'
 
-Dotenv.load
+if ENV['RACK_ENV'] == 'development'
+    require 'dotenv'
+    Dotenv.load
+end
 
 require './app/config/config'
 require './app/routes/base'
@@ -12,12 +15,6 @@ module Onyx
     class App < Sinatra::Base
 
         configure do
-            use Rack::Session::Cookie, :key => 'rack.session',
-                                       :domain => Config.CONFIG[:url],
-                                       :path => '/',
-                                       :expire_after => Config.CONFIG[:cookies][:expire_after],
-                                       :secret => Config.CONFIG[:cookies][:secret]
-
             use Rack::Static, :urls => ['/css', '/js'], :root => './public'
             use Rack::Static, :urls => ['/components', '/pages'], :root => './views'
             use Rack::Static, :urls => ['/bower_components'],

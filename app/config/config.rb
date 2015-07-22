@@ -19,16 +19,16 @@ module Onyx
                     :password => ''
                 },
                 :production => {
-                    :host => ENV['OPENSHIFT_MYSQL_DB_HOST'],
-                    :port => ENV['OPENSHIFT_MYSQL_DB_PORT'],
+                    :host => ENV['MYSQL_DB_HOST'],
+                    :port => ENV['MYSQL_DB_PORT'],
                     :database => 'onyx',
-                    :username => ENV['OPENSHIFT_MYSQL_DB_USERNAME'],
-                    :password => ENV['OPENSHIFT_MYSQL_DB_PASSWORD']
+                    :username => ENV['MYSQL_DB_USERNAME'],
+                    :password => ENV['MYSQL_DB_PASSWORD']
                 }
             }[RACK_ENV],
             :url => {
-                :development => '127.0.0.1:9292',
-                :test => '127.0.0.1:9292',
+                :development => 'http://127.0.0.1:9292',
+                :test => 'http://127.0.0.1:9292',
                 :production => 'http://www.noahhuppert.com'
             }[RACK_ENV],
             :cookies => {
@@ -44,7 +44,7 @@ module Onyx
                     },
                     :auth => {
                         :google => {
-                            :api_root => 'https://accounts.google.com/'
+                            :api_root => 'https://accounts.google.com/',
                             :client_id => ENV['GOOGLE_CLIENT_ID'],
                             :client_secret => ENV['GOOGLE_CLIENT_SECRET']
                         }

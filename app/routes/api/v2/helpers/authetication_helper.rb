@@ -15,7 +15,7 @@ module Onyx
                     #   permission
                     # @return [Hash] A hash containing the retrieved user(:user)
                     #   and the access_token(:access_token)
-                    def has_permissions!(permissions, &block)
+                    def has_permissions!(permissions)
                         if permissions.is_a?(String)
                             permissions = [permissions]
                         end

@@ -1,7 +1,7 @@
 Sequel.migration do
   up do
     create_table :provider_access_tokens do
-      foreign_key :user_id      , :users, :null => false
+      primary_key :user_id      ,         :null => false
       String      :provider     ,         :null => false
       String      :access_token ,         :null => false
       String      :refresh_token,         :null => false

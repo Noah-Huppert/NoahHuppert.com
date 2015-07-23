@@ -46,7 +46,13 @@ module Onyx
                         :google => {
                             :api_root => 'https://accounts.google.com/',
                             :client_id => ENV['GOOGLE_CLIENT_ID'],
-                            :client_secret => ENV['GOOGLE_CLIENT_SECRET']
+                            :client_secret => ENV['GOOGLE_CLIENT_SECRET'],
+                            :errors => {
+                                :google_retrieve_oauth_code_error => 'google_retrieve_oauth_code_error',
+                                :google_retrieve_oauth_token_error => 'google_retrieve_oauth_token_error',
+                                :google_retrieve_access_token_owner_info_error => 'google_retrieve_access_token_owner_info_error',
+                                :insecure_state => 'insecure_state'
+                            }
                         }
                     }
                 }

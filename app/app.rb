@@ -13,7 +13,6 @@ require './app/routes/base'
 
 module Onyx
     class App < Sinatra::Base
-
         configure do
             use Rack::Static, :urls => ['/css', '/js'], :root => './public'
             use Rack::Static, :urls => ['/components', '/pages'], :root => './views'
@@ -36,9 +35,12 @@ module Onyx
 
             # Load permission_groups after models are set up
             require './app/config/permission_groups'
-        end#configure
+        end# configure
 
-        #Register routes
+        # Register routes
         use Routes::Base
+
+        # Start Threads
+        require './app/threads/base'
     end# App
 end# Onyx

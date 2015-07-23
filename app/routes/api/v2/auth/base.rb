@@ -1,3 +1,6 @@
+require './app/routes/api/v2/auth/helpers/redirect_helper'
+require './app/routes/api/v2/auth/helpers/google_oauth_helpers'
+
 require './app/routes/api/v2/auth/google'
 
 module Onyx

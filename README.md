@@ -56,6 +56,27 @@ Then run the following commands:
 ```sql
 CREATE DATABASE onyx_dev;
 ```
+
+# Viewing Dev Database
+To view and perform actions on the database enter the mysql console
+
+```
+mysql -u onyx_dev -p
+```
+*You will be prompted to enter your password, do so*
+
+Then `use` the database
+
+```sql
+USE onyx_dev;
+```
+
+Finally tell Mysql to display data in a good looking way
+
+```sql
+pager less -SFX
+```
+
 #Git Commit Style Guide
 Usually I will try to write my commit messages as sentences. For example
 

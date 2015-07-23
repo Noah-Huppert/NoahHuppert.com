@@ -3,6 +3,8 @@ require './app/models/helpers/permissions_helper'
 module Onyx
   module Models
     class Post < Sequel::Model
+        plugin :json_serializer
+
         @permissions = Helpers.generate_permissions_hash 'post'
 
         class << self

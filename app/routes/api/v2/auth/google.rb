@@ -52,70 +52,62 @@ module Onyx
 
                             session[:csrft] = nil
 
-                            # Get access token
-                            provider_access_token = GoogleOAuth.exchange_code_for_access_token params[:code]
+                            # Get provider access token
+                            retrieved_provider_access_token = GoogleOAuth.exchange_code_for_access_token params[:code]
 
-                            if provider_access_token.nil?
+                            if retrieved_provider_access_token.nil?
                                 onyx_api_redirect Config.CONFIG[:api][:v2][:auth][:google][:errors][:google_retrieve_oauth_token_error]
                             end
 
                             # Get user from access token
-                            user = GoogleOAuth.retrieve_access_token_owner_info provider_access_token.access_token
+                            retrieved_user = GoogleOAuth.retrieve_access_token_owner_info retrieved_provider_access_token.access_token
 
-                            if user.nil?
+                            if retrieved_user.nil?
                                 onyx_api_redirect Config.CONFIG[:api][:v2][:auth][:google][:errors][:google_retrieve_access_token_owner_info_error]
                             end
 
-                            # Query database for user
-                            db_user = Models::User.where(:email => user.email).first
+                            db_user = Models::User.where(:email => retrieved_user.email).select(:id).first
 
-                            # Create user if does not exist
                             if db_user.nil?
-                                user.permission_group = 'viewer'
-                                db_user = user.save
-                            else
-                                user.update(
-                                    :first_name => db_user.first_name,
-                                    :last_name => db_user.last_name,
-                                    :email => db_user.email,
-                                    :avatar_uri => db_user.avatar_uri,
-                                    :permission_group => db_user.permission_group
-                                )
+                                retrieved_user.permission_group = :viewer
+                                db_user = retrieved_user.save
+                            else# Else update current
+                                db_user.first_name = retrieved_user.first_name
+                                db_user.last_name = retrieved_user.last_name
+                                db_user.avatar_uri = retrieved_user.avatar_uri
+
+                                db_user.save_changes
                             end
 
-                            # Update and save provider access token
-                            db_provider_access_token = Models::ProviderAccessToken.where(:user_id => db_user.id, :provider => Models::ProviderAccessToken.providers[:google]).first
+                            # Update or create provider access token
+                            db_provider_access_token = Models::ProviderAccessToken.where(
+                                :user_id => db_user.id,
+                                :provider => Models::ProviderAccessToken.providers[:google]
+                            ).select(:id, :user_id).first
 
                             if db_provider_access_token.nil?
-                                provider_access_token.user_id = db_user.id
-                                db_provider_access_token = provider_access_token.save
-                            else
-                                provider_access_token.update(
-                                    :provider => db_provider_access_token.provider,
-                                    :access_token => db_provider_access_token.access_token,
-                                    :refresh_token => db_provider_access_token.refresh_token,
-                                    :expires_on => db_provider_access_token.expires_on
-                                )
+                                retrieved_provider_access_token.user_id = db_user.id
+                                db_provider_access_token = retrieved_provider_access_token.save
+                            else# Else update current
+                                db_provider_access_token.access_token = retrieved_provider_access_token.access_token
+                                db_provider_access_token.refresh_token = retrieved_provider_access_token.refresh_token
+                                db_provider_access_token.expires_on = retrieved_provider_access_token.expires_on
+
+                                db_provider_access_token.save_changes
                             end
 
-                            # Find api access token
-                            api_access_token = Models::ApiAccessToken.generate
-                            api_access_token.user_id = db_user.id
-
-                            db_api_access_token = Models::ApiAccessToken.where(:user_id => db_user.id).first
+                            # Update or create api access token
+                            db_api_access_token = Models::ApiAccessToken.where(:user_id => db_user.id).select(:access_token, :expires_on)
 
                             if db_api_access_token.nil?
-                                db_api_access_token = api_access_token.save
-                            else
-                                api_access_token.access_token = db_api_access_token.access_token
-                                api_access_token.update(
-                                    :access_token => db_api_access_token.access_token,
-                                    :expires_on => db_api_access_token.expires_on
-                                )
+                                db_api_access_token = Models::ApiAccessToken.generate
+                                db_api_access_token.save
+                            else# Else update
+                                db_api_access_token.expires_on = DateTime.now + 14
+                                db_api_access_token.save_changes
                             end
 
-                            # Save important session vars
-                            session[:access_token] = api_access_token.access_token
+                            session[:access_token] = db_api_access_token.access_token
 
                             onyx_api_redirect
                         end

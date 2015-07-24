@@ -1,13 +1,14 @@
 Sequel.migration do
-  up do
-    create_table :api_access_tokens do
-      primary_key :user_id     ,         :null => false
-      String      :access_token,         :null => false
-      DateTime    :expires_on  ,         :null => false
+    up do
+        create_table :api_access_tokens do
+            primary_key :id          ,         :null => false
+            foreign_key :user_id     , :users, :null => false
+            String      :access_token,         :null => false
+            DateTime    :expires_on  ,         :null => false
+        end
     end
-  end
 
-  down do
-    drop_table :api_access_tokens
-  end
+    down do
+        drop_table :api_access_tokens
+    end
 end

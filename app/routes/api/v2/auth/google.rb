@@ -83,7 +83,7 @@ module Onyx
                             db_provider_access_token = Models::ProviderAccessToken.where(
                                 :user_id => db_user.id,
                                 :provider => Models::ProviderAccessToken.providers[:google]
-                            ).select(:id, :user_id).first
+                            ).first
 
                             if db_provider_access_token.nil?
                                 retrieved_provider_access_token.user_id = db_user.id
@@ -97,17 +97,18 @@ module Onyx
                             end
 
                             # Update or create api access token
-                            db_api_access_token = Models::ApiAccessToken.where(:user_id => db_user.id).select(:access_token, :expires_on)
+                            db_api_access_token = Models::ApiAccessToken.where(:user_id => db_user.id).first
 
                             if db_api_access_token.nil?
                                 db_api_access_token = Models::ApiAccessToken.generate
+                                db_api_access_token.user_id = db_user.id
                                 db_api_access_token.save
                             else# Else update
                                 db_api_access_token.expires_on = DateTime.now + 14
                                 db_api_access_token.save_changes
                             end
 
-                            session[:access_token] = db_api_access_token.access_token
+                            cookies[:access_token] = db_api_access_token.access_token
 
                             onyx_api_redirect
                         end

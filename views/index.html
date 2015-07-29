@@ -8,6 +8,7 @@
 
     <!-- Javascript -->
     <script src="/bower_components/webcomponentsjs/webcomponents.min.js"></script>
+    <script src="/bower_components/js-cookie/src/js.cookie.js"></script>
     <link rel="import" href="/js/routing.html">
 
     <!-- Styles -->
@@ -17,35 +18,51 @@
 
     <!-- Web Components -->
     <link rel="import" href="/bower_components/polymer/polymer.html">
+    <link rel="import" href="/bower_components/paper-drawer-panel/paper-drawer-panel.html">
+    <link rel="import" href="/bower_components/paper-header-panel/paper-header-panel.html">
     <link rel="import" href="/bower_components/paper-toolbar/paper-toolbar.html">
+    <link rel="import" href="/bower_components/iron-icons/iron-icons.html">
+    <link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
     <link rel="import" href="/bower_components/paper-tabs/paper-tabs.html">
     <link rel="import" href="/bower_components/iron-pages/iron-pages.html">
+    <link rel="import" href="/bower_components/paper-button/paper-button.html">
 
     <link rel="import" href="/components/onyx-page.html">
 </head>
 <body class="fullbleed" unresolved>
     <template is="dom-bind" id="app">
-        <paper-toolbar class="medium-tall">
-          <div class="title">
-              <a href="/">Noah Huppert</a> - <span>[[routeName]]</span>
-          </div>
+        <paper-drawer-panel force-narrow>
+            <paper-header-panel drawer>
+                <onyx-page src="/includes/navigation_drawer.html"></onyx-page>
+            </paper-header-panel>
 
-          <paper-tabs attr-for-selected="data-route" selected="[[route]]" class="bottom self-end flex">
-              <paper-tab data-route="projects">
-                  <a href="/projects" class="horizontal center-center layout">Projects</a>
-              </paper-tab>
-              <paper-tab data-route="skills">
-                  <a href="/skills" class="horizontal center-center layout">Skills</a>
-              </paper-tab>
-              <paper-tab data-route="about-me">
-                  <a href="/about-me" class="horizontal center-center layout">About Me</a>
-              </paper-tab>
-          </paper-tabs>
-        </paper-toolbar>
+            <paper-header-panel main>
+                <paper-toolbar class="medium-tall">
+                    <paper-icon-button icon="menu" paper-drawer-toggle></paper-icon-button>
 
-        <iron-pages attr-for-selected="data-route" selected="{{route}}">
-            <onyx-page data-route="projects" src="/pages/projects.html"></onyx-page>
-        </iron-pages>
+                    <div class="title">
+                        <a href="/">Noah Huppert</a> - <span>[[routeName]]</span>
+                    </div>
+
+                    <paper-tabs attr-for-selected="data-route" selected="[[route]]" class="bottom self-end flex">
+                        <paper-tab data-route="projects">
+                            <a href="/projects" class="horizontal center-center layout">Projects</a>
+                        </paper-tab>
+                        <paper-tab data-route="skills">
+                            <a href="/skills" class="horizontal center-center layout">Skills</a>
+                        </paper-tab>
+                        <paper-tab data-route="about-me">
+                            <a href="/about-me" class="horizontal center-center layout">About Me</a>
+                        </paper-tab>
+                    </paper-tabs>
+                </paper-toolbar>
+
+                <iron-pages attr-for-selected="data-route" selected="{{route}}">
+                    <onyx-page data-route="projects" src="/pages/projects.html"></onyx-page>
+                </iron-pages>
+            </paper-header-panel>
+
+        </paper-drawer-panel>
     </template>
 
     <script src="/js/app.js"></script>

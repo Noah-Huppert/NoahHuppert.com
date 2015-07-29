@@ -1,5 +1,6 @@
 require 'sinatra/base'
 require 'sinatra/respond_with'
+
 require 'sequel'
 require 'oauth2'
 
@@ -15,7 +16,7 @@ module Onyx
     class App < Sinatra::Base
         configure do
             use Rack::Static, :urls => ['/css', '/js'], :root => './public'
-            use Rack::Static, :urls => ['/components', '/pages'], :root => './views'
+            use Rack::Static, :urls => ['/components', '/pages', '/includes'], :root => './views'
             use Rack::Static, :urls => ['/bower_components'],
                               :index => './views/index.html'
 

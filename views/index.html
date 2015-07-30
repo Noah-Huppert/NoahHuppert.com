@@ -52,10 +52,17 @@
                             <a href="/skills" class="horizontal center-center layout">Skills</a>
                         </paper-tab>
                         <paper-tab data-route="about-me">
-                            <a href="/about-me" class="horizontal center-center layout">About Me</a>
+                            <a href="/about-me" class="horizontal center-center layout">About Me</span></a>
                         </paper-tab>
                     </paper-tabs>
                 </paper-toolbar>
+
+                <iron-ajax
+                    auto
+                    url="/api/v2/api_access_tokens"
+                    params='{"access_token": "{{Auth.ApiAccessToken.access_token}}"}'
+                    handle-as="json"
+                    on-response="Auth.LoadCallbacks.identifyApiAccessToken"></iron-ajax>
 
                 <iron-pages attr-for-selected="data-route" selected="{{route}}">
                     <onyx-page data-route="projects" src="/pages/projects.html"></onyx-page>

@@ -1,0 +1,37 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
+
+<dom-module is="api-request">
+    <template>
+        <iron-ajax
+            auto
+            url=""></iron-ajax>
+    </template>
+
+    <script>
+        Polymer({
+            is: "api-request",
+
+            properties: {
+                apiRoot: {
+                    type: String,
+                    value: "/api/v2",
+                    optional: true,
+                    notify: true,
+                    observer: "_apiRootChanged"
+                },
+                endpoint: {
+                    type: String,
+                    notify: true,
+                    observer: "_endpointChanged"
+                }
+            },
+
+            requestUrl: "",
+
+            _computeRequestUrl: function(){
+                this.requestUrl = this.apiRoot + this.endpoint;
+            }
+        });
+    </script>
+</dom-module>

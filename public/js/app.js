@@ -1,23 +1,17 @@
-(function(document){
-    "use strict";
+"use strict";
 
-    var App = document.querySelector("#app");
+app.join = function(a, b){
+    return a + b;
+};
 
-    /* Authetication */
-    App.accessToken = Cookies.get("access_token");
-    App.isAutheticated = function(){
-        //TODO Make api access token endpoint to get user info from api access token
-    };
-
-    App.toggleNavigationDrawer = function(){
-        var navigationDrawer = document.querySelector("#navigation-drawer");
-        var active = navigationDrawer.getAttribute("data-active") === "true";
-
-        navigationDrawer.setAttribute("data-active", !active);
-    };
-
-    App.hideNavigationDrawer = function(){
-        var navigationDrawer = document.querySelector("#navigation-drawer");
-        navigationDrawer.setAttribute("data-active", "false");
-    };
-})(document);
+app.Auth = {
+    User: undefined,
+    ApiAccessToken: {
+        access_token: Cookies.get("access_token") || ""
+    },
+    LoadCallbacks: {
+        identifyApiAccessToken: function(body){
+            console.log(body);
+        }
+    }
+};

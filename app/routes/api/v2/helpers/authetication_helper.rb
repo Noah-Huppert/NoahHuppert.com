@@ -20,33 +20,44 @@ module Onyx
                             permissions = [permissions]
                         end
 
-                        provided_access_token = params[Config.CONFIG[:api][:v2][:access_token_key]]
-                        user = Models::User.new
-                        user.permission_group = :viewer
-
-                        if !provided_access_token.nil?
-                            raise 'Looks like we actually have an access_token'
-                        end
-
-                        return_payload = {
-                            :user => user,
-                            Config.CONFIG[:api][:v2][:access_token_key].to_sym => provided_access_token
+                        provided_access_token = params[:access_token]
+                        bad_access_token_response_object = {
+                            'errors' => [
+                                Config.CONFIG[:api][:v2][:errors][:bad_access_token]
+                            ]
                         }
 
-                        permissions.each do |permission|
-                            if !Config::Permissions.permission_group_contains? user.permission_group, permission
-                                status 401
+                        if provided_access_token.nil?
+                            status 401
+                            respond_with bad_access_token_response_object
+                        end
 
-                                respond_with ({
-                                    'errors' => [
-                                        Config.CONFIG[:api][:v2][:errors][:bad_access_token]
-                                    ]
-                                })
-                                return return_payload
+                        db_access_token = Models::ApiAccessToken.where(:access_token => provided_access_token).first
+
+                        if db_access_token.nil?
+                            status 401
+                            respond_with bad_access_token_response_object
+                        end
+
+                        db_user = Models::User.where(:id => db_access_token.user_id).first
+
+                        if db_user.nil?
+                            user_permission_group = :viewer
+                        else
+                            user_permission_group = db_user.permission_group
+                        end
+
+                        permissions.each do |permission|
+                            if !Config::Permissions.permission_group_contains? user_permission_group, permission
+                                status 401
+                                respond_with bad_access_token_response_object
                             end
                         end
 
-                        return return_payload
+                        return {
+                            :user => db_user,
+                            :access_token => db_access_token
+                        }
                     end# has_permissions
                 end# Helpers
             end# V2

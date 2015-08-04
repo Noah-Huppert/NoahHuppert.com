@@ -38,7 +38,9 @@ after_success:
     - git push dokku master
 
 addons:
-    ssh_known_hosts: noahhuppert.com
+    ssh_known_hosts:
+        - noahhuppert.com
+        - 162.243.187.22
 
 env:
     - RACK_ENV=test

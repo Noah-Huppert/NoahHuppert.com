@@ -33,7 +33,7 @@ after_success:
     - git config --global user.name "Noah Huppert"
 
     # Deploy
-    - git add remote dokku dokku@noahhuppert.com:www
+    - git remote add dokku dokku@noahhuppert.com:www
     - git push dokku master
 
 addons:

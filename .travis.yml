@@ -9,6 +9,9 @@ rvm:
 services:
     # - mysql
 
+before_install:
+    - openssl aes-256-cbc -K $encrypted_ad244848fc07_key -iv $encrypted_ad244848fc07_iv -in .travis/deploy_key.enc -out .travis/deploy_key -d
+
 before_script:
     # Setup MySQL database for tests
     # - mysql -e 'CREATE DATABASE onyx_test'
@@ -21,10 +24,20 @@ script: return 0
 
 # Deploy to Dokku
 after_success:
+    # Add SSH deploy key
+    - chmod 600 .travis/deploy_key
+    - ssh-add .travis/deploy_key
+
+    # Configure git
     - git config --global user.email "noahhuppert@gmail.com"
     - git config --global user.name "Noah Huppert"
+
+    # Deploy
     - git add remote dokku dokku@noahhuppert.com:www
     - git push dokku master
+
+addons:
+    ssh_known_hosts: noahhuppert.com
 
 env:
     - RACK_ENV=test

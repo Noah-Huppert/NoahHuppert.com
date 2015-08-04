@@ -26,6 +26,7 @@ script: return 0
 after_success:
     # Add SSH deploy key
     - chmod 600 .travis/deploy_key
+    - eval `ssh-agent -s`
     - ssh-add .travis/deploy_key
 
     # Configure git

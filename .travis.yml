@@ -13,8 +13,8 @@ before_script:
     # Setup MySQL database for tests
     # - mysql -e 'CREATE DATABASE onyx_test'
     # Install Bower libs
-    - npm install -g bower
-    - bower install
+    # - npm install -g bower
+    # - bower install
 
 # Run tests, right now there are none, so return 0
 script: return 0
@@ -23,10 +23,7 @@ script: return 0
 after_success:
     - git config --global user.email "noahhuppert@gmail.com"
     - git config --global user.name "Noah Huppert"
-    - git add remote dokku dokku:noahhuppert.com:www
-    - git add bower_components -f
-    - git commit -m "Travis Build $TRAVIS_BUILD_NUMBER(GH Commit $TRAVIS_COMMIT)"
-    - git status
+    - git add remote dokku dokku@noahhuppert.com:www
     - git push dokku master
 
 env:

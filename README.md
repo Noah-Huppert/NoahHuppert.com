@@ -21,7 +21,7 @@ I am using Openshift to host NoahHuppert.com
 
 For the app to launch correctly you must ssh install your Openshift app(`rhc ssh -a onyx`) and run
 
-```
+```bash
 gem install rack
 ```
 

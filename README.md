@@ -8,7 +8,7 @@ To run Onyx use the following command while in the project root
 rackup
 ```
 
-To run the project with autoreload run the following command while in the project root  
+To run the project with autoreload run the following command while in the project root
 
 ***Note:*** *You must have the `rerun` gem installed(`gem install rerun`)*
 
@@ -16,22 +16,9 @@ To run the project with autoreload run the following command while in the projec
 rerun rackup
 ```
 
-#Running on Openshift
-I am using Openshift to host NoahHuppert.com  
-
-For the app to launch correctly you must ssh install your Openshift app(`rhc ssh -a onyx`) and run
-
-```bash
-gem install rack
-```
-
-This is because for some reason Openshift wants to use Rack `1.5.2` but Sinatra
-has Rack `1.6.1` as a dependency so the 2 versions conflict. Explicitly installing
-Rack `1.6.1` fixes this issue
-
 #Setting up MySql for local development
 When using Ubuntu I had issues installing the mysql gem, to fix this I had to install
-`libmysqlclient-dev`  
+`libmysqlclient-dev`
 
 ```bash
 sudo apt-get install libmysqlclient-dev

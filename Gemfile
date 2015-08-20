@@ -1,7 +1,13 @@
 source 'https://rubygems.org'
 
-# Common
 gem 'sinatra'
-gem 'thin'
+gem 'sinatra-contrib'
 
-gem 'rspec', '~> 3.0', :group => [:development, :test]
+gem 'mysql'
+gem 'sequel'
+
+gem 'oauth2'
+
+group :development do
+    gem 'dotenv'
+end

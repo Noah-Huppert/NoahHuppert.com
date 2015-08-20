@@ -1,6 +1,2 @@
-node_modules
 bower_components
-.sass-cache
-secrets.js
-npm-debug.log
-src/client/css
+.env

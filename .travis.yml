@@ -1,43 +1,46 @@
-#Language Setup
-language: node_js
-node_js:
-- '0.12'
+# Use container based infrastructure
+sudo: false
 
-#Caching
-sudo: false #Enable container based infrastructure
-cache:
-- npm
-- bower
+language: ruby
+rvm:
+    - 2.2.2
 
-#Setup
-#Currently not doing before_install or install because tests are not being run
-#
-#before_install:
-#- rvm install ruby-2.2.2
-#- rvm use 2.2.2
-#- npm install bower -g
-#- gem install sass
-#install:
-#- npm install
-#- bower install
-#- sass --update src/client/scss:src/client/css
+# Use MySQL database for tests
+services:
+    # - mysql
 
-#Test
-script:
-  - npm test
+before_install:
+    - openssl aes-256-cbc -K $encrypted_ad244848fc07_key -iv $encrypted_ad244848fc07_iv -in .travis/deploy_key.enc -out .travis/deploy_key -d
 
-#Deploy
-deploy:
-  provider: heroku
-  api_key:
-    secure: GIKIDnUppbLU5WjCIDwOdp8a/Yga+YPANip84SpvO0ZOvnrSvgDxLLXPXa0LZOl1CoGVp07IMNeW2hZkbj/RCQrUhT4O9Yv4X1boveWPyJRcos5w/R14dzUIXLl+kaCF1xKUaWcs8CAyYDnegXQgkzgZqFCmZVknogGOHpgAb1k=
-  app: noahhuppert
+before_script:
+    # Setup MySQL database for tests
+    # - mysql -e 'CREATE DATABASE onyx_test'
+    # Install Bower libs
+    # - npm install -g bower
+    # - bower install
 
-#Global Setup
+# Run tests, right now there are none, so return 0
+script: return 0
+
+# Deploy to Dokku
+after_success:
+    # Add SSH deploy key
+    - chmod 600 .travis/deploy_key
+    - eval `ssh-agent -s`
+    - ssh-add .travis/deploy_key
+
+    # Configure git
+    - git config --global user.email "noahhuppert@gmail.com"
+    - git config --global user.name "Noah Huppert"
+
+    # Deploy
+    - git remote add dokku dokku@noahhuppert.com:www
+    - git push dokku master
+
+addons:
+    ssh_known_hosts:
+        - noahhuppert.com
+        - 162.243.187.22
+
 env:
-  global:
-  - secure: N5OqozdnOCJAVjvxIzHfa7eBQtEwn6le0I71pU8UNbnhmgqo+0XXWU0MbizOc8Z2NF7QNEm6muwQZQspL3AUk/pp7u+jVHSfpzzq73DzNQFTj9vp61cglQIeRQwf7XbwpfUH6C2OOMgizs8m+wfY3fK+wpDTT4UQe9B/AKO8PoY=
-  - secure: FVKqe0vhpZlDAyLGkojkd3wrExr6V3ejBVbGA7tx8xh74NM3TWnEoDAGPGOng6gL6whreYU8Auy8DdqcyqxBix64DAhwD57BruWXNwkwZAKlqO9z7q0iuCECFULrtEsIIcRaJCbTj36keYKNo9QM/NPZ3CTbaMNkWe6CensNW5g=
-  - secure: hNtDe0wO/6I47KuriFVZMPxq5jmMrGP/DyS323+rZyOZEMC0lhCvwk0ngAmH16PvXmUK43OCKf1TstqKOdcwHeKbuTJ8ilDcHlluYLjf5aMWHDedPcM462B2FMxQqWMr+amuqnX03wnhK+kqL7pUGGRiiErni3eC1zUStdRcxRs=
-  - secure: Dg+tHUcubO5znngdRFsDhae5225MqiybxK8PVjLjF5KcxM62LRA5QYLojoXK+FNL85fZmFnK1Gd8OvDxKhWNyKymRN3M6kg8XlFRgYyqLKo7PERxK/L7w4OZAI+PJI1DeRQE5kl6YXGXY989qlwlTOV1Bn0ZM83KFjrzcO0cG8o=
-  - secure: YS4ZnNl1G3erzYbXcLYpfII+/S46cFRMy6NH7cX0P+L9YVEedhtBVa2Mb6386nQF3EuMZpVzmoNqpvh74CcB9L9C8fcx8C3qbYJf3Jc5bX3v9xdvKfYYZdqAy0gMqgxWqn9T5T1CiGmU79PtWzW91xWi5e+DbR9r/xRC9/8CgD8=
+    - RACK_ENV=test

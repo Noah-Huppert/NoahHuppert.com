@@ -1,14 +1,82 @@
-[![Build Status](https://travis-ci.org/Noah-Huppert/NoahHuppert.com.svg)](https://travis-ci.org/Noah-Huppert/NoahHuppert.com)
-[![Dependency Status](https://david-dm.org/Noah-Huppert/noahhuppert.com.svg)](https://david-dm.org/Noah-Huppert/noahhuppert.com)
-[![Code Climate](https://codeclimate.com/github/Noah-Huppert/NoahHuppert.com/badges/gpa.svg)](https://codeclimate.com/github/Noah-Huppert/NoahHuppert.com)
-[![Test Coverage](https://codeclimate.com/github/Noah-Huppert/NoahHuppert.com/badges/coverage.svg)](https://codeclimate.com/github/Noah-Huppert/NoahHuppert.com/coverage)
+#Onyx Sinatra
+A new version of NoahHuppert.com using Sinatra instead of NodeJs
 
-#NoahHuppert.com V2
-The backend for NoahHuppert.com
+#Running
+To run Onyx use the following command while in the project root
 
-#Sass
-Run this command from the project root
+```bash
+rackup
+```
+
+To run the project with autoreload run the following command while in the project root
+
+***Note:*** *You must have the `rerun` gem installed(`gem install rerun`)*
+
+```bash
+rerun rackup
+```
+
+#Setting up MySql for local development
+When using Ubuntu I had issues installing the mysql gem, to fix this I had to install
+`libmysqlclient-dev`
+
+```bash
+sudo apt-get install libmysqlclient-dev
+```
+
+For development you must create the user `onyx_dev`. To do so access the
+Mysql console(`mysql -u root -p`)
+
+Then run the following commands:
+
+```sql
+CREATE USER 'onyx_dev'@'localhost' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON *.* TO 'onyx_dev'@'localhost';
+FLUSH PRIVILEGES;
+```
+
+You must also create the `onyx_dev` database. To do so access the
+Mysql console(`mysql -u root -p`)
+
+Then run the following commands:
+
+```sql
+CREATE DATABASE onyx_dev;
+```
+
+# Viewing Dev Database
+To view and perform actions on the database enter the mysql console
 
 ```
-sass --watch src/client/scss:src/client/css
+mysql -u onyx_dev -p
 ```
+*You will be prompted to enter your password, do so*
+
+Then `use` the database
+
+```sql
+USE onyx_dev;
+```
+
+Finally tell Mysql to display data in a good looking way
+
+```sql
+pager less -SFX
+```
+
+#Git Commit Style Guide
+Usually I will try to write my commit messages as sentences. For example
+
+```text
+Switched backend config from .yml to .rb files
+```
+However, on occasion I will forget to commit all day and a commit will contain a
+large amount of changes. In this case I use the following shorthand in my commit
+messages
+
+- Changes split by `,`
+- `[B]` prepending a change indicates it is a ***backend*** change
+- `[F]` prepending a change indicates it is a ***frontend*** change
+- `+` added
+- `-` removed
+- `~` changed

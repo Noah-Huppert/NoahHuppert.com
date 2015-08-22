@@ -21,7 +21,7 @@ module Onyx
                               :index => './views/index.html'
 
             DB = Sequel.connect(
-                :adapter => 'mysql',
+                :adapter => 'postgres',
                 :host => Onyx::Config.CONFIG[:database][:host],
                 :port => Onyx::Config.CONFIG[:database][:port],
                 :database => Onyx::Config.CONFIG[:database][:database],

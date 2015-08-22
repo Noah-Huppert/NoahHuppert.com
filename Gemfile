@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'sinatra'
 gem 'sinatra-contrib'
 
-gem 'mysql'
+gem 'pg'
 gem 'sequel'
 
 gem 'oauth2'

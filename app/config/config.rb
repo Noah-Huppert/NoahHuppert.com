@@ -5,25 +5,25 @@ module Onyx
         @CONFIG = {
             :database => {
                 :development => {
-                    :host => 'localhost',
-                    :port => 3306,
+                    :host => '127.0.0.1',
+                    :port => 5432,
                     :database => 'onyx_dev',
                     :username => 'onyx_dev',
                     :password => 'password'
                 },
                 :test => {
                     :host => '127.0.0.1',
-                    :port => 3306,
+                    :port => 5432,
                     :database => 'onyx_test',
                     :username => 'travis',
                     :password => ''
                 },
                 :production => {
-                    :host => ENV['MYSQL_DB_HOST'],
-                    :port => ENV['MYSQL_DB_PORT'],
+                    :host => ENV['POSTGRESQL_DB_HOST'],
+                    :port => ENV['POSTGRESQL_DB_PORT'],
                     :database => 'onyx',
-                    :username => ENV['MYSQL_DB_USERNAME'],
-                    :password => ENV['MYSQL_DB_PASSWORD']
+                    :username => ENV['POSTGRESQL_DB_USERNAME'],
+                    :password => ENV['POSTGRESQL_DB_PASSWORD']
                 }
             }[RACK_ENV],
             :url => {

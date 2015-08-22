@@ -1,82 +1,109 @@
-#Onyx Sinatra
+# NoahHuppert.com - Onyx
 A new version of NoahHuppert.com using Sinatra instead of NodeJs
 
-#Running
-To run Onyx use the following command while in the project root
 
-```bash
+# Installation
+## PostgreSQL
+Onyx uses PostgreSQL version 9.4, install with:
+
+```
+sudo apt-get install postgresql-9.4
+```
+
+If the package `postgresql-9.4` is not found you must add the PostgreSQL 9.4
+repository
+
+You must also install PostgreSQL development dependencies:
+
+```
+sudo apt-get install libpq-dev
+```
+
+## Add PostgreSQL repository(Optional)
+*Only complete this step if the package `postgresql-9.4` was not found.*
+
+Add the PostgreSQL 9.4 repository with the following command:
+
+```
+echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" >> /etc/apt/sources.list.d/pgdg.list
+```
+
+Then add the PostgreSQL 9.4 key and import the repository with:
+
+```
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
+  sudo apt-key add -
+sudo apt-get update
+```
+
+After you have completed the above instructions follow the PostgreSQL 9.4
+instructions
+
+
+# Configuration
+## PostgreSQL
+First open the PostgreSQL terminal:
+
+```
+sudo -u postgres psql
+```
+
+Then create a user and a table:
+
+```
+CREATE USER <user> WITH PASSWORD '<password>';
+CREATE DATABASE <table_name> WITH OWNER <user>;
+```
+
+Make sure to replace the values in `<>` with the following:
+- `<user>`
+    - development => `onyx_dev`
+    - test => `travis`
+    - production => *Up to you*
+- `<table_name>`
+    - development => `onyx_dev`
+    - test => `onyx_test`
+    - production => `onyx`
+
+
+## PostgreSQL ***Production***
+Make sure to set the following environment variables:
+- `POSTGRESQL_DB_HOST`
+- `POSTGRESQL_DB_PORT`
+- `POSTGRESQL_DB_USERNAME`
+- `POSTGRESQL_DB_PASSWORD`
+
+## Google Login
+Make sure to set the following environment variables:
+- `GOOGLE_CLIENT_ID`
+- `GOOGLE_CLIENT_SECRET`
+
+## Rack Cookies
+Make sure to set the following environment variables:
+- `COOKIES_SECRET`
+
+## Environment Variables ***Production***
+Use the Dokku config set command to set environment variables:
+
+```
+dokku config:set <app> KEY1=value1 KEY2=value2
+```
+
+Make sure to replace `<app>` with the Dokku app name for Onyx
+
+## Environment Variables ***Development***
+To make local development easier create a file in the root of the project called
+`.env` and put environment variables in it in the form of:
+
+```
+KEY1=value1
+KEY2=value2
+```
+
+
+# Running
+The the following command:
+
+```
 rackup
 ```
-
-To run the project with autoreload run the following command while in the project root
-
-***Note:*** *You must have the `rerun` gem installed(`gem install rerun`)*
-
-```bash
-rerun rackup
-```
-
-#Setting up MySql for local development
-When using Ubuntu I had issues installing the mysql gem, to fix this I had to install
-`libmysqlclient-dev`
-
-```bash
-sudo apt-get install libmysqlclient-dev
-```
-
-For development you must create the user `onyx_dev`. To do so access the
-Mysql console(`mysql -u root -p`)
-
-Then run the following commands:
-
-```sql
-CREATE USER 'onyx_dev'@'localhost' IDENTIFIED BY 'password';
-GRANT ALL PRIVILEGES ON *.* TO 'onyx_dev'@'localhost';
-FLUSH PRIVILEGES;
-```
-
-You must also create the `onyx_dev` database. To do so access the
-Mysql console(`mysql -u root -p`)
-
-Then run the following commands:
-
-```sql
-CREATE DATABASE onyx_dev;
-```
-
-# Viewing Dev Database
-To view and perform actions on the database enter the mysql console
-
-```
-mysql -u onyx_dev -p
-```
-*You will be prompted to enter your password, do so*
-
-Then `use` the database
-
-```sql
-USE onyx_dev;
-```
-
-Finally tell Mysql to display data in a good looking way
-
-```sql
-pager less -SFX
-```
-
-#Git Commit Style Guide
-Usually I will try to write my commit messages as sentences. For example
-
-```text
-Switched backend config from .yml to .rb files
-```
-However, on occasion I will forget to commit all day and a commit will contain a
-large amount of changes. In this case I use the following shorthand in my commit
-messages
-
-- Changes split by `,`
-- `[B]` prepending a change indicates it is a ***backend*** change
-- `[F]` prepending a change indicates it is a ***frontend*** change
-- `+` added
-- `-` removed
-- `~` changed

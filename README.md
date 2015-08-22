@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Noah-Huppert/NoahHuppert.com.svg?branch=master)](https://travis-ci.org/Noah-Huppert/NoahHuppert.com)
+
 # NoahHuppert.com - Onyx
 A new version of NoahHuppert.com using Sinatra instead of NodeJs
 
@@ -37,7 +39,7 @@ sudo apt-get update
 ```
 
 After you have completed the above instructions follow the PostgreSQL 9.4
-instructions
+install instructions
 
 
 # Configuration
@@ -93,7 +95,7 @@ Make sure to replace `<app>` with the Dokku app name for Onyx
 
 ## Environment Variables ***Development***
 To make local development easier create a file in the root of the project called
-`.env` and put environment variables in it in the form of:
+`..env.development` and put environment variables in it in the form of:
 
 ```
 KEY1=value1

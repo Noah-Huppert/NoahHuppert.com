@@ -3,7 +3,7 @@ require 'bundler/setup'
 
 require 'dotenv'
 Dotenv.load(
-    File.expand_path("./.env")
+    File.expand_path(".env")
 )
 
 enviroment_env_file_path = File.expand_path("./.env.#{ENV['RACK_ENV']}")

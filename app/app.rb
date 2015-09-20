@@ -2,12 +2,6 @@ require 'sinatra/base'
 require 'sinatra/respond_with'
 
 require 'sequel'
-require 'oauth2'
-
-if ENV['RACK_ENV'] == 'development'
-    require 'dotenv'
-    Dotenv.load
-end
 
 require './app/config/config'
 require './app/routes/base'

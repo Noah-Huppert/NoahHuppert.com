@@ -1,0 +1,14 @@
+sudo: false
+language: ruby
+script:
+  - docker build -t NoahHuppert.com-www .
+  - { eval $DOCKER_LOGIN_CMD } &> /dev/null
+  - docker push Noah-Huppert/NoahHuppert.com-www
+deploy:
+  provider: script
+  script:
+    - ssh ci@noahhuppert.com -t "docker stop NoahHuppert.com-www && \
+                                 docker rm NoahHuppert-www && \
+                                 docker run -d --name NoahHuppert.com-www Noah-Huppert/NoahHuppert.com-www"
+env:
+  - secure: "jc+FlOhEFh6TEsPmGxZRaQAVC8+FVqIb/+hr50SvcwwaJRVYBcnj9BWXXfAIooDsybOCdj90+Co0xaiW4G0LpjrygEkNEmOjid5jmRDcu/RSFVhRacmC5/X8/AzhJ0wqbCi4nAszmU/V0nor5a4YBW013lxlFH8AEVtjss04yAs="

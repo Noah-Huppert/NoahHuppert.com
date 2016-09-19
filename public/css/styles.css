@@ -34,7 +34,7 @@ ul {
 
 /* Page */
 #header {
-    height: 4rem;
+    height: 6rem;
     line-height: 4rem;
     margin-top: -2rem;
     padding-bottom: 4rem;
@@ -43,6 +43,7 @@ ul {
 
 #header a {
     display: block;
+    font-size: 2rem;
 }
 
 #body {

@@ -10,10 +10,15 @@
 </head>
 
 <body>
-    <div class="text-large text-uppercase" id="header">
-        Noah Huppert
+    <div  id="header">
+        <div class="text-large text-uppercase">
+		Noah Huppert
+        </div>
 
-        <a id="gpg-info" href="https://keybase.io/noahh">GPG Key</a>
+	<div class="text-small" id="gpg-info">
+		<a href="https://keybase.io/noahh/key.asc">GPG Key</a> 
+		(<a href="https://keybase.io/noahh">Keybase</a>)
+	</div>
     </div>
 
     <ol class="text-small" id="body">
@@ -36,7 +41,8 @@
                     For general contact please use: developer <b>DOT</b> noah <b>AT</b> gmail <b>DOT</b> com
                 </li>
                 <li>
-                    For secure communication please email using the GPG key listed above or at:
+                    For secure communication please email using the GPG key 
+		    listed above and the email:
                     noahhuppert <b>AT</b> protonmail <b>DOT</b> com
                 </li>
             </ul>
@@ -46,8 +52,71 @@
             Projects
 
             <ul>
-                <li>There are too many projects to list here</li>
-                <li> Check out my <a href="https://github.com/Noah-Huppert">Github Noah-Huppert</a></li>
+                <li>
+                    I have tons of projects not listed here,
+                    feel free to check out my Github:
+                    <a href="https://github.com/Noah-Huppert">Noah-Huppert</a>
+                </li>
+                <li>
+                    <a href="https://github.com/Noah-Huppert/migrate">Migrate</a> (Rust - Active development)
+                    <ul>
+                        <li>
+                            A simple database migrator.
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="https://github.com/Noah-Huppert/Reflect">Reflect</a> (Java & Android Framework - On hold)
+                    <ul>
+                        <li>
+                            An Android chat application for SMS and XMPP.
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="https://github.com/Noah-Huppert/Trak">Trak</a> (Rust - Active development)
+                    <ul>
+                        <li>
+                            An in depth simulation of a metro system.
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="https://github.com/Noah-Huppert/k8svirt">k8svirt</a> (Go - Complete)
+                    <ul>
+                        <li>
+                            A simple reverse proxy which emulates some behavior of a Kubernetes cluster.
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="https://github.com/Noah-Huppert/Inertial-Motion-Capture">Inertial Motion Capture</a> (C++ - Complete, Plan to continue in future)
+                    <ul>
+                        <li>
+                            Project for Maker Faire 2015, captures motion of an inertial motion sensor and presents a fun demo.
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="https://github.com/Noah-Huppert/gh-meta">gh-meta</a> (Go - On hold)
+                    <ul>
+                        <li>
+                            Small web api which stores extra information about Github repositories.
+                            This is the project that will replace this part of my website.
+                            On hold until I complete Migrate.
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="https://github.com/Noah-Huppert/auth-service">auth-service</a> (Go - On hold)
+                    <ul>
+                        <li>
+                            Central authentication application which distributes JWTs as proof identity
+                            for other personal projects. On hold until I complete Migrate.
+                        </li>
+                    </ul>
+                </li>
+
             </ul>
         </li>
 
@@ -71,58 +140,7 @@
                                 </li>
                            </ul>
                         </li>
-
-                        <li>
-                            Frameworks
-
-                            <ul>
-                                <li>
-                                    Java
-
-                                    <ul>
-                                        <li><a href="https://www.playframework.com/">Play Framework</a></li>
-                                        <li><a href="https://libgdx.badlogicgames.com/">LibGDX</a></li>
-                                    </ul>
-                                </li>
-
-                                <li>
-                                    C and C++
-
-                                    <ul>
-                                        <li><a href="http://www.cmake.org/">CMake</a></li>
-                                    </ul>
-                                </li>
-
-                                <li>
-                                    Ruby
-
-                                    <ul>
-                                        <li><a href="http://rubyonrails.org/">Ruby On Rails</a></li>
-                                        <li><a href="http://www.sinatrarb.com/">Sinatra</a></li>
-                                    </ul>
-                                </li>
-
-                                <li>
-                                    Javascript
-
-                                    <ul>
-                                        <li><a href="http://expressjs.com/">Express JS</a></li>
-                                        <li><a href="https://www.meteor.com/">Meteor</a></li>
-                                        <li>A lot more...</li>
-                                    </ul>
-                                </li>
-
-                                <li>
-                                    CSS
-
-                                    <ul>
-                                        <li><a href="http://sass-lang.com/">SASS</a></li>
-                                        <li><a href="https://learnboost.github.io/stylus/">Stylus</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
+		    </ul>
                 </li>
                 <li>Robotics</li>
                 <li>Snowboarding</li>
@@ -142,6 +160,34 @@
                 </li>
             </ul>
         </li>
+	<li>
+	    Why is your website so plain?
+
+	    <ul>
+                <li>
+		    Time, especially in college, is a very limited resource. So I 
+		    choose to devote my time to many of my personal projects that 
+		    I find more interesting.
+		</li>
+		<li>
+		    However over the last year or so I ended up doing a whole lot 
+		    of research on web services and infrastructure for hosting services. 
+		    So merely by coincidence I am drifting towards creating a website.
+		</li>
+		<li>
+		    I am currently working on a database migrator called <a href="https://github.com/Noah-Huppert/migrate">Migrate</a> which I will be using for every single part of my website.
+		</li>
+		<li>
+		    After Migrate is completed I will be simultaneously working on the 
+		    following projects (Each will be an important part of my website):
+
+		    <ul>
+		        <li><a href="https://github.com/Noah-Huppert/gh-meta">gh-meta</a></li>
+			<li><a href="https://github.com/Noah-Huppert/auth-service">auth-service</a></li>
+		    </ul>
+		</li>
+	    </ul>
+	</li>
     </ol>
 </body>
 

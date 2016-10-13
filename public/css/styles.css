@@ -41,12 +41,11 @@ ul {
     text-align: center;
 }
 
-#header a {
+#gpg-info {
     display: block;
-    font-size: 2rem;
 }
 
 #body {
-    max-width: 50rem;
+    max-width: 60rem;
     margin: auto;
 }

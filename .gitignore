@@ -1,2 +1,3 @@
-bower_components
-.env.development
+# Jetbrains
+.idea
+*.iml

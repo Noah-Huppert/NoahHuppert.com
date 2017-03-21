@@ -1,111 +1,38 @@
-[![Build Status](https://travis-ci.org/Noah-Huppert/NoahHuppert.com.svg?branch=master)](https://travis-ci.org/Noah-Huppert/NoahHuppert.com)
+# \<NoahHuppert.com\>
 
-# NoahHuppert.com - Onyx
-A new version of NoahHuppert.com using Sinatra instead of NodeJs
+Homepage for Noah Huppert.
 
+## Install the Polymer-CLI
 
-# Installation
-## PostgreSQL
-Onyx uses PostgreSQL version 9.4, install with:
+First, make sure you have the [Polymer CLI](https://www.npmjs.com/package/polymer-cli) installed. Then run `polymer serve` to serve your application locally.
 
-```
-sudo apt-get install postgresql-9.4
-```
-
-If the package `postgresql-9.4` is not found you must add the PostgreSQL 9.4
-repository
-
-You must also install PostgreSQL development dependencies:
+## Viewing Your Application
 
 ```
-sudo apt-get install libpq-dev
+$ polymer serve
 ```
 
-## Add PostgreSQL repository(Optional)
-*Only complete this step if the package `postgresql-9.4` was not found.*
-
-Add the PostgreSQL 9.4 repository with the following command:
+## Building Your Application
 
 ```
-echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" >> /etc/apt/sources.list.d/pgdg.list
+$ polymer build
 ```
 
-Then add the PostgreSQL 9.4 key and import the repository with:
+This will create a `build/` folder with `bundled/` and `unbundled/` sub-folders
+containing a bundled (Vulcanized) and unbundled builds, both run through HTML,
+CSS, and JS optimizers.
+
+You can serve the built versions by giving `polymer serve` a folder to serve
+from:
 
 ```
-wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
-  sudo apt-key add -
-sudo apt-get update
+$ polymer serve build/bundled
 ```
 
-After you have completed the above instructions follow the PostgreSQL 9.4
-install instructions
-
-
-# Configuration
-## PostgreSQL
-First open the PostgreSQL terminal:
+## Running Tests
 
 ```
-sudo -u postgres psql
+$ polymer test
 ```
 
-Then create a user and a table:
-
-```
-CREATE USER <user> WITH PASSWORD '<password>';
-CREATE DATABASE <table_name> WITH OWNER <user>;
-```
-
-Make sure to replace the values in `<>` with the following:
-- `<user>`
-    - development => `onyx_dev`
-    - test => `travis`
-    - production => *Up to you*
-- `<table_name>`
-    - development => `onyx_dev`
-    - test => `onyx_test`
-    - production => `onyx`
-
-
-## PostgreSQL ***Production***
-Make sure to set the following environment variables:
-- `POSTGRESQL_DB_HOST`
-- `POSTGRESQL_DB_PORT`
-- `POSTGRESQL_DB_USERNAME`
-- `POSTGRESQL_DB_PASSWORD`
-
-## Google Login
-Make sure to set the following environment variables:
-- `GOOGLE_CLIENT_ID`
-- `GOOGLE_CLIENT_SECRET`
-
-## Rack Cookies
-Make sure to set the following environment variables:
-- `COOKIES_SECRET`
-
-## Environment Variables ***Production***
-Use the Dokku config set command to set environment variables:
-
-```
-dokku config:set <app> KEY1=value1 KEY2=value2
-```
-
-Make sure to replace `<app>` with the Dokku app name for Onyx
-
-## Environment Variables ***Development***
-To make local development easier create a file in the root of the project called
-`..env.development` and put environment variables in it in the form of:
-
-```
-KEY1=value1
-KEY2=value2
-```
-
-
-# Running
-The the following command:
-
-```
-rackup
-```
+Your application is already set up to be tested via [web-component-tester](https://github.com/Polymer/web-component-tester). Run `polymer test` to run your application's test suite locally.

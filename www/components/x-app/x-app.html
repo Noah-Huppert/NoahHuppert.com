@@ -1,0 +1,85 @@
+<link rel="import" href="/bower_components/polymer/polymer-element.html">
+<link rel="import" href="/bower_components/paper-button/paper-button.html">
+
+<link rel="import" href="/components/header-img/header-img.html">
+
+<dom-module id="x-app">
+    <template>
+        <style>
+            :host {
+                width: 100%;
+                font-size: 10px;
+            }
+
+            #bg-choices {
+                background: white;
+                z-index: 2;
+            }
+
+            #bg-choices paper-button {
+                z-index: 2;
+            }
+        </style>
+
+        <header-img id="header-img" src="/media/mountains-bg.jpg" first-line="Noah" second-line="Huppert"></header-img>
+
+        <div id="bg-choices">
+            <!--
+            bridge: #ad7a49
+            dock: #80acf8
+            mountains: #7c99c4
+            subway: #bd8d0d
+            garden: #a7d870
+            dark-window: #a90509
+            rail-yard: #a1bdd4
+            sail-boats: #d7a77f
+            lake: #f4d9c3
+            tippling: #c4263c
+            japan: #b2995f
+            -->
+        </div>
+    </template>
+
+    <script>
+        class XApp extends Polymer.Element {
+            static get is() { return "x-app" }
+            constructor() {
+                super();
+
+                this.headerImages = [
+                    {"src":"bridge", "color":"ad7a49"},
+                    {"src":"dock", "color":"80acf8"},
+                    {"src":"mountains", "color":"7c99c4"},
+                    {"src":"subway", "color":"bd8d0d"},
+                    {"src":"garden", "color":"a7d870"},
+                    {"src":"dark-window", "color":"a90509"},
+                    {"src":"sail-boats", "color":"e5a77f"},
+                    {"src":"lake", "color":"f4d9c3"},
+                    {"src":"tippling", "color":"c4263c"},
+                    {"src":"japan", "color":"b2995f"}
+                ];
+
+                this.setHeaderImg(this.headerImages[0]);
+            }
+
+            setHeaderImg(imgObj) {
+                this.$["header-img"].src = "/media/" + imgObj.src + "-bg.jpg";
+                this.$["header-img"].color = "#" + imgObj.color;
+            }
+
+            imgTo(event) {
+                var bgSrc = event.target.getAttribute("data-bg-src");
+                var color = event.target.getAttribute("data-color");
+
+                this.$['header-img'].src = "/media/"  + bgSrc + "-bg.jpg";
+                this.$['header-img'].color = "#" + color;
+
+                this.headerImages.push({"src": bgSrc, "color": color});
+                console.log(JSON.stringify(this.headerImages));
+            }
+        }
+
+        customElements.define(XApp.is, XApp);
+    </script>
+
+</dom-module>

@@ -1,0 +1,19 @@
+{
+  "name": "noahhuppert.com",
+  "homepage": "https://www.noahhuppert.com",
+  "authors": [
+    "Noah Huppert <developer.noah@gmail.com>"
+  ],
+  "description": "Homepage for Noah Huppert.",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "polymer": "Polymer/polymer#2.0.0-rc.2",
+    "paper-button": "PolymerElements/paper-button#2.0-preview",
+    "app-layout": "PolymerElements/app-layout#2.0-preview",
+    "iron-image": "PolymerElements/iron-image#2.0-preview",
+    "paper-toolbar": "PolymerElements/paper-toolbar#2.0-preview",
+    "vibrant": "*"
+  }
+}

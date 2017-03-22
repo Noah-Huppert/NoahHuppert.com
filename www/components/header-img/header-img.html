@@ -1,0 +1,77 @@
+<link rel="import" href="/bower_components/polymer/polymer-element.html">
+<link rel="import" href="/bower_components/iron-image/iron-image.html">
+
+<link href="https://fonts.googleapis.com/css?family=Bungee+Shade" rel="stylesheet">
+
+<dom-module id="header-img">
+    <template>
+        <style>
+            :host {
+                width: 100%;
+                font-size: 10px;
+            }
+
+            .bungee-shade {
+                font-family: 'Bungee Shade', cursive;
+            }
+
+            .title {
+                width: 100%;
+                position: absolute;
+                z-index: 2;
+                font-size: 15rem;
+                text-align: center;
+                /*color: rgb(206, 6, 75) !important;*/
+                color: black;
+                transition: color 0.2s;
+            }
+
+            #first-line {
+                top: 13%;
+            }
+
+            #second-line {
+                top: 50%;
+            }
+
+            #image {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                bottom: 0;
+                z-index: 1;
+            }
+        </style>
+
+        <div class="bungee-shade title" id="first-line" style="color: [[color]];">
+            [[first-line]]
+        </div>
+
+        <div class="bungee-shade title" id="second-line" style="color: [[color]];">
+            [[second-line]]
+        </div>
+
+        <iron-image sizing="cover" src="[[src]]" id="image"></iron-image>
+    </template>
+
+    <script>
+        class HeaderImg extends Polymer.Element {
+            static get is() { return "header-img" }
+
+            constructor() {
+                super();
+            }
+
+            static get properties() {
+                return {
+                    'first-line': String,
+                    'second-line': String,
+                    'src': String,
+                    'color': String
+                }
+            }
+        }
+
+        customElements.define(HeaderImg.is, HeaderImg);
+    </script>
+</dom-module>

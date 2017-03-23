@@ -1,5 +1,8 @@
 <link rel="import" href="/bower_components/polymer/polymer-element.html">
-<link rel="import" href="/bower_components/paper-button/paper-button.html">
+<link rel="import" href="/bower_components/app-layout/app-layout.html">
+<link rel="import" href="/bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
+
+<link href="https://fonts.googleapis.com/css?family=Bungee+Shade" rel="stylesheet">
 
 <link rel="import" href="/components/header-img/header-img.html">
 
@@ -8,11 +11,43 @@
         <style>
             :host {
                 width: 100%;
+                height: 100%;
                 font-size: 10px;
+            }
+
+             .bungee-shade {
+                font-family: 'Bungee Shade', cursive;
+            }
+
+            header-img {
+                height: 100%;
+            }
+
+            app-header {
+                /*z-index: 2;*/
+            }
+
+            app-toolbar {
+                background: white;
+            }
+
+            app-toolbar > div[main-title] {
+                font-size: 2.5rem;
             }
         </style>
 
-        <header-img id="header-img" src="/media/[[getHeaderImage('src')]]-bg.jpg" color="#[[getHeaderImage('color')]]" first-line="Noah" second-line="Huppert"></header-img>
+
+        <app-header-layout fullbleed>
+            <!--
+            <app-header>
+                <app-toolbar>
+                    <div class="bungee-shade" main-title>N.H.</div>
+                </app-toolbar>
+            </app-header>
+            -->
+            <header-img id="header-img" src="/media/[[getHeaderImage('src', headerImageI)]]-bg.jpg" color="#[[getHeaderImage('color', headerImageI)]]" first-line="Noah" first-line-cutoff="811" second-line="Huppert" second-line-cutoff="1342"></header-img>
+        </app-header-layout>
+
     </template>
 
     <script>
@@ -37,8 +72,7 @@
             }
 
             getHeaderImage(attr) {
-                console.log(attr);
-                return this.headerImages[this.headerImageI][attr];
+                return this.get(`headerImages.${this.headerImageI}.${attr}`);
             }
 
             randomizeHeaderImage() {

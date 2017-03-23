@@ -1,5 +1,6 @@
 <link rel="import" href="/bower_components/polymer/polymer-element.html">
 <link rel="import" href="/bower_components/iron-image/iron-image.html">
+<link rel="import" href="/bower_components/iron-resizable-behavior/iron-resizable-behavior.html">
 
 <link href="https://fonts.googleapis.com/css?family=Bungee+Shade" rel="stylesheet">
 
@@ -8,7 +9,9 @@
         <style>
             :host {
                 width: 100%;
+                height: 100%;
                 font-size: 10px;
+                overflow: hidden;
             }
 
             .bungee-shade {
@@ -23,6 +26,7 @@
                 text-align: center;
                 color: black;
                 transition: color 0.2s;
+                overflow: hidden;
             }
 
             #first-line {
@@ -42,31 +46,85 @@
             }
         </style>
 
-        <div class="bungee-shade title" id="first-line" style="color: [[color]];">
-            [[first-line]]
+        <div class="bungee-shade title" id="first-line" style$="color: [[color]];">
+            [[showLine(firstLine, width)]]
         </div>
 
-        <div class="bungee-shade title" id="second-line" style="color: [[color]];">
-            [[second-line]]
+        <div class="bungee-shade title" id="second-line" style$="color: [[color]];">
+            [[showLine(secondLine, width)]]
         </div>
 
         <iron-image sizing="cover" src="[[src]]" id="image"></iron-image>
     </template>
 
     <script>
-        class HeaderImg extends Polymer.Element {
+        class HeaderImg extends Polymer.mixinBehaviors([Polymer.IronResizableBehavior], Polymer.Element) {
             static get is() { return "header-img" }
 
             constructor() {
                 super();
+                this.addEventListener("iron-resize", e => this._onResize(e));
             }
 
             static get properties() {
                 return {
-                    'first-line': String,
-                    'second-line': String,
-                    'src': String,
-                    'color': String
+                    firstLine: String,
+                    secondLine: String,
+                    firstLineCutoff: Number,
+                    secondLineCutoff: Number,
+                    src: String,
+                    color: String,
+                    width: {
+                        type: Number,
+                        value: 0
+                    }
+                };
+            }
+
+            ready() {
+                super.ready();
+
+                // Wait until first paint so width property is available
+                Polymer.RenderStatus.afterNextRender(this, function() {
+                    this._onResize(undefined);
+                });
+            }
+
+            /**
+             * Helper which shortens line if it is overflowing
+             * @param line Text to display
+             * @param width Width to compare against cutoff
+             */
+            showLine(line, width) {
+                // Get cutoff value for either first or second line
+                var cutoff;
+                if (line === this.firstLine) {
+                    cutoff = this.firstLineCutoff
+                } else if (line === this.secondLine) {
+                    cutoff = this.secondLineCutoff;
+                } else {// If unknown line of text error and return
+                    console.error(`No cutoff value provided for text: \"${line}\", returning uneditted.`);
+                    return line;
+                }
+
+                if (width <= cutoff) {
+                    return line[0];
+                } else {
+                    return line;
+                }
+            }
+
+            /**
+             * Keep track of width so showLine computed property updates
+             * @param e iron-resize event
+             * @private
+             */
+            _onResize(e) {
+                var width = this.offsetWidth;
+
+                // If width isn't 0, if it is then element hasn't been painted yet
+                if (width > 0) {
+                    this.set("width", width);
                 }
             }
         }

@@ -18,15 +18,10 @@
                 font-family: 'Bungee Shade', cursive;
             }
 
-            .title {
-                width: 100%;
-                position: absolute;
+            .wrap-title {
                 z-index: 2;
-                font-size: 15rem;
-                text-align: center;
-                color: black;
-                transition: color 0.2s;
-                overflow: hidden;
+                position: relative;
+                top: 0;
             }
 
             #first-line {
@@ -46,12 +41,16 @@
             }
         </style>
 
-        <div class="bungee-shade title" id="first-line" style$="color: [[color]];">
-            [[showLine(firstLine, width)]]
+        <div class="bungee-shade wrap-title" id="first-line" style$="color: [[color]];">
+            <div class="title">
+                [[showLine(firstLine, width)]]
+            </div>
         </div>
 
-        <div class="bungee-shade title" id="second-line" style$="color: [[color]];">
-            [[showLine(secondLine, width)]]
+        <div class="bungee-shade wrap-title" id="second-line" style$="color: [[color]];">
+            <div class="title">
+                [[showLine(secondLine, width)]]
+            </div>
         </div>
 
         <iron-image sizing="cover" src="[[src]]" id="image"></iron-image>

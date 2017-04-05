@@ -1,10 +1,7 @@
 <link rel="import" href="/bower_components/polymer/polymer-element.html">
-<link rel="import" href="/bower_components/app-layout/app-layout.html">
-<link rel="import" href="/bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
 
-<link href="https://fonts.googleapis.com/css?family=Bungee+Shade" rel="stylesheet">
-
-<link rel="import" href="/components/header-img/header-img.html">
+<!--<link href="https://fonts.googleapis.com/css?family=Bungee+Shade|Playfair+Display|PT+Serif|Roboto-Mono:300|Roboto:300" rel="stylesheet">-->
+<link href="https://fonts.googleapis.com/css?family=Bungee+Shade|Playfair+Display|PT+Serif|Roboto-Mono:300|Roboto:300" rel="stylesheet">
 
 <dom-module id="x-app">
     <template>
@@ -15,38 +12,17 @@
                 font-size: 10px;
             }
 
-             .bungee-shade {
+            #main-title {
                 font-family: 'Bungee Shade', cursive;
             }
 
-            header-img {
+            #content {
                 height: 100%;
-            }
-
-            app-header {
-                /*z-index: 2;*/
-            }
-
-            app-toolbar {
-                background: white;
-            }
-
-            app-toolbar > div[main-title] {
-                font-size: 2.5rem;
+                padding: 1rem;
+                font-size: 2rem;
             }
         </style>
 
-
-        <app-header-layout fullbleed>
-            <!--
-            <app-header>
-                <app-toolbar>
-                    <div class="bungee-shade" main-title>N.H.</div>
-                </app-toolbar>
-            </app-header>
-            -->
-            <header-img id="header-img" src="/media/[[getHeaderImage('src', headerImageI)]]-bg.jpg" color="#[[getHeaderImage('color', headerImageI)]]" first-line="Noah" first-line-cutoff="811" second-line="Huppert" second-line-cutoff="1342"></header-img>
-        </app-header-layout>
 
     </template>
 
@@ -77,11 +53,6 @@
 
             randomizeHeaderImage() {
                 this.headerImageI = getRandomInt(0, this.headerImages.length - 1);
-            }
-
-            setHeaderImg(imgObj) {
-                this.$["header-img"].src = "/media/" + imgObj.src + "-bg.jpg";
-                this.$["header-img"].color = "#" + imgObj.color;
             }
         }
 

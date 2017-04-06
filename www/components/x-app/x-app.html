@@ -1,4 +1,12 @@
 <link rel="import" href="/bower_components/polymer/polymer-element.html">
+<link rel="import" href="/bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
+<link rel="import" href="/bower_components/app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="/bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="/bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="/bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="/bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="/bower_components/paper-button/paper-button.html">
 
 <!--<link href="https://fonts.googleapis.com/css?family=Bungee+Shade|Playfair+Display|PT+Serif|Roboto-Mono:300|Roboto:300" rel="stylesheet">-->
 <link href="https://fonts.googleapis.com/css?family=Bungee+Shade|Playfair+Display|PT+Serif|Roboto-Mono:300|Roboto:300" rel="stylesheet">
@@ -10,19 +18,69 @@
                 width: 100%;
                 height: 100%;
                 font-size: 10px;
+                font-family: "Roboto", sans-serif;
             }
 
-            #main-title {
+            #drawer {
+                --app-drawer-content-container: {
+                    margin-top: 2rem;
+                    border-right: 1px solid rgba(0, 0, 0, 0.3);
+                };
+            }
+
+            app-drawer-layout:not([narrow]) [drawer-toggle] {
+                display: none;
+            }
+
+            #title {
+                font-size: 2.5rem;
+                text-align: center;
                 font-family: 'Bungee Shade', cursive;
             }
 
-            #content {
-                height: 100%;
-                padding: 1rem;
-                font-size: 2rem;
+            #bio {
+                padding: 0.5rem;
+                text-align: left;
+                font-size: 1.2rem;
+            }
+
+            #main-toolbar {
+                width: 100%;
             }
         </style>
 
+        <app-drawer-layout fullbleed>
+            <!-- Drawer -->
+            <app-drawer slot="drawer" id="drawer">
+                <div id="drawer-content">
+                    <div id="title" main-title>Noah Huppert</div>
+                    <app-toolbar>
+                        <paper-button raised>Contact</paper-button>
+                        <paper-button raised>Resume</paper-button>
+                    </app-toolbar>
+
+                    <div id="bio">
+                        Hi my name is Noah Huppert. I am currently a first year Computer Science student at Drexel
+                        University. I've been programming since the age of 9 and am always exploring and learning new
+                        things.
+                    </div>
+                </div>
+            </app-drawer>
+
+            <!-- Content -->
+            <app-header-layout>
+                <app-header slot="header">
+                    <app-toolbar id="main-toolbar">
+                        <paper-icon-button icon="menu" title="Menu" drawer-toggle></paper-icon-button>
+                        <div main-title>Projects</div>
+                    </app-toolbar>
+                </app-header>
+
+                <div>
+                    Main content
+                </div>
+            </app-header-layout>
+        </app-drawer-layout>
 
     </template>
 
@@ -31,28 +89,6 @@
             static get is() { return "x-app" }
             constructor() {
                 super();
-
-                this.headerImages = [
-                    {"src":"bridge", "color":"ad7a49"},
-                    {"src":"dock", "color":"80acf8"},
-                    {"src":"mountains", "color":"7c99c4"},
-                    {"src":"subway", "color":"bd8d0d"},
-                    {"src":"garden", "color":"a7d870"},
-                    {"src":"dark-window", "color":"a90509"},
-                    {"src":"sail-boats", "color":"e5a77f"},
-                    {"src":"lake", "color":"f4d9c3"},
-                    {"src":"tippling", "color":"c4263c"},
-                    {"src":"japan", "color":"b2995f"}
-                ];
-                this.randomizeHeaderImage();
-            }
-
-            getHeaderImage(attr) {
-                return this.get(`headerImages.${this.headerImageI}.${attr}`);
-            }
-
-            randomizeHeaderImage() {
-                this.headerImageI = getRandomInt(0, this.headerImages.length - 1);
             }
         }
 

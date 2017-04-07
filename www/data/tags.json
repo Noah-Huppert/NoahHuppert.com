@@ -1,0 +1,41 @@
+{
+    "languages": [
+        { "id": "cpp", "text": "C++" },
+        { "id": "c", "text": "C#" },
+        { "id": "c#", "text": "C#" },
+        { "id": "java", "text": "Java" },
+        { "id": "python", "text": "Python" },
+        { "id": "go", "text": "Go" },
+        { "id": "rust", "text": "Rust" },
+        { "id": "swift", "text": "Swift" },
+        { "id": "glsl", "text": "GLSL" },
+        { "id": "ruby", "text": "Ruby" },
+        { "id": "php", "text": "PHP" },
+        { "id": "javascript", "text": "Javascript" },
+        { "id": "sh", "text": "Shell/Bash" },
+        { "id": "basic", "text": "Basic" },
+        { "id": "lua", "text": "Lua" },
+        { "id": "sql", "text": "SQL" },
+        { "id": "css", "text": "CSS" },
+        { "id": "html", "text": "HTML" }
+    ],
+    "development_areas": [
+        { "id": "frontend", "text": "Front End" },
+        { "id": "backend", "text": "Back End" },
+        { "id": "hardware", "text": "Hardware" }
+    ],
+    "technologies": [
+        { "id": ""}
+    ],
+    "progress": [
+        { "id": "started", "text": "Just Started" },
+        { "id": "active", "text": "Active Development" },
+        { "id": "hold", "text": "On Hold" },
+        { "id": "complete", "text": "Complete" }
+    ],
+    "support": [
+        { "id": "active", "text": "Actively Maintaining" },
+        { "id": "abandoned", "text": "Not Maintained" },
+        { "id": "na", "text": "N/A, In Development" }
+    ]
+}

@@ -1,0 +1,16 @@
+{
+    "projects": [
+        {
+            "id": "lidar-lite",
+            "name": "Lidar Lite",
+            "short_description": "Wrapper around the Garmin Lidar Lite V3 module for the Omega Microcontroller",
+            "github_slug": "Noah-Huppert/lidar-lite",
+            "tags": {
+                "languages": ["python"],
+                "development_areas": ["frontend", "backend", "hardware"],
+                "progress": "hold",
+                "support": "na"
+            }
+        }
+    ]
+}

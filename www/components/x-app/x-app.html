@@ -1,9 +1,13 @@
 <link rel="import" href="/bower_components/polymer/polymer-element.html">
+
+<link rel="import" href="/bower_components/app-layout/app-layout.html">
 <link rel="import" href="/bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
 <link rel="import" href="/bower_components/app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="/bower_components/app-layout/app-toolbar/app-toolbar.html">
 <link rel="import" href="/bower_components/app-layout/app-header-layout/app-header-layout.html">
 <link rel="import" href="/bower_components/app-layout/app-header/app-header.html">
 <link rel="import" href="/bower_components/app-layout/app-toolbar/app-toolbar.html">
+
 <link rel="import" href="/bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="/bower_components/paper-button/paper-button.html">
@@ -21,15 +25,12 @@
                 font-family: "Roboto", sans-serif;
             }
 
-            #drawer {
+            /* Drawer */
+            app-drawer {
                 --app-drawer-content-container: {
                     margin-top: 2rem;
                     border-right: 1px solid rgba(0, 0, 0, 0.3);
                 };
-            }
-
-            app-drawer-layout:not([narrow]) [drawer-toggle] {
-                display: none;
             }
 
             #title {
@@ -44,6 +45,11 @@
                 font-size: 1.2rem;
             }
 
+            /* Content */
+            app-drawer-layout:not([narrow]) [drawer-toggle] {
+                display: none;
+            }
+
             #main-toolbar {
                 width: 100%;
             }
@@ -51,8 +57,7 @@
 
         <app-drawer-layout fullbleed>
             <!-- Drawer -->
-            <app-drawer slot="drawer" id="drawer">
-                <div id="drawer-content">
+            <app-drawer slot="drawer" opened persistent>
                     <div id="title" main-title>Noah Huppert</div>
                     <app-toolbar>
                         <paper-button raised>Contact</paper-button>
@@ -64,7 +69,6 @@
                         University. I've been programming since the age of 9 and am always exploring and learning new
                         things.
                     </div>
-                </div>
             </app-drawer>
 
             <!-- Content -->
@@ -80,6 +84,7 @@
                     Main content
                 </div>
             </app-header-layout>
+
         </app-drawer-layout>
 
     </template>
@@ -94,5 +99,4 @@
 
         customElements.define(XApp.is, XApp);
     </script>
-
 </dom-module>

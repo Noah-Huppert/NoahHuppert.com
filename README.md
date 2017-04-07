@@ -1,38 +1,36 @@
-# \<NoahHuppert.com\>
+# NoahHuppert.com
+Repository for my (Noah Huppert) home page.
 
-Homepage for Noah Huppert.
+A simple single page Polymer (2.0) app. Content is served with Caddy from the `www` directory.
 
-## Install the Polymer-CLI
+# Data
+The `www/data` directory holds static JSON files that the single page web app will request and use to display.
 
-First, make sure you have the [Polymer CLI](https://www.npmjs.com/package/polymer-cli) installed. Then run `polymer serve` to serve your application locally.
-
-## Viewing Your Application
-
-```
-$ polymer serve
-```
-
-## Building Your Application
-
-```
-$ polymer build
-```
-
-This will create a `build/` folder with `bundled/` and `unbundled/` sub-folders
-containing a bundled (Vulcanized) and unbundled builds, both run through HTML,
-CSS, and JS optimizers.
-
-You can serve the built versions by giving `polymer serve` a folder to serve
-from:
-
-```
-$ polymer serve build/bundled
-```
-
-## Running Tests
-
-```
-$ polymer test
-```
-
-Your application is already set up to be tested via [web-component-tester](https://github.com/Polymer/web-component-tester). Run `polymer test` to run your application's test suite locally.
+## `projects.json`
+Contains data for my projects. The `projects` key is an array of Projects objects which follow this scheme:
+- id (string): Id of project
+    - **Required**
+- name (string): Name of the project
+    - **Required**
+- short_description (string): Short description of project
+    - **Required**
+- github_slug (string): Github username and repository name 
+    - **Required**
+- tags (object): Contains all project tags
+    - **Required**
+    - languages (string[]): Programming languages used in project
+        - **Required**
+    - development_areas (string[]): Areas of development touched on in project
+        - **Required**
+    - progress (string): How far along I am with project
+        - **Required**
+    - support (string): Whether or not I am supporting the project
+        - **Required**
+   
+## `tags.json`
+Contains all valid tag values. The different keys in the file represent different tag categories. The values of these 
+keys are object arrays which follow this scheme:
+- id (string): Id of tag
+    - **Required**
+- text (string): Text to display for tag
+    - **Required**

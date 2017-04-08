@@ -30,7 +30,20 @@
                 --app-drawer-content-container: {
                     margin-top: 2rem;
                     border-right: 1px solid rgba(0, 0, 0, 0.3);
+                    /*background: red;*/
                 };
+            }
+
+            .drawer-half {
+                height: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                /*background: pink;*/
+            }
+
+            .drawer-half:first-of-type {
+                /*background: deeppink;*/
             }
 
             #title {
@@ -43,6 +56,7 @@
                 padding: 0.5rem;
                 text-align: left;
                 font-size: 1.2rem;
+                /*background: green;*/
             }
 
             /* Content */
@@ -58,17 +72,20 @@
         <app-drawer-layout fullbleed>
             <!-- Drawer -->
             <app-drawer slot="drawer" opened persistent>
-                    <div id="title" main-title>Noah Huppert</div>
-                    <app-toolbar>
-                        <paper-button raised>Contact</paper-button>
-                        <paper-button raised>Resume</paper-button>
-                    </app-toolbar>
-
-                    <div id="bio">
-                        Hi my name is Noah Huppert. I am currently a first year Computer Science student at Drexel
-                        University. I've been programming since the age of 9 and am always exploring and learning new
-                        things.
+                <div class="drawer-half">
+                    <div style="/*background: purple;*/">
+                        <div id="title" main-title>Noah Huppert</div>
+                        <app-toolbar>
+                            <paper-button raised>Contact</paper-button>
+                            <paper-button raised>Resume</paper-button>
+                        </app-toolbar>
                     </div>
+                </div>
+                <div id="bio">
+                    Hi my name is Noah Huppert. I am currently a first year Computer Science student at Drexel
+                    University. I've been programming since the age of 9 and am always exploring and learning new
+                    things.
+                </div>
             </app-drawer>
 
             <!-- Content -->

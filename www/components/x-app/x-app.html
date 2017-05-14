@@ -91,7 +91,7 @@
                     </div>
                 </div>
                 <div id="bio">
-                    Hi my name is Noah Huppert. I am currently a first year Computer Science student at Drexel
+                    Hello my name is Noah Huppert. I am currently a first year Computer Science student at Drexel
                     University. I've been programming since the age of 9 and am always exploring and learning new
                     things.
                 </div>
@@ -106,7 +106,7 @@
                     </app-toolbar>
                 </app-header>
 
-                <x-projects></x-projects>
+                <x-projects tags="[[tags]]"></x-projects>
             </app-header-layout>
 
         </app-drawer-layout>
@@ -118,10 +118,22 @@
             static get is() { return "x-app" }
             constructor() {
                 super();
+
+                // Data
+                this.tags = {};
             }
 
             ready() {
                 super.ready();
+            }
+
+            // /data/tags.json tags loading events
+            tagsLoadSuccess(event) {
+
+            }
+
+            tagsLoadError(err, o) {
+
             }
         }
 

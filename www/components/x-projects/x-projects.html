@@ -4,6 +4,13 @@
 <dom-module id="x-projects">
     <template>
         <style>
+            :host {
+                width: 100%;
+                height: 100%;
+                font-size: 10px;
+                font-family: "Roboto", sans-serif;
+            }
+
             /* Projects loading */
             #projects-loading {
                 width: 100%;
@@ -12,10 +19,16 @@
                 font-style: italic;
             }
 
+            #projects-loading div {
+                width: 100%;
+                text-align: center;
+            }
+
             #projects-loading.error {
                 color: #F44336;
             }
 
+            /*
             #projects-loading .container {
                 display: flex;
                 align-items: center;
@@ -25,15 +38,16 @@
             #projects-loading.error .title {
                 width: 260px;
             }
+            */
 
-            #projects-loading .title {
-                width: 470px;
-                text-align: left;
+            #projects-loading #loading-title {
+                /*width: 470px;
+                text-align: left;*/
                 font-size: 8rem;
                 font-weight: 100;
             }
 
-            #projects-loading .message {
+            #projects-loading #loading-message {
                 font-size: 1rem;
                 font-weight: 300;
             }
@@ -49,19 +63,18 @@
                 last-response="{{projects}}"></iron-ajax>
 
         <!-- Loading -->
-        <div id="projects-loading" styles="display: [[loadingState.display]];">
-            <div class="container">
-                <div class="title">
-                    [[loadingState.big_message]]
+        <div id="projects-loading" style$="display: [[loadingState.loadingDisplay]];">
+            <div>
+                <div id="loading-title">
+                    Loading
                 </div>
-                <div class="message">
-                    [[loadingState.detailed_message]]
+                <div id="loading-message">
                 </div>
             </div>
         </div>
 
         <!-- Projects -->
-        <div id="projects">
+        <div id="projects" style$="display: [[loadingState.projectsDisplay]];">
             <template is="dom-repeat" items="{{projects}}">
                 Id: [[item.id]]<br>
                 Name: [[item.name]]<br>
@@ -70,13 +83,13 @@
                 Languages:[[item.languages]]<br>
                 <ul>
                     <template is="dom-repeat" items="{{item.tags.languages}}" as="lang">
-                        <li>[[lang]]</li>
+                        <li>[[mapTagIdToText("languages", lang)]]</li>
                     </template>
                 </ul>
-                Development Areas:<br>
+                Development Areas:<br>s
                 <ul>
                     <template is="dom-repeat" items="{{item.tags.development_areas}}" as="area">
-                        <li>[[area]]</li>
+                        <li>[[tags.development_areas.[[area]].text]]</li>
                     </template>
                 </ul>
                 Progress: [[item.progress]]<br>
@@ -86,83 +99,111 @@
     </template>
 
     <script>
+
+
         class XProjects extends Polymer.Element {
-            ID_LOADING_EL = "projects-loading";
-
-            var DISPLAY_SHOW = "block";
-            var DISPLAY_HIDE = "none";
-
-            var MESSAGE_LOADING_BASE = "Loading";
-            var MESSAGE_LOADING_ADDITION = ".";
-
-            var MESSAGE_LOADING_TOO_LONG = "Projects data is taking too long to load.<br>" +
-                                           "Something may have gone wrong";//, an anonymous bug report has been submitted.";
-
-            var INTERVAL_LOADING_ANIMATE = 1000;
-
             static get is() {
                 return "x-projects";
             }
 
             static get properties() {
                 return {
-                    loadingEl: {
+                    tags: {
                         type: Object,
-                        value: this.$(XProjects.ID_LOADING_EL)
-                    };
-                };
+                        value: {}
+                    }
+                }
             }
 
             static get observers() {
                 return [
-                    "dataLoadingChanged(loadingEl.loading)"
+                    "loadingStateBigMessageChanged(loadingState.bigMessage)",
+                    "loadingStateDetailedMessageChanged(loadingState.detailedMessage)"
                 ];
             }
 
             constructor() {
                 super();
 
+                // Content Constants
+                this.LOADING_EL = "projects-loading";
+                this.LOADING_TITLE_ID = "loading-title";
+                this.LOADING_MESSAGE_ID = "loading-message";
+
+                this.DISPLAY_SHOW = "block";
+                this.DISPLAY_HIDE = "none";
+
+                this.MESSAGE_LOADING_BASE = "Loading";
+
+                this.MESSAGE_LOADING_TOO_LONG = "Projects data is taking too long to load.<br>" +
+                    "Something may have gone wrong";//, an anonymous bug report has been submitted.";
+                this.LOADING_TOO_LONG_TIMEOUT = 10000;
+
+                // Loading state to display
                 this.loadingState = {
-                    display: XProjects.DISPLAY_SHOW,
-                    bigMessage: XProjects.MESSAGE_LOADING_BASE,
+                    loadingDisplay: this.DISPLAY_SHOW,
+                    projectsDisplay: this.DISPLAY_HIDE,
+                    bigMessage: this.MESSAGE_LOADING_BASE,
                     detailedMessage: ""
                 };
+
+                // Data
+                this.projects = [];
+                var self = this;
+                this.loadingState.tooLongTimeout = setTimeout(function() {
+                    self.set("loadingState.detailedMessage", self.MESSAGE_LOADING_TOO_LONG);
+                }, this.LOADING_TOO_LONG_TIMEOUT)
             }
 
-            /* Observers */
-            dataLoadingChanged(loading) {
-                if (loading === true) { // If currently loading
-                    // Set display params
-                    this.loadingState.bigMessage = XProjects.MESSAGE_LOADING_BASE;
-                    this.loadingState.detailedMessage = "";
-                    this.loadingState.display = XProjects.DISPLAY_SHOW;
-
-                    // Make 3 dots animate after "loading" text
-                    this.loadingAnimateInterval = setInterval(this.animateLoading, XProjects.INTERVAL_LOADING_ANIMATE);
-                } else if (loading === false && this.loadingAnimateInterval !== undefined) { // If stopping loading
-                    console.log("this.loadingEl.lastError", this.loadingEl.lastError);
-
-                    if (this.loadingEl.lastError !== undefined) { // If error show
-                        this.loadingState.bigMessage = "Failed to load Projects data";
-                        this.loadingState.detailedMessage = "Unfortunately an error occurred while loading projects data";
-                    } else { // If success
-                        this.loadingState = XProjects.DISPLAY_HIDE;
-                    }
-
-                    // Stop adding dots onto end of this.loadingState.bigMessage
-                    clearInterval(this.loadingAnimateInterval);
+            // Observers
+            loadingStateBigMessageChanged(bigMessage) {
+                var el = this.$[this.LOADING_TITLE_ID];
+                if (el.innerHTML !== bigMessage) {
+                    el.innerHTML = bigMessage;
                 }
             }
 
-            animateLoading() {
-                // Count number of dots added after "loading" message
-                let numDots = (this.loadingState.bigMessage.length - XProjects.MESSAGE_LOADING_BASE.length) / (XProjects.MESSAGE_LOADING_ADDITION.length);
-
-                if (numDots < 3) { // If less than 3 addd more dots
-                    this.loadingState.bigMessage += XProjects.MESSAGE_LOADING_ADDITION;
-                } else { // Otherwise reset back to no dots (ie., "loading")
-                    this.loadingState.bigMessage = XPRojects.MESSAGE_LOADING_BASE;
+            loadingStateDetailedMessageChanged(detailedMessage) {
+                var el = this.$[this.LOADING_MESSAGE_ID];
+                if (el.innerHTML !== detailedMessage) {
+                    el.innerHTML = detailedMessage;
                 }
+            }
+
+            /**
+             * Takes a tag value from a project and looks at the tag field for the pretty Text loaded from /data/tags.json
+             * Simply returns value if tags haven't been loaded yet
+             *
+             * @param tagName The tag to look at
+             * @param value The id of the tag to retrieve text for.
+             */
+            mapTagIdToText(tagName, value) {
+                // If tags are loaded and tag exists
+                if (this.tags !== null && this.tags[tagName] !== undefined && this.tags[tagName][value] !== undefined) {
+                    return this.tags[tagName][value].text;
+                } else {
+                    // Otherwise just return value
+                    return value;
+                }
+            }
+
+            // /data/projects.json loading handlers
+            loadSuccess(event) {
+                // Stop loading too long timeout
+                clearTimeout(this.loadingState.tooLongTimeout);
+
+                // Hide loading box
+                this.set("loadingState.loadingDisplay", this.DISPLAY_HIDE);
+                this.set("loadingState.projectsDisplay", this.DISPLAY_SHOW);
+            }
+
+            loadError(err, detail) {
+                // Stop loading too long timeout
+                clearTimeout(this.loadingState.tooLongTimeout);
+
+                // Set error text
+                this.$[this.LOADING_EL].classList.add("error");
+                this.set("loadingState.detailedMessage", "Error loading projects.json: " + detail.request.status + " " + detail.request.statusText);
             }
         }
 

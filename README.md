@@ -7,7 +7,7 @@ A simple single page Polymer (2.0) app. Content is served with Caddy from the `w
 The `www/data` directory holds static JSON files that the single page web app will request and use to display.
 
 ## `projects.json`
-Contains data for my projects. The `projects` key is an array of Projects objects which follow this scheme:
+Contains an array of Projects objects which follow this scheme:
 - id (string): Id of project
     - **Required**
 - name (string): Name of the project

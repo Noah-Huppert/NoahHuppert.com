@@ -8,12 +8,16 @@
 <link rel="import" href="/bower_components/app-layout/app-header/app-header.html">
 <link rel="import" href="/bower_components/app-layout/app-toolbar/app-toolbar.html">
 
+<link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
+
 <link rel="import" href="/bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="/bower_components/paper-button/paper-button.html">
 
+<link rel="import" href="/components/x-projects/x-projects.html">
+
 <!--<link href="https://fonts.googleapis.com/css?family=Bungee+Shade|Playfair+Display|PT+Serif|Roboto-Mono:300|Roboto:300" rel="stylesheet">-->
-<link href="https://fonts.googleapis.com/css?family=Bungee+Shade|Playfair+Display|PT+Serif|Roboto-Mono:300|Roboto:300" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Bungee+Shade|Playfair+Display|PT+Serif|Roboto-Mono:300|Roboto:300|Lato:100i,300i" rel="stylesheet">
 
 <dom-module id="x-app">
     <template>
@@ -60,9 +64,21 @@
             #main-toolbar {
                 width: 100%;
             }
+
+
         </style>
 
         <app-drawer-layout fullbleed>
+            <!-- Data -->
+            <iron-ajax
+                auto
+                url="/data/tags.json"
+                handle-as="json"
+                on-error="tagsLoadError"
+                on-response="tagsLoadSuccess"
+                last-response="{{tags}}"></iron-ajax>
+
+
             <!-- Drawer -->
             <app-drawer slot="drawer" opened persistent>
                 <div class="drawer-half">
@@ -90,9 +106,7 @@
                     </app-toolbar>
                 </app-header>
 
-                <div>
-                    Main content
-                </div>
+                <x-projects></x-projects>
             </app-header-layout>
 
         </app-drawer-layout>
@@ -104,6 +118,10 @@
             static get is() { return "x-app" }
             constructor() {
                 super();
+            }
+
+            ready() {
+                super.ready();
             }
         }
 

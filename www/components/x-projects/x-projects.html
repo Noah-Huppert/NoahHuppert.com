@@ -1,0 +1,171 @@
+<link rel="import" href="/bower_components/polymer/polymer-element.html">
+<link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
+
+<dom-module id="x-projects">
+    <template>
+        <style>
+            /* Projects loading */
+            #projects-loading {
+                width: 100%;
+                height: 100%;
+                font-family: "Lato", sans-serif;
+                font-style: italic;
+            }
+
+            #projects-loading.error {
+                color: #F44336;
+            }
+
+            #projects-loading .container {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            #projects-loading.error .title {
+                width: 260px;
+            }
+
+            #projects-loading .title {
+                width: 470px;
+                text-align: left;
+                font-size: 8rem;
+                font-weight: 100;
+            }
+
+            #projects-loading .message {
+                font-size: 1rem;
+                font-weight: 300;
+            }
+        </style>
+
+        <!-- Data -->
+        <iron-ajax
+                auto
+                url="/data/projects.json"
+                handle-as="json"
+                on-error="loadError"
+                on-response="loadSuccess"
+                last-response="{{projects}}"></iron-ajax>
+
+        <!-- Loading -->
+        <div id="projects-loading" styles="display: [[loadingState.display]];">
+            <div class="container">
+                <div class="title">
+                    [[loadingState.big_message]]
+                </div>
+                <div class="message">
+                    [[loadingState.detailed_message]]
+                </div>
+            </div>
+        </div>
+
+        <!-- Projects -->
+        <div id="projects">
+            <template is="dom-repeat" items="{{projects}}">
+                Id: [[item.id]]<br>
+                Name: [[item.name]]<br>
+                Short Description: [[item.short_description]]<br>
+                Github Slug: [[item.github_slug]]<br>
+                Languages:[[item.languages]]<br>
+                <ul>
+                    <template is="dom-repeat" items="{{item.tags.languages}}" as="lang">
+                        <li>[[lang]]</li>
+                    </template>
+                </ul>
+                Development Areas:<br>
+                <ul>
+                    <template is="dom-repeat" items="{{item.tags.development_areas}}" as="area">
+                        <li>[[area]]</li>
+                    </template>
+                </ul>
+                Progress: [[item.progress]]<br>
+                Support: [[item.support]]
+            </template>
+        </div>
+    </template>
+
+    <script>
+        class XProjects extends Polymer.Element {
+            ID_LOADING_EL = "projects-loading";
+
+            var DISPLAY_SHOW = "block";
+            var DISPLAY_HIDE = "none";
+
+            var MESSAGE_LOADING_BASE = "Loading";
+            var MESSAGE_LOADING_ADDITION = ".";
+
+            var MESSAGE_LOADING_TOO_LONG = "Projects data is taking too long to load.<br>" +
+                                           "Something may have gone wrong";//, an anonymous bug report has been submitted.";
+
+            var INTERVAL_LOADING_ANIMATE = 1000;
+
+            static get is() {
+                return "x-projects";
+            }
+
+            static get properties() {
+                return {
+                    loadingEl: {
+                        type: Object,
+                        value: this.$(XProjects.ID_LOADING_EL)
+                    };
+                };
+            }
+
+            static get observers() {
+                return [
+                    "dataLoadingChanged(loadingEl.loading)"
+                ];
+            }
+
+            constructor() {
+                super();
+
+                this.loadingState = {
+                    display: XProjects.DISPLAY_SHOW,
+                    bigMessage: XProjects.MESSAGE_LOADING_BASE,
+                    detailedMessage: ""
+                };
+            }
+
+            /* Observers */
+            dataLoadingChanged(loading) {
+                if (loading === true) { // If currently loading
+                    // Set display params
+                    this.loadingState.bigMessage = XProjects.MESSAGE_LOADING_BASE;
+                    this.loadingState.detailedMessage = "";
+                    this.loadingState.display = XProjects.DISPLAY_SHOW;
+
+                    // Make 3 dots animate after "loading" text
+                    this.loadingAnimateInterval = setInterval(this.animateLoading, XProjects.INTERVAL_LOADING_ANIMATE);
+                } else if (loading === false && this.loadingAnimateInterval !== undefined) { // If stopping loading
+                    console.log("this.loadingEl.lastError", this.loadingEl.lastError);
+
+                    if (this.loadingEl.lastError !== undefined) { // If error show
+                        this.loadingState.bigMessage = "Failed to load Projects data";
+                        this.loadingState.detailedMessage = "Unfortunately an error occurred while loading projects data";
+                    } else { // If success
+                        this.loadingState = XProjects.DISPLAY_HIDE;
+                    }
+
+                    // Stop adding dots onto end of this.loadingState.bigMessage
+                    clearInterval(this.loadingAnimateInterval);
+                }
+            }
+
+            animateLoading() {
+                // Count number of dots added after "loading" message
+                let numDots = (this.loadingState.bigMessage.length - XProjects.MESSAGE_LOADING_BASE.length) / (XProjects.MESSAGE_LOADING_ADDITION.length);
+
+                if (numDots < 3) { // If less than 3 addd more dots
+                    this.loadingState.bigMessage += XProjects.MESSAGE_LOADING_ADDITION;
+                } else { // Otherwise reset back to no dots (ie., "loading")
+                    this.loadingState.bigMessage = XPRojects.MESSAGE_LOADING_BASE;
+                }
+            }
+        }
+
+        customElements.define(XProjects.is, XProjects);
+    </script>
+</dom-module>

@@ -83,13 +83,13 @@
                 Languages:[[item.languages]]<br>
                 <ul>
                     <template is="dom-repeat" items="{{item.tags.languages}}" as="lang">
-                        <li>[[mapTagIdToText("languages", lang)]]</li>
+                        <li>[[mapTagIdToText(tags, "languages", lang)]]</li>
                     </template>
                 </ul>
                 Development Areas:<br>s
                 <ul>
                     <template is="dom-repeat" items="{{item.tags.development_areas}}" as="area">
-                        <li>[[tags.development_areas.[[area]].text]]</li>
+                        <li>[[mapTagIdToText(tags, "development_areas", area)]]</li>
                     </template>
                 </ul>
                 Progress: [[item.progress]]<br>
@@ -174,10 +174,11 @@
              * Takes a tag value from a project and looks at the tag field for the pretty Text loaded from /data/tags.json
              * Simply returns value if tags haven't been loaded yet
              *
+             * @param tags Tags object, necessary so that computed value changes when tags object loads
              * @param tagName The tag to look at
              * @param value The id of the tag to retrieve text for.
              */
-            mapTagIdToText(tagName, value) {
+            mapTagIdToText(tags, tagName, value) {
                 // If tags are loaded and tag exists
                 if (this.tags !== null && this.tags[tagName] !== undefined && this.tags[tagName][value] !== undefined) {
                     return this.tags[tagName][value].text;

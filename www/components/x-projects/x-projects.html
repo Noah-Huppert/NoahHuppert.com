@@ -1,5 +1,89 @@
 <link rel="import" href="/bower_components/polymer/polymer-element.html">
 <link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="/bower_components/paper-card/paper-card.html">
+
+<link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
+
+<dom-module id="x-project">
+    <template>
+        <style>
+            :host {
+                font-size: 10px;
+                font-family: "Roboto", sans-serif;
+            }
+
+        </style>
+
+        <paper-card heading="[[project.name]]">
+            <div class="card-content">
+                [[project.short_description]]
+            </div>
+        </paper-card>
+
+        <!--
+        Id: [[project.id]]<br>
+        Name: [[project.name]]<br>
+        Short Description: [[project.short_description]]<br>
+        Github Slug: [[project.github_slug]]<br>
+        Languages: <br>
+        <ul>
+            <template is="dom-repeat" items="{{project.tags.languages}}" as="lang">
+                <li>[[mapTagIdToText(tags, "languages", lang)]]</li>
+            </template>
+        </ul>
+        Development Areas: <br>
+        <ul>
+            <template is="dom-repeat" items="{{project.tags.development_areas}}" as="area">
+                <li>[[mapTagIdToText(tags, "development_areas", area)]]</li>
+            </template>
+        </ul>
+        Progress: [[mapTagIdToText(tags, "progress", project.tags.progress)]]<br>
+        Support: [[mapTagIdToText(tags, "support", project.tags.support)]]
+        -->
+    </template>
+
+    <script>
+        class XProject extends Polymer.Element {
+            static get is() {
+                return "x-project";
+            }
+
+            static get properties() {
+                return {
+                    project: Object,
+                    tags: {
+                        type: Object,
+                        value: {}
+                    }
+                };
+            }
+
+            constructor() {
+                super();
+            }
+
+            /**
+             * Takes a tag value from a project and looks at the tag field for the pretty Text loaded from /data/tags.json
+             * Simply returns value if tags haven't been loaded yet
+             *
+             * @param tags Tags object, necessary so that computed value changes when tags object loads
+             * @param tagName The tag to look at
+             * @param value The id of the tag to retrieve text for.
+             */
+            mapTagIdToText(tags, tagName, value) {
+                // If tags are loaded and tag exists
+                if (this.tags !== null && this.tags[tagName] !== undefined && this.tags[tagName][value] !== undefined) {
+                    return this.tags[tagName][value].text;
+                } else {
+                    // Otherwise just return value
+                    return value;
+                }
+            }
+        }
+
+        customElements.define(XProject.is, XProject);
+    </script>
+</dom-module>
 
 <dom-module id="x-projects">
     <template>
@@ -28,21 +112,7 @@
                 color: #F44336;
             }
 
-            /*
-            #projects-loading .container {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-
-            #projects-loading.error .title {
-                width: 260px;
-            }
-            */
-
             #projects-loading #loading-title {
-                /*width: 470px;
-                text-align: left;*/
                 font-size: 8rem;
                 font-weight: 100;
             }
@@ -76,24 +146,7 @@
         <!-- Projects -->
         <div id="projects" style$="display: [[loadingState.projectsDisplay]];">
             <template is="dom-repeat" items="{{projects}}">
-                Id: [[item.id]]<br>
-                Name: [[item.name]]<br>
-                Short Description: [[item.short_description]]<br>
-                Github Slug: [[item.github_slug]]<br>
-                Languages:[[item.languages]]<br>
-                <ul>
-                    <template is="dom-repeat" items="{{item.tags.languages}}" as="lang">
-                        <li>[[mapTagIdToText(tags, "languages", lang)]]</li>
-                    </template>
-                </ul>
-                Development Areas:<br>s
-                <ul>
-                    <template is="dom-repeat" items="{{item.tags.development_areas}}" as="area">
-                        <li>[[mapTagIdToText(tags, "development_areas", area)]]</li>
-                    </template>
-                </ul>
-                Progress: [[item.progress]]<br>
-                Support: [[item.support]]
+                <x-project tags="[[tags]]" project="[[item]]"></x-project>
             </template>
         </div>
     </template>
@@ -156,6 +209,7 @@
             }
 
             // Observers
+            // -- -- loadingStage messages
             loadingStateBigMessageChanged(bigMessage) {
                 var el = this.$[this.LOADING_TITLE_ID];
                 if (el.innerHTML !== bigMessage) {
@@ -170,23 +224,6 @@
                 }
             }
 
-            /**
-             * Takes a tag value from a project and looks at the tag field for the pretty Text loaded from /data/tags.json
-             * Simply returns value if tags haven't been loaded yet
-             *
-             * @param tags Tags object, necessary so that computed value changes when tags object loads
-             * @param tagName The tag to look at
-             * @param value The id of the tag to retrieve text for.
-             */
-            mapTagIdToText(tags, tagName, value) {
-                // If tags are loaded and tag exists
-                if (this.tags !== null && this.tags[tagName] !== undefined && this.tags[tagName][value] !== undefined) {
-                    return this.tags[tagName][value].text;
-                } else {
-                    // Otherwise just return value
-                    return value;
-                }
-            }
 
             // /data/projects.json loading handlers
             loadSuccess(event) {

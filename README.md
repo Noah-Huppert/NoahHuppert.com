@@ -28,9 +28,8 @@ Contains an array of Projects objects which follow this scheme:
         - **Required**
    
 ## `tags.json`
-Contains all valid tag values. The different keys in the file represent different tag categories. The values of these 
-keys are object arrays which follow this scheme:
-- id (string): Id of tag
-    - **Required**
+Contains all valid tag values. Top level keys represent different tag categories. Each tag category has an object, keys 
+in this object are tag ids. These ids specify a value in the tag category. More detailed information can then be 
+specified via tag objects which follow this scheme:
 - text (string): Text to display for tag
     - **Required**

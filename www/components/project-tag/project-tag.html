@@ -1,0 +1,37 @@
+<link rel="import" href="/bower_components/polymer/polymer-element.html">
+
+<dom-module id="project-tag">
+    <template>
+        <style>
+            :host {
+                font-size: 10px;
+                font-family: "Roboto", sans-serif;
+            }
+        </style>
+
+        TAG!
+    </template>
+
+    <script>
+        class ProjectTag extends Polymer.Element {
+            static get is() { return "project-tag" }
+
+            static get properties() {
+                return {
+                    tags: {
+                        type: Object,
+                        value: {}
+                    }
+
+
+                };
+            }
+
+            constructor() {
+                super();
+            }
+        }
+
+        customElements.define(ProjectTag.is, ProjectTag);
+    </script>
+</dom-module>

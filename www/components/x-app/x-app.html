@@ -63,7 +63,9 @@
                 width: 100%;
             }
 
-
+            #page {
+                margin-left: 1rem;
+            }
         </style>
 
         <app-drawer-layout fullbleed>
@@ -104,7 +106,9 @@
                     </app-toolbar>
                 </app-header>
 
-                <x-projects tags="[[tags]]"></x-projects>
+                <div id="page">
+                    <x-projects tags="[[tags]]"></x-projects>
+                </div>
             </app-header-layout>
 
         </app-drawer-layout>

@@ -1,6 +1,8 @@
 <link rel="import" href="/bower_components/polymer/polymer-element.html">
 <link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="/bower_components/paper-card/paper-card.html">
+<link rel="import" href="/bower_components/neon-animation/neon-animation.html">
+<link rel="import" href="/bower_components/paper-tooltip/paper-tooltip.html">
 
 <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
 
@@ -12,11 +14,32 @@
                 font-family: "Roboto", sans-serif;
             }
 
+            .project-card {
+                width: 15rem;
+            }
+
+            .project-card .project-language {
+                display: inline-block;
+            }
         </style>
 
-        <paper-card heading="[[project.name]]">
+        <paper-card class="project-card" heading="[[project.name]]">
             <div class="card-content">
                 [[project.short_description]]
+            </div>
+
+            <div class="card-actions">
+                <!-- Tags -->
+                <!-- -- -- Languages -->
+                <template is="dom-repeat" items="[[project.tags.languages]]" as="lang">
+                    <div class="project-language">
+                        <paper-icon-button src="[[lang.ui_data]]"></paper-icon-button>
+                        UIDATA:{{lang.ui_data}}:UIDATA
+                        <paper-tooltip>
+                            [[mapTagIdToText(tags, "languages", lang)]]
+                        </paper-tooltip>
+                    </div>
+                </template>
             </div>
         </paper-card>
 
@@ -71,6 +94,7 @@
              * @param value The id of the tag to retrieve text for.
              */
             mapTagIdToText(tags, tagName, value) {
+                console.log(tags.languages.python.ui_data);
                 // If tags are loaded and tag exists
                 if (this.tags !== null && this.tags[tagName] !== undefined && this.tags[tagName][value] !== undefined) {
                     return this.tags[tagName][value].text;

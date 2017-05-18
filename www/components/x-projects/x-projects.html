@@ -1,8 +1,7 @@
 <link rel="import" href="/bower_components/polymer/polymer-element.html">
 <link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
-<link rel="import" href="/bower_components/paper-card/paper-card.html">
-<link rel="import" href="/bower_components/neon-animation/neon-animation.html">
-<link rel="import" href="/bower_components/paper-tooltip/paper-tooltip.html">
+
+<link rel="import" href="/components/project-tag/project-tag.html">
 
 <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
 
@@ -32,6 +31,8 @@
                 <!-- Tags -->
                 <!-- -- -- Languages -->
                 <template is="dom-repeat" items="[[project.tags.languages]]" as="lang">
+                    <project-tag tags="[[tags]]" category="languages" id="[[lang]]"></project-tag>
+                    <!--
                     <div class="project-language">
                         <paper-icon-button src="[[lang.ui_data]]"></paper-icon-button>
                         UIDATA:{{lang.ui_data}}:UIDATA
@@ -39,6 +40,7 @@
                             [[mapTagIdToText(tags, "languages", lang)]]
                         </paper-tooltip>
                     </div>
+                    -->
                 </template>
             </div>
         </paper-card>
@@ -94,7 +96,6 @@
              * @param value The id of the tag to retrieve text for.
              */
             mapTagIdToText(tags, tagName, value) {
-                console.log(tags.languages.python.ui_data);
                 // If tags are loaded and tag exists
                 if (this.tags !== null && this.tags[tagName] !== undefined && this.tags[tagName][value] !== undefined) {
                     return this.tags[tagName][value].text;

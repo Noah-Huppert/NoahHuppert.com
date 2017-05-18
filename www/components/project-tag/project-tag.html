@@ -1,4 +1,7 @@
 <link rel="import" href="/bower_components/polymer/polymer-element.html">
+<link rel="import" href="/bower_components/paper-card/paper-card.html">
+<link rel="import" href="/bower_components/neon-animation/neon-animation.html">
+<link rel="import" href="/bower_components/paper-tooltip/paper-tooltip.html">
 
 <dom-module id="project-tag">
     <template>
@@ -9,7 +12,18 @@
             }
         </style>
 
-        TAG!
+        <template is="dom-if" if="[[tagFound(tags, category, id)]]">
+            <dom-if if="[[getTag(tags, category, id, 'ui_type') == 'icon'">
+                <paper-icon-button src="[[getTag(tags, category, id, 'ui_data')]]"></paper-icon-button>
+                <paper-tooltip>
+                    [[getTag(tags, category, id, 'text')]]
+                </paper-tooltip>
+            </dom-if>
+        </template>
+        <template is="dom-if" if="[[!tagFound(tags, category, id)]]">
+            [[id]]
+        </template>
+
     </template>
 
     <script>
@@ -21,14 +35,49 @@
                     tags: {
                         type: Object,
                         value: {}
-                    }
-
-
+                    },
+                    category: String,
+                    id: String
                 };
             }
 
             constructor() {
                 super();
+            }
+
+            // Helpers
+            /**
+             * Returns if the tag was found in the loaded tags
+             * @param tags Tags
+             * @param category Tag category
+             * @param id Tag Id
+             * @returns If tag was found
+             */
+            tagFound(tags, category, id) {
+                if(tags[category] !== undefined && tags[category][id] !== undefined) {
+                    return true;
+                }
+
+                return false;
+            }
+
+            /**
+             * Get tag
+             * @param tags Tags
+             * @param category Tag category
+             * @param id Tag id
+             * @returns Tag if found, undefined if not
+             */
+            getTag(tags, category, id, prop) {
+                if (this.tagFound(tags, category, id)) {
+                    if (prop === undefined) {
+                        return tags[category][id];
+                    } else {
+                        return tags[category][id][prop];
+                    }
+                }
+
+                return undefined;
             }
         }
 

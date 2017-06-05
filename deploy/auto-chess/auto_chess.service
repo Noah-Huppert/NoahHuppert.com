@@ -1,0 +1,15 @@
+[Unit]
+Description=Auto Chess
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill auto-chess-server
+ExecStartPre=-/usr/bin/docker rm auto-chess-server
+ExecStartPre=/usr/bin/docker pull noahhuppert/auto-chess:latest
+ExecStart=/usr/bin/docker run --name auto-chess-server -e ENVIRONMENT=production -e DB_PASSWORD=${db_password} -p 80:80 --network=host noahhuppert/auto-chess:latest
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,15 @@
+[Unit]
+Description=PostgreSQL
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill postgres-server
+ExecStartPre=-/usr/bin/docker rm postgres-server
+ExecStartPre=/usr/bin/docker pull postgres
+ExecStart=/usr/bin/docker run --name postgres-server -e POSTGRES_USER=auto-chess -e POSTGRES_PASSWORD=${db_password} -e POSTGRES_DB=auto-chess -p 5432:5432 --network=host postgres
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

@@ -7,3 +7,8 @@ variable "instance_password_hash" {
     type = "string"
     description = "Password hash of instance to create"
 }
+
+variable "keybase_verify_txt" {
+    type = "string"
+    description = "Text to insert into Keybase TXT DNS record"
+}

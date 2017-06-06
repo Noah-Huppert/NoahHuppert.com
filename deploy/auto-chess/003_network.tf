@@ -17,6 +17,13 @@ resource "digitalocean_record" "www" {
     value = "noahhuppert.herokuapp.com."
 }
 
+resource "digitalocean_record" "keybase" {
+    domain = "${digitalocean_domain.noahhuppert_com.name}"
+    name = "noahhuppert.com"
+    type = "TXT"
+    value = "${var.keybase_verify_txt}"
+}
+
 resource "digitalocean_record" "auto_chess" {
     domain = "${digitalocean_domain.noahhuppert_com.name}"
     name = "autochess"

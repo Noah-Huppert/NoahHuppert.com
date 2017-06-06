@@ -2,7 +2,7 @@ resource "digitalocean_droplet" "auto_chess" {
     image = "coreos-alpha"
     name = "auto-chess"
     region = "${var.do_region}"
-    size = "512mb"
+    size = "2gb"
     ipv6 = true
     private_networking = true
     ssh_keys = ["${var.do_ssh_key_id}"]

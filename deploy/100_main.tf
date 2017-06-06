@@ -4,6 +4,7 @@ variable "db_password" {
 }
 
 variable "instance_password_hash" {}
+variable "keybase_verify_txt" {}
 
 module "auto-chess" {
     source = "./auto-chess"
@@ -14,4 +15,5 @@ module "auto-chess" {
     db_password = "${var.db_password}"
     public_key_file = "${var.public_key_file}"
     instance_password_hash = "${var.instance_password_hash}"
+    keybase_verify_txt = "${var.keybase_verify_txt}"
 }

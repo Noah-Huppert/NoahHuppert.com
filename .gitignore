@@ -7,5 +7,6 @@ bower_components
 
 # Terraform
 .terraform
+*.secret.tfvars
 *.tfstate
 *.tfstate.backup

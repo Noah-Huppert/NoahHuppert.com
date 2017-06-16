@@ -1,2 +1,8 @@
 localhost:5000
 root ./www
+
+rewrite /lib {
+    r (.*)
+    to /bower_components/{1}
+}
+

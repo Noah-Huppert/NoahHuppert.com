@@ -4,3 +4,8 @@
 
 # Bower
 bower_components
+
+# Terraform
+.terraform
+*.tfstate
+*.tfstate.backup

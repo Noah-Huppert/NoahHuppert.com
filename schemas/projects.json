@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "title": "NoahHuppert.com#projects.json",
+    "description": "Projects data file",
+    "type": "array",
+    "items": {
+        "title": "Project",
+        "description": "Personal project",
+        "type": "object",
+        "properties": {
+            "id": {
+                "description": "Id of project",
+                "type": "string",
+                
+            }
+        }
+    }
+}

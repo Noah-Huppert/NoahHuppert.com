@@ -1,46 +1,14 @@
-# Use container based infrastructure
 sudo: false
-
 language: ruby
-rvm:
-    - 2.2.2
-
-# Use MySQL database for tests
-services:
-    # - mysql
-
-before_install:
-    - openssl aes-256-cbc -K $encrypted_ad244848fc07_key -iv $encrypted_ad244848fc07_iv -in .travis/deploy_key.enc -out .travis/deploy_key -d
-
-before_script:
-    # Setup MySQL database for tests
-    # - mysql -e 'CREATE DATABASE onyx_test'
-    # Install Bower libs
-    # - npm install -g bower
-    # - bower install
-
-# Run tests, right now there are none, so return 0
-script: return 0
-
-# Deploy to Dokku
-after_success:
-    # Add SSH deploy key
-    - chmod 600 .travis/deploy_key
-    - eval `ssh-agent -s`
-    - ssh-add .travis/deploy_key
-
-    # Configure git
-    - git config --global user.email "noahhuppert@gmail.com"
-    - git config --global user.name "Noah Huppert"
-
-    # Deploy
-    - git remote add dokku dokku@noahhuppert.com:www
-    - git push dokku master
-
-addons:
-    ssh_known_hosts:
-        - noahhuppert.com
-        - 162.243.187.22
-
+script:
+  - docker build -t NoahHuppert.com-www .
+  - { eval $DOCKER_LOGIN_CMD } &> /dev/null
+  - docker push Noah-Huppert/NoahHuppert.com-www
+deploy:
+  provider: script
+  script:
+    - ssh ci@noahhuppert.com -t "docker stop NoahHuppert.com-www && \
+                                 docker rm NoahHuppert-www && \
+                                 docker run -d --name NoahHuppert.com-www Noah-Huppert/NoahHuppert.com-www"
 env:
-    - RACK_ENV=test
+  - secure: "jc+FlOhEFh6TEsPmGxZRaQAVC8+FVqIb/+hr50SvcwwaJRVYBcnj9BWXXfAIooDsybOCdj90+Co0xaiW4G0LpjrygEkNEmOjid5jmRDcu/RSFVhRacmC5/X8/AzhJ0wqbCi4nAszmU/V0nor5a4YBW013lxlFH8AEVtjss04yAs="

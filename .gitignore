@@ -1,2 +1,2 @@
-bower_components
-.env.development
+.DS_Store
+.localized

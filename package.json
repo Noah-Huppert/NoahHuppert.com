@@ -1,0 +1,22 @@
+{
+  "name": "noahhuppert.com",
+  "version": "4.0.0",
+  "description": "Personal website for Noah Huppert",
+  "main": "Caddyfile",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Noah-Huppert/NoahHuppert.com.git"
+  },
+  "author": "Noah Huppert <developer.noah@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Noah-Huppert/NoahHuppert.com/issues"
+  },
+  "homepage": "https://github.com/Noah-Huppert/NoahHuppert.com#readme",
+  "dependencies": {
+    "@polymer/polymer": "^2.0.1"
+  }
+}

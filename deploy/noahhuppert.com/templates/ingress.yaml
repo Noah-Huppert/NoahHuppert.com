@@ -1,0 +1,12 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+    name: {{ template "fullname" . }}
+spec:
+    rules:
+    - host: "www.{{ .Values.host }}"
+      http:
+        paths:
+        - backend:
+            serviceName: {{ template "fullname" . }}
+            servicePort: {{ .Values.service.internalPort }}

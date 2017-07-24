@@ -1,0 +1,4 @@
+apiVersion: v1
+description: Kuberenetes Helm Chart for k8s system components which must be deployed
+name: kube-system
+version: 0.1.0

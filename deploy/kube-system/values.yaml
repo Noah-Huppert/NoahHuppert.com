@@ -1,0 +1,3 @@
+haproxy:
+    cert: NO_VALUE
+    key: NO_VALUE

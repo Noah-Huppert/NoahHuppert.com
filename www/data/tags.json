@@ -19,22 +19,21 @@
         "html": { "text": "HTML", "ui_type": "icon", "ui_data": "/lib/devicon/icons/html5/html5-original.svg" }
     },
     "development_areas": {
-        "frontend": {"text": "Front End" },
-        "backend": {"text": "Back End" },
-        "hardware": {"text": "Hardware" }
+        "frontend": { "text": "Front End", "ui_type": "icon", "ui_data": "/img/tags/development_area/frontend-icon.png" },
+        "backend": { "text": "Back End", "ui_type": "icon", "ui_data": "/img/tags/development_areas/backend-icon.png" },
+        "hardware": { "text": "Hardware", "ui_type": "icon", "ui_data": "/img/tags/development_areas/hardware-icon.png" }
     },
     "technologies": [
-        { "id": ""}
     ],
     "progress": {
-        "started": {"text": "Just Started" },
-        "active": {"text": "Active Development" },
-        "hold": {"text": "On Hold" },
-        "complete": {"text": "Complete" }
+        "started": {"text": "Just Started", "ui_type": "box", "ui_data": "4FC3F7" },
+        "active": {"text": "Active Development", "ui_type": "box", "ui_data": "#00E676" },
+        "hold": {"text": "On Hold", "ui_type": "box", "ui_data": "#FFC400" },
+        "complete": {"text": "Complete", "ui_type": "box", "ui_data": "#00E5FF" }
     },
     "support": {
-        "active": { "text": "Actively Maintaining" },
-        "abandoned": { "text": "Not Maintained" },
-        "na": { "text": "N/A, In Development" }
+        "active": { "text": "Actively Maintaining", "ui_type": "box", "ui_data": "#00E5FF" },
+        "abandoned": { "text": "Not Maintained", "ui_type": "box", "ui_data": "#FFC400" },
+        "development": { "text": "N/A, In Development", "ui_type": "box", "ui_data": "#00E676" }
     }
 }

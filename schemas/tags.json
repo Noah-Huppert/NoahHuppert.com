@@ -1,0 +1,72 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "title": "NoahHuppert.com#projects.json",
+    "description": "Tags data file",
+    "type": "array",
+    "items": {
+        "title": "Tag",
+        "description": "Categorization label to assign to project",
+        "type": "object",
+        "properties": {
+            "id": {
+                "description": "Id of project",
+                "type": "string",
+                "pattern": "^[a-z-]*$"
+            },
+            "name": {
+                "description": "Name of project",
+                "type": "string",
+                "pattern": "^[a-zA-Z-. ]*$"
+            },
+            "short_description": {
+                "description": "Short description of project",
+                "type": "string"
+            },
+            "github_slug": {
+                "description": "Github username and repository name",
+                "type": "string",
+                "pattern": "^[A-Za-z0-9-_.]*\/[A-Za-z0-9-_.]*$"
+            },
+            "tags": {
+                "description": "Contains all project tags",
+                "type": "object",
+                "properties": {
+                    "languages": {
+                        "description": "Programming languages used in project",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "uniqueItems": true
+                    },
+                    "development_areas": {
+                        "description": "Areas of development touched on in project",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "uniqueItems": true
+                    },
+                    "progress": {
+                        "description": "How far along I am with project",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "uniqueItems": true
+                    },
+                    "support": {
+                        "description": "Whether or not I am supporting the project",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "uniqueItems": true
+                    }
+                },
+                "required": [ "languages", "development_areas", "progress", "support" ]
+            }
+        },
+        "required": [ "id", "name", "short_description", "github_slug", "tags" ]
+    }
+}

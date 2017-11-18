@@ -1,0 +1,9 @@
+# Git
+!.gitkeep
+
+# SSH Keys
+keys/*
+
+# Terraform
+secrets/*
+*.tfplan

@@ -1,3 +1,6 @@
 [submodule "docs"]
 	path = docs
 	url = git@github.com:Noah-Huppert/NoahHuppert.com.wiki.git
+[submodule "k8s-do"]
+	path = k8s-do
+	url = git@github.com:kubernetes-digitalocean-terraform/kubernetes-digitalocean-terraform.git

@@ -1,0 +1,8 @@
+http:// {
+	root /var/www
+	gzip
+
+	errors {
+		404 404.html
+	}
+}

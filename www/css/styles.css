@@ -1,0 +1,130 @@
+body {
+	margin: 0.7rem;
+	font-size: 10px;
+	font-family: 'Quicksand', sans-serif;
+}
+
+#header {
+	width: 100%;
+	margin-bottom: 1.5rem;
+}
+
+#name {
+	margin: 1rem;
+	margin-bottom: 0;
+	font-size: 2.8rem;
+	text-align: left;
+}
+
+#sidebar {
+	max-width: 20rem;
+	float: left;
+}
+
+#main {
+	width: calc(90% - 20rem - 1rem - 1rem);
+	float: right;
+	padding: 1rem;
+	padding-left: 10%;
+}
+
+@media (max-width: 900px) {
+	#name {
+		text-align: center;
+	}
+
+	#sidebar {
+		max-width: 33rem;
+		margin: auto;
+		float: none;
+	}
+
+	#main {
+		width: 100%;
+		padding-left: 0;
+		max-width: 505px;
+		margin: auto;
+		float: none;
+	}
+
+	#main-title {
+		padding-left: 0.5rem;
+	}
+
+	#main .tile {
+		margin-left: 1.5rem;
+	}
+
+	.tile {
+		margin-top: 0 !important;
+		padding-bottom: 0 !important;
+	}
+}
+
+#icons8-attrib {
+	padding: 0.5rem;
+	padding-bottom: 0.1rem;
+	bottom: 0;
+	left: 1rem;
+	position: fixed;
+	font-size: 1rem;
+	opacity: 0.4;
+	transition: opacity 0.4s;
+	background: white;
+	border-radius: 1rem;
+}
+
+#icons8-attrib:hover{
+	opacity: 1.0;
+}
+
+#icons8-attrib > .little-icon-text {
+	margin-left: 0;
+}
+
+.little-icon {
+	width: 1.5rem;
+}
+
+.little-icon-text {
+	top: -0.3rem;
+	position: relative;
+	display: inline-block;
+	margin-left: 0.8rem;
+}
+
+.tile {
+	margin-top: 1rem;
+	padding: 1rem;
+	display: block;
+	font-size: 1rem;
+}
+
+#main > .tile {
+	margin-top: 0;
+	margin-bottom: 1rem;
+	padding-top: 0;
+	border: none;
+}
+
+a.tile {
+	text-decoration: none;
+	color: black;
+}
+
+#main .title {
+	font-size: 1.5rem;
+}
+
+#main-title {
+	font-size: 2rem !important;
+}
+
+.title {
+	padding-bottom: 1rem;
+	font-size: 2rem;
+}
+
+.tile-line {
+	margin-bottom: 0.5rem;
+}

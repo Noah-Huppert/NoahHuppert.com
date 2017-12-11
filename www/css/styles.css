@@ -48,6 +48,7 @@ body {
 	}
 
 	#main-title {
+		padding-top: 0;
 		padding-left: 0.5rem;
 	}
 
@@ -117,6 +118,7 @@ a.tile {
 }
 
 #main-title {
+	padding-top: 1rem;
 	font-size: 2rem !important;
 }
 

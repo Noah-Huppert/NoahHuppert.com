@@ -17,7 +17,7 @@ body {
 }
 
 #sidebar {
-	max-width: 20rem;
+	max-width: 21rem;
 	float: left;
 }
 
@@ -127,6 +127,21 @@ a.tile {
 	font-size: 2rem;
 }
 
+.section > .title {
+	text-decoration: underline;
+}
+
 .tile-line {
 	margin-bottom: 0.5rem;
+}
+
+#main .tile {
+	max-width: 29rem;
+	padding-top: 1rem;
+	border: 1px solid black;
+}
+
+#main .tile .title {
+	margin-bottom: 1rem;
+	border-bottom: 1px solid gray;
 }

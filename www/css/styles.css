@@ -1,17 +1,26 @@
+/* Colors:
+https://material.io/color/#!/?view.left=0&view.right=0&primary.color=1E88E5&secondary.color=FF8A65
+
+primary #1e88e5
+	text light = #69b6ff
+secondary #ff8a65
+*/
+
 body {
-	margin: 0.7rem;
+	margin: 0;
+	padding: 0;
 	font-size: 10px;
 	font-family: 'Quicksand', sans-serif;
 }
 
 #header {
 	width: 100%;
-	margin-bottom: 1.5rem;
+	height: 5rem;
+	line-height: 5rem;
+	background: #1e88e5;	
 }
 
 #name {
-	margin: 1rem;
-	margin-bottom: 0;
 	font-size: 2.8rem;
 	text-align: left;
 }
@@ -58,7 +67,6 @@ body {
 
 	.tile {
 		margin-top: 0 !important;
-		padding-bottom: 0 !important;
 	}
 }
 

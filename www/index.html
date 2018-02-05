@@ -6,7 +6,8 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
 
-	 <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet"> 
+	<link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet"> 
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="/css/styles.css" >
 
 	 <link rel="stylesheet"
@@ -30,13 +31,13 @@
 
 	<div id="sidebar">
 		<div class="section tile">
-			<div class="title">Biography</div>
+			<div class="title mdc-typography">Biography</div>
 			My name is Noah Huppert, I am a second year computer 
 			science major at Drexel University.
 		</div>
 
 		<div class="section tile">
-			<div class="title">Contact</div>
+			<div class="title mdc-typography">Contact</div>
 
 			<div class="tile-line">
 				<img class="little-icon" src="/img/keybase.png" alt="Keybase.io icon">
@@ -71,21 +72,21 @@
 		</div>
 
 		<div class="section tile">
-			<div class="title">Skills</div>
+			<div class="title mdc-typography">Skills</div>
 			C++, C#, Java, Python, Javascript, Go, Rust, Swift, Ruby, HTML, CSS, SQL, GLSL, Basic, PHP, Bash
 		</div>
 	</div>
 
 	<!-- Projects -->
 	<div class="section" id="main">
-		<div id="main-title" class="title">Projects</div>
+		<div id="main-title" class="title mdc-typography">Projects</div>
 
 		<a v-for="item in projects" 
 			class="project mdc-card" 
 			v-bind:href="'https://github.com/' + item.github" 
 			v-bind:alt="item.title + 'Github link'">
 			<section class="mdc-card__primary">
-				<h1 class="font mdc-card__title 
+				<h1 class="mdc-typography mdc-card__title 
 					mdc-card__title--large">
 					{{ item.title }}
 				</h1>

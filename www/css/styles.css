@@ -11,18 +11,12 @@ body {
 	padding: 0;
 	font-size: 10px;
 	font-family: 'Quicksand', sans-serif;
+
+	--mdc-theme-primary: #1e88e5;
 }
 
-#header {
-	width: 100%;
-	height: 5rem;
-	line-height: 5rem;
-	background: #1e88e5;	
-}
-
-#name {
-	font-size: 2.8rem;
-	text-align: left;
+.font {
+	font-family: 'Quicksand', sans-serif !important;
 }
 
 #sidebar {
@@ -33,7 +27,6 @@ body {
 #main {
 	width: calc(90% - 20rem - 1rem - 1rem);
 	float: right;
-	padding: 1rem;
 	padding-left: 10%;
 }
 
@@ -103,7 +96,6 @@ body {
 }
 
 .tile {
-	margin-top: 1rem;
 	padding: 1rem;
 	display: block;
 	font-size: 1rem;
@@ -130,26 +122,14 @@ a.tile {
 	font-size: 2rem !important;
 }
 
+#main a {
+	text-decoration: none;
+	max-width: 29rem;
+	margin-bottom: 1rem;
+}
+
 .title {
 	padding-bottom: 1rem;
 	font-size: 2rem;
 }
 
-.section > .title {
-	text-decoration: underline;
-}
-
-.tile-line {
-	margin-bottom: 0.5rem;
-}
-
-#main .tile {
-	max-width: 29rem;
-	padding-top: 1rem;
-	border: 1px solid black;
-}
-
-#main .tile .title {
-	margin-bottom: 1rem;
-	border-bottom: 1px solid gray;
-}

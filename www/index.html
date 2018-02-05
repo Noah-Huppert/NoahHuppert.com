@@ -71,9 +71,11 @@
 			</div>
 		</div>
 
-		<div class="section tile">
+		<div id="languages" class="section tile">
 			<div class="title mdc-typography">Skills</div>
-			C++, C#, Java, Python, Javascript, Go, Rust, Swift, Ruby, HTML, CSS, SQL, GLSL, Basic, PHP, Bash
+			<span v-for="(lang, i) in languages" >
+				{{ lang }}<span v-if="i + 1 != languages.length">, </span>
+			</span>
 		</div>
 	</div>
 

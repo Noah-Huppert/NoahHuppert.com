@@ -31,11 +31,14 @@ var app = new Vue({
 				"github": "Noah-Huppert/Lidar-Lite",
 				"languages": ["Python"]},
 			{"title": "Redmine To GSheets", 
-				"description": "Code necessary to get a Lidar"+
-				" Lite v3 unit working with an Omega "+
-				"microcontroller.",
+				"description": "Google Sheets Script for "+
+				"taking a Redmine CSV issue export and "+
+				"displaying it on a Google Sheet.",
 				"github": "Noah-Huppert/redmine-to-g-sheets",
 				"languages": ["Javascript"]}
-		]
+		],
+		languages: ["C++", "C#", "Java", "Python", "Javascript", "Go", 
+				"Rust", "Swift", "Ruby", "HTML", "CSS", "SQL",
+				"GLSL", "Basic", "PHP", "Bash"]
 	}
 })

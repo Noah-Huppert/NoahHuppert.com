@@ -20,12 +20,12 @@ body {
 }
 
 #sidebar {
-	max-width: 21rem;
+	max-width: 336px;
 	float: left;
 }
 
 #main {
-	width: calc(90% - 20rem - 1rem - 1rem);
+	width: calc(90% - 336px - 1rem - 1rem);
 	float: right;
 	padding-left: 10%;
 }

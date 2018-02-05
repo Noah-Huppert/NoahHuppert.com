@@ -13,7 +13,7 @@
 		href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
 
 
-	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.min.js"></script>
 </head>
 <body>
 	<div id="app">
@@ -66,7 +66,7 @@
 
 			<div class="tile-line">
 				<img class="little-icon" src="/img/twitter.svg" alt="Twitter logo">
-				<a href="https://twitter.com/NoahHuppert" class="little-icon-text">@Noah-Huppert</a>
+				<a href="https://twitter.com/NoahHuppert" class="little-icon-text">Noah-Huppert</a>
 			</div>
 		</div>
 
@@ -81,8 +81,8 @@
 		<div id="main-title" class="title">Projects</div>
 
 		<a v-for="item in projects" 
-			class="mdc-card" 
-			v-bind:href="item.github" 
+			class="project mdc-card" 
+			v-bind:href="'https://github.com/' + item.github" 
 			v-bind:alt="item.title + 'Github link'">
 			<section class="mdc-card__primary">
 				<h1 class="font mdc-card__title 
@@ -93,6 +93,13 @@
 
 			<section class="font mdc-card__supporting-text">
 				{{ item.description }}
+			</section>
+
+			<section class="languages mdc-card__actions">
+				<span v-for="lang in item.languages" 
+					class="language">
+					{{ lang }}
+				</span>
 			</section>
 		</a>
 	</div>

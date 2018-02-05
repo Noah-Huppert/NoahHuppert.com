@@ -58,6 +58,11 @@ body {
 		margin-left: 1.5rem;
 	}
 
+	.project {
+		width: calc(100% - 30px);
+		margin: auto;
+	}
+
 	.tile {
 		margin-top: 0 !important;
 	}
@@ -133,3 +138,19 @@ a.tile {
 	font-size: 2rem;
 }
 
+.languages {
+	margin-left: 8px;
+	margin-bottom: 3px;
+}
+
+.language {
+	padding: 8px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	margin-right: 5px;
+	color: var(--mdc-theme-primary);
+	border: 2px solid var(--mdc-theme-primary);
+	border-radius: 5px;
+	font-size: 12px;
+	font-weight: bold;
+}

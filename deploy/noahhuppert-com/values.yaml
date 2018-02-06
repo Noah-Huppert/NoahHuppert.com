@@ -12,8 +12,13 @@ service:
   port: 80
 
 ingress:
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # 
   hosts:
+    - noahh.io
+    - www.noahh.io
+    - noahhuppert.com
+    - www.noahhuppert.com
     - www.k8s.noahh.io
+    - www.k8s.noahhuppert.com
+
+dns:
+  hosts: "www.k8s.noahh.io., www.k8s.noahhuppert.com."

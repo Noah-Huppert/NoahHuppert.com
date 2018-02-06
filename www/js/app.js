@@ -7,18 +7,6 @@ var app = new Vue({
 				"controller register pattern.", 
 				"github": "Noah-Huppert/py-i2c-register",
 				"languages": ["Python"]},
-			{"title": "Zsh Conf", "description": "A barebones zsh"+
-				" configuration tool.", 
-				"github": "Noah-Huppert/zshconf", 
-				"languages": ["Bash"]},
-			{"title": "Scripts", "description": "A collection of "+
-				"useful Bash scripts.", 
-				"github": "Noah-Huppert/scripts",
-				"languages": ["Bash"]},
-			{"title": "Make Log", "description": "A simple colored"+
-				" log function for Make.", 
-				"github": "Noah-Huppert/make-log",
-				"languages": ["Make"]},
 			{"title": "Inertial Motion Capture", 
 				"description": "Motion capture using Inertial "+
 				"Motion Units.", 
@@ -35,7 +23,20 @@ var app = new Vue({
 				"taking a Redmine CSV issue export and "+
 				"displaying it on a Google Sheet.",
 				"github": "Noah-Huppert/redmine-to-g-sheets",
-				"languages": ["Javascript"]}
+				"languages": ["Javascript"]},
+			{"title": "Zsh Conf", "description": "A barebones zsh"+
+				" configuration tool.", 
+				"github": "Noah-Huppert/zshconf", 
+				"languages": ["Bash"]},
+			{"title": "Scripts", "description": "A collection of "+
+				"useful Bash scripts.", 
+				"github": "Noah-Huppert/scripts",
+				"languages": ["Bash"]},
+			{"title": "Make Log", "description": "A simple colored"+
+				" log function for Make.", 
+				"github": "Noah-Huppert/make-log",
+				"languages": ["Make"]},
+
 		],
 		languages: ["C++", "C#", "Java", "Python", "Javascript", "Go", 
 				"Rust", "Swift", "Ruby", "HTML", "CSS", "SQL",

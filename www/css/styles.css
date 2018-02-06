@@ -24,38 +24,26 @@ body {
 	float: left;
 }
 
-#main {
+#projects {
 	width: calc(90% - 336px - 1rem - 1rem);
 	float: right;
 	padding-left: 10%;
 }
 
 @media (max-width: 900px) {
-	#name {
-		text-align: center;
-	}
-
 	#sidebar {
 		max-width: 33rem;
 		margin: auto;
 		float: none;
 	}
-
-	#main {
+	
+	#projects {
 		width: 100%;
 		padding-left: 0;
 		max-width: 505px;
 		margin: auto;
 		float: none;
-	}
-
-	#main-title {
-		padding-top: 0;
-		padding-left: 0.5rem;
-	}
-
-	#main .tile {
-		margin-left: 1.5rem;
+		box-shadow: none !important;
 	}
 
 	.project {
@@ -63,8 +51,8 @@ body {
 		margin: auto;
 	}
 
-	.tile {
-		margin-top: 0 !important;
+	#projects-title {
+		margin-left: 12px;
 	}
 }
 
@@ -100,42 +88,31 @@ body {
 	margin-left: 0.8rem;
 }
 
-.tile {
+.section {
 	padding: 1rem;
 	display: block;
-	font-size: 1rem;
+	font-size: 16px;
 }
 
-#main > .tile {
-	margin-top: 0;
-	margin-bottom: 1rem;
-	padding-top: 0;
-	border: none;
-}
-
-a.tile {
-	text-decoration: none;
+a.project {
 	color: black;
-}
-
-#main .title {
-	font-size: 1.5rem;
-}
-
-#main-title {
-	padding-top: 1rem;
-	font-size: 2rem !important;
-}
-
-#main a {
 	text-decoration: none;
 	max-width: 29rem;
 	margin-bottom: 1rem;
 }
 
+.project h1,.description {
+	margin-left: 15px;
+}
+
+.project h1 {
+	font-weight: 500;
+	margin-bottom: 7px;
+}
+
 .title {
 	padding-bottom: 1rem;
-	font-size: 2rem;
+	font-size: 32px;
 }
 
 .languages {

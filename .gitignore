@@ -4,3 +4,6 @@ node_modules
 # Jetbrains
 *.iml
 .idea
+
+# Helm
+*.tgz

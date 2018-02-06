@@ -1,0 +1,19 @@
+# Default values for noahhuppert-com.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: noahhuppert/noahhuppert-com
+  tag: latest
+
+service:
+  port: 80
+
+ingress:
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # 
+  hosts:
+    - www.k8s.noahh.io

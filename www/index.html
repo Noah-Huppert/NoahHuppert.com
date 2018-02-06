@@ -30,48 +30,48 @@
 	</header>
 
 	<div id="sidebar">
-		<div class="section tile">
+		<div class="section">
 			<div class="title mdc-typography">Biography</div>
 			My name is Noah Huppert, I am a second year computer 
 			science major at Drexel University.
 		</div>
 
-		<div class="section tile">
+		<div class="section">
 			<div class="title mdc-typography">Contact</div>
 
-			<div class="tile-line">
+			<div class="section-line">
 				<img class="little-icon" src="/img/keybase.png" alt="Keybase.io icon">
 				<a href="https://keybase.io/noahh" class="little-icon-text">Keybase</a>
 			</div>
 
-			<div class="tile-line">
+			<div class="section-line">
 				<img class="little-icon" src="/img/key.png" alt="Key icon">
 				<a href="https://keybase.io/noahh/key.asc" class="little-icon-text">GPG Key</a>
 			</div>
 
 
-			<div class="tile-line">
+			<div class="section-line">
 				<img class="little-icon" src="img/email.png" alt="Email symbol">
 				<div class="little-icon-text">contact <b>AT</b> noahh <b>DOT</b> io</div>
 			</div>
 
-			<div class="tile-line">
+			<div class="section-line">
 				<img class="little-icon" src="img/email.png" alt="Email symbol">
 				<div class="little-icon-text">contact <b>AT</b> noahhuppert <b>DOT</b> com</div>
 			</div>
 
-			<div class="tile-line">
+			<div class="section-line">
 				<img class="little-icon" src="/img/github.svg" alt="GitHub logo">
 				<a href="https://github.com/Noah-Huppert" class="little-icon-text">Noah-Huppert</a>
 			</div>
 
-			<div class="tile-line">
+			<div class="section-line">
 				<img class="little-icon" src="/img/twitter.svg" alt="Twitter logo">
 				<a href="https://twitter.com/NoahHuppert" class="little-icon-text">Noah-Huppert</a>
 			</div>
 		</div>
 
-		<div id="languages" class="section tile">
+		<div id="languages" class="section">
 			<div class="title mdc-typography">Skills</div>
 			<span v-for="(lang, i) in languages" >
 				{{ lang }}<span v-if="i + 1 != languages.length">, </span>
@@ -80,8 +80,8 @@
 	</div>
 
 	<!-- Projects -->
-	<div class="section mdc-elevation--z1" id="main">
-		<div id="main-title" class="title mdc-typography">Projects</div>
+	<div class="section mdc-elevation--z1" id="projects">
+		<div id="projects-title" class="title mdc-typography">Projects</div>
 
 		<a v-for="item in projects" 
 			class="project mdc-card" 
@@ -94,13 +94,13 @@
 				</h1>
 			</section>
 
-			<section class="font mdc-card__supporting-text">
+			<section class="description font mdc-card__supporting-text">
 				{{ item.description }}
 			</section>
 
 			<section class="languages mdc-card__actions">
 				<span v-for="lang in item.languages" 
-					class="language">
+					class="language mdc-card__action">
 					{{ lang }}
 				</span>
 			</section>

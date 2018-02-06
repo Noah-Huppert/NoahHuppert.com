@@ -14,7 +14,7 @@ spec:
       - name: external-dns-{{ .Values.dhost }}
         image: registry.opensource.zalan.do/teapot/external-dns:v0.4.8
         args:
-        - --source=service
+        - --source={{ .Values.source }}
         - --domain-filter={{ .Values.host }}
         - --provider={{ .Values.provider }}
         - --google-project={{ .Values.gcpProject }}

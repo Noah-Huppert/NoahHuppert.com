@@ -1,8 +1,10 @@
 # Default values for external-dns.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-DOToken: "<DigitalOcean token>"
+DOToken: ""
 source: ingress
-hosts: k8s.noahh.io
+host: noahh.io.
+dhost: noahh-io
+source: ingress
 provider: google
 gcpProject: nh-k8s

@@ -8,10 +8,9 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
   annotations:
-    external-dns.alpha.kubernetes.io/hostname: {{ .Values.dns.hosts }} 
  
 spec:
-  type: LoadBalancer
+  type: NodePort
   ports:
     - port: {{ .Values.service.port }}
       targetPort: http

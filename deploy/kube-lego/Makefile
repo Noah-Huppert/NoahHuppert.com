@@ -3,18 +3,19 @@
 NAME=tls
 EMAIL=contact@noahh.io
 URL=https://acme-v01.api.letsencrypt.org/directory
+#URL=https://acme-staging.api.letsencrypt.org/directory
 NAMESPACE=kube-lego
 PKG_REPO="stable"
 PKG="kube-lego"
 
 # deploy installs the kube lego addon into the cluster.
 lego:
-	helm install \
-		--name "${NAME}" \
+	helm upgrade \
+		--install \
 		--namespace "${NAMESPACE}" \
+		--set config.LEGO_URL="${URL}" \
 		--set config.LEGO_EMAIL="${EMAIL}" \
-		"${PKG_REPO}"/"${PKG}"
-		#--set config.LEGO_URL="${URL}" \
+		"${NAME}" "${PKG_REPO}"/"${PKG}"
 
 # rm deletes the app deployment from the cluster
 rm: 

@@ -1,7 +1,7 @@
 .PHONY: all build deploy rm
 
-NAMESPACE=drone
-CHART_NAME=drone
+NAMESPACE=jenkins
+CHART_NAME=jenkins
 
 # all builds and deploys the chart
 all: build deploy

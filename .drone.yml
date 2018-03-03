@@ -1,0 +1,6 @@
+pipeline:
+  deploy:
+    image: quay.io/ipedrazas/drone-helm
+    chart: ./deploy/noahhuppert-com
+    release: ${DRONE_BRANCH}
+    wait: true

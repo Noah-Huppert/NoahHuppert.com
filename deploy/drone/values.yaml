@@ -1,0 +1,27 @@
+drone:
+  service:
+    type: NodePort
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/tls-acme: "true"
+      kubernetes.io/ingress.class: "gce"
+      external-dns.alpha.kubernetes.io/hostname: "drone.k8s.noahhuppert.com., drone.k8s.noahh.io."
+    hosts:
+      - drone.noahhuppert.com
+      - drone.k8s.noahhuppert.com
+      - drone.noahh.io
+      - drone.k8s.noahh.io
+    tls:
+      - hosts:
+        - drone.noahhuppert.com
+        - drone.k8s.noahhuppert.com
+        - drone.noahh.io
+        - drone.k8s.noahh.io
+        secretName: drone-tls
+    server:
+      env:
+        DRONE_GITHUB: true
+        DRONE_GITHUB_CLIENT: c4506a61e74126e65dfc
+        DRONE_GITHUB_SECRET: 5ed02f669e12f1c07eb32d3d1fa4ad0933111588
+

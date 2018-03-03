@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: external-dns-{{ .Values.dhost }}
+  name: external-dns-{{ .Values.digitalocean.domain }}
 spec:
   strategy:
     type: Recreate
@@ -11,10 +11,13 @@ spec:
         app: external-dns
     spec:
       containers:
-      - name: external-dns-{{ .Values.dhost }}
-        image: registry.opensource.zalan.do/teapot/external-dns:v0.4.8
+      - name: external-dns-{{ .Values.digitalocean.domain }}
+        image: registry.opensource.zalan.do/teapot/external-dns:{{ .Values.image.tag }}
         args:
         - --source={{ .Values.source }}
         - --domain-filter={{ .Values.host }}
         - --provider={{ .Values.provider }}
-        - --google-project={{ .Values.gcpProject }}
+        env:
+        - name: DO_TOKEN
+          value: {{ .Values.digitalocean.token }}
+

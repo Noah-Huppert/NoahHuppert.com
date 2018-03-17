@@ -1,8 +1,4 @@
-<a href="https://drone.noahh.io/Noah-Huppert/NoahHuppert.com"
-   target="_blank">
-   <img rel="Drone CI Status"
-        src="https://drone.noahh.io/api/badges/Noah-Huppert/NoahHuppert.com/status.svg">
-</a>
+[![Drone CI Status](https://drone.noahh.io/api/badges/Noah-Huppert/NoahHuppert.com/status.svg)](https://drone.noahh.io/Noah-Huppert/NoahHuppert.com)  
 
 # NoahHuppert.com
 Personal website located at [noahh.io](http://noahh.io) and 

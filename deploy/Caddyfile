@@ -1,4 +1,4 @@
-http://, https:// {
+https:// {
 	root /srv
 	gzip
 	tls off
@@ -6,4 +6,8 @@ http://, https:// {
 	errors {
 		404 404.html
 	}
+}
+
+http:// {
+	redir https://{host}{uri}
 }

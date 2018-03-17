@@ -1,4 +1,9 @@
 pipeline:
+  docker:
+    image: plugins/docker
+    repo: noahhuppert/noahhuppert-com
+    tags: latest
+
   helm_deploy:
     image: quay.io/ipedrazas/drone-helm
     skip_tls_verify: true

@@ -1,3 +1,5 @@
+![Drone CI Status](http://drone.noahh.io/api/badges/Noah-Huppert/NoahHuppert.com/status.svg)  
+
 # NoahHuppert.com
 Personal website located at [noahh.io](http://noahh.io) and 
 [noahhuppert.com](http://noahhuppert.com).  

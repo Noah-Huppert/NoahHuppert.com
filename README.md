@@ -1,4 +1,4 @@
-![Drone CI Status](http://drone.noahh.io/api/badges/Noah-Huppert/NoahHuppert.com/status.svg)  
+[![Drone CI Status](http://drone.noahh.io/api/badges/Noah-Huppert/NoahHuppert.com/status.svg)](https://drone.noahh.io/Noah-Huppert/NoahHuppert.com)  
 
 # NoahHuppert.com
 Personal website located at [noahh.io](http://noahh.io) and 

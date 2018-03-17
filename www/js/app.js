@@ -41,6 +41,12 @@ var app = new Vue({
 				"microcontroller.",
 				github: "Noah-Huppert/Lidar-Lite",
 				languages: ["Python"], status: "complete"},
+			{title: "NoahHuppert.com", description: "Personal "+
+				"website hosted on Kubernetes and "+
+				"automatically deployed with Drone CI and Helm.",
+				github: "Noah-Huppert/NoahHuppert.com",
+				languages: ["YAML", "HTML", "JavaScript", "CSS"],
+				status: "complete"},
 			{title: "Redmine To GSheets", 
 				description: "Google Sheets Script for "+
 				"taking a Redmine CSV issue export and "+

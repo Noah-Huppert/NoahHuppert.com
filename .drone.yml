@@ -3,6 +3,7 @@ pipeline:
     image: plugins/docker
     repo: noahhuppert/noahhuppert-com
     tags: latest
+    secrets: [ docker_username, docker_password ]
 
   helm_deploy:
     image: quay.io/ipedrazas/drone-helm

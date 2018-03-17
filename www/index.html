@@ -97,10 +97,16 @@
 							mdc-card__title--large">
 							{{ item.title }}
 						</h1>
+
+						<div class="status">
+							<img v-bind:src="statuses[item.status].icon">
+							{{ statuses[item.status].text }}
+						</div>
+
 					</section>
 
 					<section class="description font mdc-card__supporting-text">
-						{{ item.description }}
+						{{ item.description }}	
 					</section>
 
 					<section class="languages mdc-card__actions">

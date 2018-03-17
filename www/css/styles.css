@@ -118,17 +118,28 @@ body {
 	text-decoration: none;
 }
 
-.project h1,.description {
+.project h1,.description,.status {
 	margin-left: 15px;
 }
 
 .project h1 {
 	font-weight: 500;
-	margin-bottom: 7px;
+	margin-bottom: 0;
+}
+
+.project .status {
+	margin-top: -5px;
+	padding-bottom: 0.5rem;
 }
 
 .project .description {
 	height: 40px;
+}
+
+.project img {
+	width: 30px;
+	position: relative;
+	top: 8px;
 }
 
 .title {

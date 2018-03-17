@@ -1,7 +1,7 @@
-<a href="http://drone.noahh.io/api/badges/Noah-Huppert/NoahHuppert.com/status.svg"
+<a href="https://drone.noahh.io/Noah-Huppert/NoahHuppert.com"
    target="_blank">
    <img rel="Drone CI Status"
-        src="https://drone.noahh.io/Noah-Huppert/NoahHuppert.com">
+        src="https://drone.noahh.io/api/badges/Noah-Huppert/NoahHuppert.com/status.svg">
 </a>
 
 # NoahHuppert.com

@@ -31,9 +31,9 @@ spec:
             httpGet:
               path: /
               port: https
-              scheme: https
+              scheme: HTTPS
           readinessProbe:
             httpGet:
               path: /
               port: https
-              scheme: https
+              scheme: HTTPS

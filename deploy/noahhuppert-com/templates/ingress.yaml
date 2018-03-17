@@ -1,5 +1,4 @@
 {{- $fullName := include "noahhuppert-com.fullname" . -}}
-{{- $servicePort := .Values.service.port -}}
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:

@@ -9,7 +9,7 @@ PKG_REPO="stable"
 PKG="kube-lego"
 
 # deploy installs the kube lego addon into the cluster.
-lego:
+deploy:
 	helm upgrade \
 		--install \
 		--namespace "${NAMESPACE}" \

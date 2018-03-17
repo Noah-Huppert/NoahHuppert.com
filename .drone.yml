@@ -10,7 +10,7 @@ pipeline:
     skip_tls_verify: true
     chart: ./deploy/noahhuppert-com
     release: noahhuppert-com
-    debug: true
+    namespace: noahhuppert-com
     wait: true
     when:
       branch: [master]

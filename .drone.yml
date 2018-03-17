@@ -8,4 +8,5 @@ pipeline:
     wait: true
     when:
       branch: [master]
+    secrets: [ api_server, secret_password, kubernetes_token ]
 

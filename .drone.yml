@@ -1,6 +1,11 @@
 pipeline:
-  deploy:
+  helm_deploy:
     image: quay.io/ipedrazas/drone-helm
+    skip_tls_verify: true
     chart: ./deploy/noahhuppert-com
-    release: ${DRONE_BRANCH}
+    release: noahhuppert-com
+    debug: true
     wait: true
+    when:
+      branch: [master]
+

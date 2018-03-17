@@ -7,7 +7,10 @@ Hosts a Drone CI server on Kubernetes.
 
 # Setup
 Make a copy of the `values.secret.example.yaml` named `values.secret.yaml`.  
-Place your GitHub API credentials in this file.
+Place your GitHub API credentials in this file.  
+
+The `DRONE_ADMIN` environment variable in `values.yaml` is a list of GitHub 
+users to treat as admins. New users can only be invited by these admins.
 
 # Deploy
 Run the `deploy` make target:

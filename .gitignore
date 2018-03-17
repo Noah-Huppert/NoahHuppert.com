@@ -7,3 +7,6 @@ node_modules
 
 # Helm
 *.tgz
+
+# Drone CLI config
+.env

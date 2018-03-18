@@ -30,10 +30,10 @@ spec:
           livenessProbe:
             httpGet:
               path: /
-              port: 443
+              port: 80
               scheme: HTTP
           readinessProbe:
             httpGet:
               path: /
-              port: 443
+              port: 80
               scheme: HTTP

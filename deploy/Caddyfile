@@ -1,4 +1,4 @@
-https:// {
+http://, https:// {
 	root /srv
 	gzip
 	tls off

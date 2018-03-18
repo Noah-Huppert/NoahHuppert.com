@@ -88,7 +88,7 @@
 
 		<ul class="mdc-grid-list__tiles">
 			<li v-for="item in projects" 
-				class="project mdc-grid-tile">
+				v-bind:class="'project mdc-grid-tile status-' + item.status">
 				<a class="mdc-card" 
 					target="_blank"
 					v-bind:href="'https://github.com/' + item.github" 

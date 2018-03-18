@@ -114,14 +114,19 @@ body {
 	width: 100% !important;
 	margin-left: 20px !important;
 	margin-bottom: 20px !important;
+	transition: border-bottom 5s;
 }
 
-.project:hover {
-	margin-bottom: 18px !important;
+.project .mdc-card {
+	border-bottom: 2px solid #ffffff;
 }
 
 .project:hover .mdc-card {
 	border-bottom: 2px solid var(--mdc-theme-primary);
+}
+
+.status-wip  .mdc-card {
+	border-bottom: 2px solid #ffa000;
 }
 
 .project a {

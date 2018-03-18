@@ -22,6 +22,12 @@ body {
 	font-size: 32px !important;
 }
 
+@media(min-width: 901px) {
+	.mdc-toolbar__title {
+		margin-left: 5px !important;
+	}
+}
+
 #sidebar {
 	max-width: 336px;
 	float: left;

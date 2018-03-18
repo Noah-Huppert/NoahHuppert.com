@@ -1,7 +1,30 @@
 var app = new Vue({
 	el: "#app",
 	data: {
-		projects: [
+		projects: [	
+			{title: "Lidar Lite", 
+				description: "Code necessary to get a Lidar "+
+				"Lite v3 unit working with an Omega "+
+				"microcontroller.",
+				github: "Noah-Huppert/Lidar-Lite",
+				languages: ["Python"], status: "complete"},
+			{title: "Py I2C Register", description: "Python "+
+				"wrapper library around the common I2C "+
+				"controller register pattern.", 
+				github: "Noah-Huppert/py-i2c-register",
+				languages: ["Python"], status: "complete"},
+			{title: "Inertial Motion Capture", 
+				description: "Motion capture using Inertial "+
+				"Motion Units.", 
+				github: "Noah-Huppert/Inertial-Motion-Capture",
+				languages: ["C++","Python","C#"],
+				status: "complete"},	
+			{title: "NoahHuppert.com", description: "Personal "+
+				"website hosted on Kubernetes and "+
+				"automatically deployed with Drone CI and Helm.",
+				github: "Noah-Huppert/NoahHuppert.com",
+				languages: ["YAML", "HTML", "JavaScript", "CSS"],
+				status: "complete"},
 			{title: "Crime Map", description: "Analysis of "+
 				"recent criminal activity in the University "+
 				"City area of Philadelphia.",
@@ -24,29 +47,6 @@ var app = new Vue({
 				github: "Open-Proj/zen-task", 
 				languages: ["Dart", "C++", "XML"],
 				status: "wip"},
-			{title: "Py I2C Register", description: "Python "+
-				"wrapper library around the common I2C "+
-				"controller register pattern.", 
-				github: "Noah-Huppert/py-i2c-register",
-				languages: ["Python"], status: "complete"},
-			{title: "Inertial Motion Capture", 
-				description: "Motion capture using Inertial "+
-				"Motion Units.", 
-				github: "Noah-Huppert/Inertial-Motion-Capture",
-				languages: ["C++","Python","C#"],
-				status: "complete"},
-			{title: "Lidar Lite", 
-				description: "Code necessary to get a Lidar "+
-				"Lite v3 unit working with an Omega "+
-				"microcontroller.",
-				github: "Noah-Huppert/Lidar-Lite",
-				languages: ["Python"], status: "complete"},
-			{title: "NoahHuppert.com", description: "Personal "+
-				"website hosted on Kubernetes and "+
-				"automatically deployed with Drone CI and Helm.",
-				github: "Noah-Huppert/NoahHuppert.com",
-				languages: ["YAML", "HTML", "JavaScript", "CSS"],
-				status: "complete"},
 			{title: "Redmine To GSheets", 
 				description: "Google Sheets Script for "+
 				"taking a Redmine CSV issue export and "+

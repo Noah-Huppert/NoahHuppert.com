@@ -25,6 +25,9 @@ body {
 #sidebar {
 	max-width: 336px;
 	float: left;
+	position: fixed;
+	top: 0;
+	transform: translateY(64px);
 }
 
 #projects {
@@ -38,6 +41,8 @@ body {
 		max-width: 33rem;
 		margin: auto;
 		float: none;
+		position: relative;
+		transform: translateY(0px);
 	}
 	
 	#projects {

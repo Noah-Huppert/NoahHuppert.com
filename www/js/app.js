@@ -82,4 +82,36 @@ var app = new Vue({
 			}
 		}
 	}
-})
+});
+
+var sidebarEl = document.getElementById("sidebar");
+var cutoff = 64;
+
+function animateSidebar() {
+	var val = cutoff - window.scrollY;
+
+	if (val < 0) {
+		val = 0;
+	}
+	val = Math.round(val);
+
+	sidebarEl.style.transform = "translateY(" + val + "px)";
+}
+
+var media = window.matchMedia("(max-width: 900px)");
+media.onchange = function(e) {
+	if (media.matches) {
+		sidebarEl.style.transform = "translateY(0px)";
+	} else {
+		animateSidebar();
+	}
+}
+
+
+document.onscroll = function(e) {
+	if (!media.matches) {
+		animateSidebar();
+	} else {
+		sidebarEl.style.transform = "translateY(0px)";
+	}
+};

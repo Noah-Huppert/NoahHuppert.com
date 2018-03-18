@@ -8,6 +8,6 @@ https:// {
 	}
 }
 
-http:// {
-	redir https://{host}{uri}
-}
+#http:// {
+#	redir https://{host}{uri}
+#}

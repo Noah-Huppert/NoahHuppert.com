@@ -7,7 +7,3 @@ http://, https:// {
 		404 404.html
 	}
 }
-
-#http:// {
-#	redir https://{host}{uri}
-#}

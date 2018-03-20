@@ -112,9 +112,22 @@ body {
 	max-width: 464px;
 	min-width: 400px;
 	width: 100% !important;
-	margin-left: 20px !important;
 	margin-bottom: 20px !important;
 	transition: border-bottom 5s;
+}
+
+@media(min-width: 500px) {
+	.project {
+		margin-left: 20px !important;
+	}
+}
+
+@media(max-width: 499px) {
+	.project a {
+		width: 90%;
+		margin: auto;
+		background: red;
+	}
 }
 
 .project .mdc-card {

@@ -94,7 +94,7 @@ var app = new Vue({
 				languages: ["Javascript"], status: "complete"},
 			{title: "PA Flashing Commander",
 				description: "Planetary Annihilation mod "+
-				"which applies the energy plan idle effect "+
+				"which applies the energy plant idle effect "+
 				"to the player's commander skin.", 
 				github: "Noah-Huppert/Flashing-Commander",
 				languages: ["JSON"], status: "complete"},

@@ -19,6 +19,23 @@ var app = new Vue({
 				github: "Noah-Huppert/Inertial-Motion-Capture",
 				languages: ["C++","Python","C#"],
 				status: "complete"},	
+			{title: "CNC.js", description: "Web tool to convert "+
+				"drawings into GCode which can be run by a "+
+				"CNC mill.", github: "Noah-Huppert/CNC.js",
+				languages: ["HTML", "Javascript", "CSS", 
+				"GCode"],
+				status: "complete"},
+			{title: "Super Blocks", description: "A fun math "+
+				"game which teaches children basic "+
+				"arithmetic. Exhibited at Maker Faire 2014.",
+				github: "Noah-Huppert/Super-Blocks",
+				languages: ["C#"], status: "complete"},
+			{title: "Bug Swatter", description: "Chrome "+
+				"extension which annotates bug reports to "+
+				"assist in moderating Fly Spray bug trackers.",
+				github: "Noah-Huppert/Bug-Swatter",
+				languages: ["HTML", "CSS", "Javascript"],
+				status: "complete"},
 			{title: "NoahHuppert.com", description: "Personal "+
 				"website hosted on Kubernetes and "+
 				"automatically deployed with Drone CI and Helm.",
@@ -66,11 +83,41 @@ var app = new Vue({
 				" log function for Make.", 
 				github: "Noah-Huppert/make-log",
 				languages: ["Make"], status: "complete"},
-
+			{title: "Robotics Demo", description: "Demo for the "+
+				"Woman in Robotics Seminar at NetApp.",
+				github: "Noah-Huppert/RoboticsDemo",
+				languages: ["Robot C"], status: "complete"},
+			{title: "Style Google", description: "Chrome "+
+				"extension which replaces the Google doodle "+
+				"with a random font.", 
+				github: "Noah-Huppert/Style-Google",
+				languages: ["Javascript"], status: "complete"},
+			{title: "PA Flashing Commander",
+				description: "Planetary Annihilation mod "+
+				"which applies the energy plan idle effect "+
+				"to the player's commander skin.", 
+				github: "Noah-Huppert/Flashing-Commander",
+				languages: ["JSON"], status: "complete"},
+			{title: "PA Mod Website",
+				description: "Redesigned home page for a "+
+				" Planetary Annihilation community mod site.",
+				github: "Noah-Huppert/pamods.github.io",
+				languages: ["HTML", "CSS"], status: "complete"},
+			{title: "Virtual Pest", description: "Virtual pet "+
+				"which changes moods in reaction to stimuli. "+
+				"Created for Drexel CS 164.",
+				github: "Noah-Huppert/Virtual-Pest",
+				languages: ["HTML", "CSS", "Javascript"],
+				status: "complete"},
+			{title: "Client Center", description: "Custom made "+
+				"bug tracker.", 
+				github: "Noah-Huppert/Client-Center", 
+				languages: ["PHP", "JavaScript", "CSS"],
+				status: "complete"}
 		],
 		languages: ["C++", "C#", "Java", "Python", "Javascript", "Go", 
-				"Rust", "Swift", "Ruby", "HTML", "CSS", "SQL",
-				"GLSL", "Basic", "PHP", "Bash"],
+			"SQL", "Rust", "Swift", "Ruby", "HTML", "CSS", "JSON",
+			"GLSL", "Basic", "PHP", "Bash", "Robot C", "GCode"],
 		statuses: {
 			wip: {
 				text: "WIP",

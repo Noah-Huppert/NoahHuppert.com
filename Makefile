@@ -1,23 +1,14 @@
-.PHONY: upload ssh docker docker-push docker-build docker-run docker-rm 
-
-SRC_DIR=./www
-
-REMOTE_USER=root
-REMOTE_HOST=www.noahh.io
-REMOTE_PARENT_DIR=/var
+.PHONY: docker docker-push docker-build docker-run docker-rm 
 
 IMAGE_NAME=noahhuppert/noahhuppert-com
 IMAGE_TAG=latest
 
 CONTAINER_NAME=noahhuppert-com
+CONTAINER_DIR=/var/lib/ghost/content
+CONTAINER_PORT=2368
 
-# upload pushes the repository contents to the remote server.
-upload:
-	scp -r "${SRC_DIR}" "${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_PARENT_DIR}"
-
-# ssh opens an ssh connection to our server.
-ssh:
-	ssh "${REMOTE_USER}@${REMOTE_HOST}"
+HOST_DIR=$(shell pwd)/www
+HOST_PORT=8000
 
 # docker builds and runs the application container.
 docker: docker-build docker-run
@@ -37,6 +28,8 @@ docker-run: docker-rm
 		-it \
 		--rm \
 		--net host \
+		-v "${HOST_DIR}:${CONTAINER_DIR}" \
+		-p "${HOST_PORT}:${CONTAINER_PORT}" \
 		--name "${CONTAINER_NAME}" \
 		"${IMAGE_NAME}:${IMAGE_TAG}"
 

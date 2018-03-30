@@ -7,7 +7,7 @@ CONTAINER_NAME=noahhuppert-com
 CONTAINER_DIR=/var/lib/ghost/content
 CONTAINER_PORT=2368
 
-HOST_DIR=$(shell pwd)/www
+HOST_DIR=$(shell pwd)/ghost
 HOST_PORT=8000
 
 # docker builds and runs the application container.
@@ -27,7 +27,6 @@ docker-run: docker-rm
 	docker run \
 		-it \
 		--rm \
-		--net host \
 		-v "${HOST_DIR}:${CONTAINER_DIR}" \
 		-p "${HOST_PORT}:${CONTAINER_PORT}" \
 		--name "${CONTAINER_NAME}" \

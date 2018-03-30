@@ -10,3 +10,7 @@ node_modules
 
 # Drone CLI config
 .env
+
+# Ghost
+ghost/logs/
+ghost/data/

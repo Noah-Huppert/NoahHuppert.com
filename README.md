@@ -63,7 +63,9 @@ apiVersion: v1
 secrets:
 - name: drone-token-1yfdw
         ^^^^^^^^^^^^^^^^^  
+
 $ kubectl -n drone get secret drone-token-1yfdw -o yaml
+                              ^^^^^^^^^^^^^^^^^
 ```
 
 Copy the contents of the `token` field and base64 decode them:  

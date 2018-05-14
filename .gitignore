@@ -10,3 +10,7 @@ node_modules
 
 # Drone CLI config
 .env
+
+# Hugo
+# -- -- Theme
+themes/noahhuppert-com/static/css/*

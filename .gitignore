@@ -13,4 +13,4 @@ node_modules
 
 # Hugo
 # -- -- Theme
-themes/noahhuppert-com/static/css/*
+site/themes/noahhuppert-com/static/css/*

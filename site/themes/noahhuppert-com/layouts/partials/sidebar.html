@@ -1,0 +1,49 @@
+<div id="sidebar">
+	<div class="section">
+		<div class="title mdc-typography">Biography</div>
+		My name is Noah Huppert, I am a second year computer
+		science major at Drexel University.
+	</div>
+
+	<div class="section">
+		<div class="title mdc-typography">Contact</div>
+
+		<div>
+			<img class="little-icon" src="/img/contact/keybase.png" alt="Keybase.io icon">
+			<a href="https://keybase.io/noahh" class="little-icon-text">Keybase</a>
+		</div>
+
+		<div>
+			<img class="little-icon" src="/img/contact/key.png" alt="Key icon">
+			<a href="https://keybase.io/noahh/key.asc" class="little-icon-text">GPG Key</a>
+		</div>
+
+
+		<div>
+			<img class="little-icon" src="img/contact/email.png" alt="Email symbol">
+			<div class="little-icon-text">contact <b>AT</b> noahh <b>DOT</b> io</div>
+		</div>
+
+		<div>
+			<img class="little-icon" src="img/contact/email.png" alt="Email symbol">
+			<div class="little-icon-text">contact <b>AT</b> noahhuppert <b>DOT</b> com</div>
+		</div>
+
+		<div>
+			<img class="little-icon" src="/img/contact/github.svg" alt="GitHub logo">
+			<a href="https://github.com/Noah-Huppert" class="little-icon-text">Noah-Huppert</a>
+		</div>
+
+		<div>
+			<img class="little-icon" src="/img/contact/twitter.svg" alt="Twitter logo">
+			<a href="https://twitter.com/NoahHuppert" class="little-icon-text">Noah-Huppert</a>
+		</div>
+	</div>
+
+	<div id="languages" class="section">
+		<div class="title mdc-typography">Skills</div>
+		<span v-for="(lang, i) in languages" >
+			{{ lang }}<span v-if="i + 1 != languages.length">, </span>
+		</span>
+	</div>
+</div>

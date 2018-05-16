@@ -3,6 +3,10 @@ title = "Noah Huppert"
 theme = "noahhuppert-com"
 
 [params]
+  biography = '''
+			  My name is Noah Huppert, I am a second year computer science 
+			  major at Drexel University.
+			  '''
   keybaseUsername = "noahh"
   githubUsername = "Noah-Huppert"
   twitterUsername = "NoahHuppert"

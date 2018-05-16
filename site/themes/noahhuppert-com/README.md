@@ -18,7 +18,7 @@ key in site configuration file:
 - `keybaseUsername` (String): Keybase user to link to
 - `githubUsername` (String): GitHub user to provide link to
 - `twitterUsername` (String): Twitter user to provide link to
-- `contactEmail` (Object[]): Email to provide link to
+- `contactEmails` (Object[]): Email to provide link to
 	- `user` (String): Email user to place before email at symbol
 	- `host` (String): Email host to place after email at symbol
 	- `tld` (String): Email host top level domain to place after dot in host

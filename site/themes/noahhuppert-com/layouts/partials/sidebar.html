@@ -8,35 +8,45 @@
 	<div class="section">
 		<div class="title mdc-typography">Contact</div>
 
+		<!-- Keybase -->
 		<div>
 			<img class="little-icon" src="/img/contact/keybase.png" alt="Keybase.io icon">
-			<a href="https://keybase.io/noahh" class="little-icon-text">Keybase</a>
+			<a href="https://keybase.io/{{ .Site.Params.keybaseUsername }}"
+			   class="little-icon-text">Keybase</a>
 		</div>
 
 		<div>
 			<img class="little-icon" src="/img/contact/key.png" alt="Key icon">
-			<a href="https://keybase.io/noahh/key.asc" class="little-icon-text">GPG Key</a>
+			<a href="https://keybase.io/{{ .Site.Params.keybaseUsername }}/key.asc"
+			   class="little-icon-text">GPG Key</a>
 		</div>
 
-
+		<!-- Email -->
+		{{ range .Site.Params.contactEmails }}
 		<div>
 			<img class="little-icon" src="img/contact/email.png" alt="Email symbol">
-			<div class="little-icon-text">contact <b>AT</b> noahh <b>DOT</b> io</div>
+			<div class="little-icon-text">
+				{{ .user }} <b>AT</b> {{ .host }} <b>DOT</b> {{ .tld }}
+			</div>
 		</div>
+		{{ end }}
 
-		<div>
-			<img class="little-icon" src="img/contact/email.png" alt="Email symbol">
-			<div class="little-icon-text">contact <b>AT</b> noahhuppert <b>DOT</b> com</div>
-		</div>
-
+		<!-- GitHub -->
 		<div>
 			<img class="little-icon" src="/img/contact/github.svg" alt="GitHub logo">
-			<a href="https://github.com/Noah-Huppert" class="little-icon-text">Noah-Huppert</a>
+			<a href="https://github.com/{{ .Site.Params.githubUsername }}" 
+				class="little-icon-text">
+				{{ .Site.Params.githubUsername }}
+			</a>
 		</div>
 
+		<!-- Twitter -->
 		<div>
 			<img class="little-icon" src="/img/contact/twitter.svg" alt="Twitter logo">
-			<a href="https://twitter.com/NoahHuppert" class="little-icon-text">Noah-Huppert</a>
+			<a href="https://twitter.com/{{ .Site.Params.twitterUsername }}" 
+				class="little-icon-text">
+				{{ .Site.Params.twitterUsername }}
+			</a>
 		</div>
 	</div>
 

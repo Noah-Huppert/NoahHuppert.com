@@ -1,3 +1,18 @@
 languageCode = "en-us"
 title = "Noah Huppert"
 theme = "noahhuppert-com"
+
+[params]
+  keybaseUsername = "noahh"
+  githubUsername = "Noah-Huppert"
+  twitterUsername = "NoahHuppert"
+
+  [[params.contactEmails]]
+  user = "contact"
+  host = "noahh"
+  tld ="io"
+
+  [[params.contactEmails]]
+  user = "contact"
+  host = "noahhuppert"
+  tld ="com"

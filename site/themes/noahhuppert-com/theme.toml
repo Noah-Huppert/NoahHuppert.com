@@ -3,9 +3,9 @@
 
 name = "Noahhuppert.com"
 license = "MIT"
-licenselink = "https://github.com/Noah-Huppert/NoahHuppert.com/tree/hugo/site/themes/noahhuppert-com"
+licenselink = "https://github.com/Noah-Huppert/NoahHuppert.com/blob/hugo/LICENSE"
 description = "Theme for Noah Huppert's personal website"
-homepage = "https://noahh.io"
+homepage = "https://github.com/Noah-Huppert/NoahHuppert.com/tree/hugo/site/themes/noahhuppert-com"
 tags = []
 features = []
 min_version = "0.1"

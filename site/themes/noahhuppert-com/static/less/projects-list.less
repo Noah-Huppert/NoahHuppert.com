@@ -1,0 +1,72 @@
+#projects {
+    width: calc(90% - 336px - 1rem - 1rem);
+    float: right;
+    padding-left: 10%;
+}
+
+.project {
+    max-width: 464px;
+    min-width: 400px;
+    width: 100% !important;
+    margin-bottom: 20px !important;
+    margin-left: 20px !important;
+    transition: border-bottom 5s;
+}
+
+.project .mdc-card {
+    border-bottom: 2px solid #ffffff;
+}
+
+.project:hover .mdc-card {
+    border-bottom: 2px solid var(--mdc-theme-primary);
+}
+
+.status-wip  .mdc-card {
+    border-bottom: 2px solid #ffa000;
+}
+
+.project a {
+    color: black;
+    text-decoration: none;
+}
+
+.project h1,.description,.status {
+    margin-left: 15px;
+}
+
+.project h1 {
+    font-weight: 500;
+    margin-bottom: 0;
+}
+
+.project .status {
+    margin-top: -5px;
+    padding-bottom: 0.5rem;
+}
+
+.project .description {
+    height: 40px;
+}
+
+.project img {
+    width: 30px;
+    position: relative;
+    top: 8px;
+}
+
+.languages {
+    margin-left: 8px;
+    margin-bottom: 3px;
+}
+
+.language {
+    padding: 8px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    margin-right: 5px;
+    color: var(--mdc-theme-primary);
+    border: 2px solid var(--mdc-theme-primary);
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: bold;
+}

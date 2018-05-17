@@ -1,6 +1,6 @@
 +++
 title = "Lidar Lite"
-status = "done"
+statuses = "done"
 languages = ["python"]
 github ="Noah-Huppert/Lidar-Lite"
 +++

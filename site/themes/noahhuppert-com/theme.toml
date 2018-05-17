@@ -13,3 +13,8 @@ min_version = "0.1"
 [author]
   name = "Noah Huppert"
   homepage = "https://noahh.io"
+
+[taxonomies]
+  status = "statuses"
+  language = "languages"
+

@@ -1,0 +1,31 @@
+<li class="project mdc-grid-tile status-{{ .Params.statuses }}">
+	<a class="mdc-card"
+		target="_blank" 
+		href="https://github.com/{{ .Params.github }}"
+		alt="item.title + 'Github link'">
+
+		<section class="mdc-card__primary">
+			<h1 class="mdc-typography mdc-card__title mdc-card__title--large">
+				{{ .Title }}
+			</h1>
+
+			<div class="status">
+				<img src="/img/statuses/{{ .Params.statuses }}.png">
+				{{ humanize .Params.statuses }}
+			</div>
+
+		</section>
+
+		<section class="description font mdc-card__supporting-text">
+			{{ .Summary }}
+		</section>
+
+		<section class="languages mdc-card__actions">
+			{{ range .Params.languages }}
+			<span class="language mdc-card__action">
+				{{ humanize . }}
+			</span>
+			{{ end }}
+		</section>
+	</a>
+</li>

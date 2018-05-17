@@ -1,0 +1,9 @@
+<div class="section mdc-elevation--z1" id="projects">
+	<div id="projects-title" class="title mdc-typography">Projects</div>
+
+	<ul class="mdc-grid-list__tiles">
+		{{ range .Data.Pages }}
+			{{ partial "project-summary.html" . }}
+		{{ end }}
+	</ul>
+</div>

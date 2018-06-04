@@ -2,7 +2,7 @@
 	<div id="projects-title" class="title mdc-typography">Projects</div>
 
 	<ul class="mdc-grid-list__tiles">
-		{{ range .Data.Pages }}
+		{{ range sort .Data.Pages "Params.order" }}
 			{{ partial "project-summary.html" . }}
 		{{ end }}
 	</ul>

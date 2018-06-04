@@ -51,8 +51,8 @@
 
 	<div id="languages" class="section">
 		<div class="title mdc-typography">Skills</div>
-		<span v-for="(lang, i) in languages" >
-			{{ lang }}<span v-if="i + 1 != languages.length">, </span>
-		</span>
+		{{ range $key, $taxonomy := .Site.Taxonomies.languages }}
+			{{ $key }}
+		{{ end }}
 	</div>
 </div>

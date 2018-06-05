@@ -16,4 +16,4 @@ ingress:
     - www.noahhuppert.com
 
 dns:
-  hosts: "@.noahh.io., www.noahh.io., @.noahhuppert.com., www.noahhuppert.com."
+  hosts: "noahh.io., www.noahh.io., noahhuppert.com., www.noahhuppert.com."

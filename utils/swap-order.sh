@@ -53,7 +53,7 @@ function switch_order_value() { # ( post_path, new_order )
 		return 1
 	fi
 
-	if ! (cat "$post_path" | sed "s/^order = [0-9]*$/order = $new_order/g") > $post_path; then
+	if ! (cat "$post_path" | sed "s/^order = [0-9]*$/order = $new_order/g") | tee "$post_path"; then
 		echo "Error - switch_order_value: Failed to switch order value" >&2
 		return 1
 	fi

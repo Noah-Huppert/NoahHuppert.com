@@ -7,5 +7,5 @@ source: ingress
 image:
   tag: v0.5.0-alpha.1
 digitalocean:
-  domain: noahh-io
+  domain: "Place your DigitalOcean domain here"
   token: "Place your DigitalOcean API token here"

@@ -1,0 +1,19 @@
+service:
+  type: NodePort
+
+ingress:
+  annotations: 
+    external-dns.alpha.kubernetes.io/hostname: "drone.github.noahh.io., drone.github.noahhuppert.com."
+  hosts:
+    - drone.github.noahh.io
+    - drone.github.noahhuppert.com
+  tls:
+    - hosts:
+        - drone.github.noahh.io
+        - drone.github.noahhuppert.com
+      secretName: drone-github-tls
+
+server:
+  env:
+    DRONE_PROVIDER: "github"
+    DRONE_GITHUB: true

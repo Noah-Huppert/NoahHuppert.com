@@ -1,0 +1,20 @@
+service:
+  type: NodePort
+
+ingress:
+  annotations: 
+    external-dns.alpha.kubernetes.io/hostname: "drone.gitlab.noahh.io., drone.gitlab.noahhuppert.com."
+  hosts:
+    - drone.gitlab.noahh.io
+    - drone.gitlab.noahhuppert.com
+  tls:
+    - hosts:
+        - drone.gitlab.noahh.io
+        - drone.gitlab.noahhuppert.com
+      secretName: drone-gitlab-tls
+
+server:
+  env:
+    DRONE_PROVIDER: "gitlab"
+    DRONE_GITLAB: true
+    DRONE_GITLAB_URL: "https://gitlab.com"

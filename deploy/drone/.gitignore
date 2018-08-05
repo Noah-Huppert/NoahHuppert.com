@@ -1,2 +1,3 @@
 # Secrets
-values.secret.yaml
+values.github.secret.yaml
+values.gitlab.secret.yaml

@@ -22,3 +22,5 @@ server:
     DRONE_GITHUB: true
     DRONE_OPEN: false
     DRONE_ADMIN: Noah-Huppert
+    DRONE_GITLAB: true
+    DRONE_GITLAB_URL: "https://gitlab.com"

@@ -7,6 +7,7 @@ URL=https://acme-v01.api.letsencrypt.org/directory
 NAMESPACE=kube-lego
 PKG_REPO="stable"
 PKG="kube-lego"
+TAG=0.1.7
 
 # deploy installs the kube lego addon into the cluster.
 deploy:
@@ -15,6 +16,7 @@ deploy:
 		--namespace "${NAMESPACE}" \
 		--set config.LEGO_URL="${URL}" \
 		--set config.LEGO_EMAIL="${EMAIL}" \
+		--set image.tag="${TAG}" \
 		"${NAME}" "${PKG_REPO}"/"${PKG}"
 
 # rm deletes the app deployment from the cluster

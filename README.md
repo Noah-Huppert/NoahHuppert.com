@@ -9,10 +9,12 @@ Personal website located at [noahh.io](http://noahh.io) and
 - [Continuous Integration](#continuous-integration)
 
 # Overview
-The website hosted with [Caddy](https://caddyserver.com/) and deployed to 
-[Kuberenetes](https://kubernetes.io/).  
+Hugo static site, served by Caddy, and deployed on Kuberenetes.
 
-Website content is located in the `www` directory.  
+Website content is located in the `site` directory.  
+
+Build the theme for the Hugo theme by running `make css` in 
+`site/themes/noahhuppert-com`.
 
 # Continuous Integration
 [Drone](http://drone.io/) is used to run continuous integration pipelines.  

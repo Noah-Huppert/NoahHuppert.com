@@ -9,7 +9,7 @@ Personal website located at [noahh.io](http://noahh.io) and
 - [Continuous Integration](#continuous-integration)
 
 # Overview
-The website hosted with [Caddy](https://caddyserver.com/) and deployed to 
+ReactJS site hosted with [Caddy](https://caddyserver.com/) and deployed to 
 [Kuberenetes](https://kubernetes.io/).  
 
 Website content is located in the `www` directory.  

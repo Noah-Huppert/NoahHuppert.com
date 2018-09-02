@@ -1,0 +1,9 @@
+server:
+  ingress:
+    hosts:
+      - gocd.noahh.io
+      - gocd.noahhuppert.com
+    annotations:
+      kubernetes.io/ingress.class: "gce"
+      external-dns.alpha.kubernetes.io/hostname: gocd.noahh.io., gocd.noahhuppert.com.
+

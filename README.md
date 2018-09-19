@@ -1,4 +1,4 @@
-[![Drone CI Status](https://drone.github.noahh.io/api/badges/Noah-Huppert/NoahHuppert.com/status.svg)](https://drone.github.noahh.io/Noah-Huppert/NoahHuppert.com)  
+Project status: Complete | Active development
 
 # NoahHuppert.com
 Personal website located at [noahh.io](http://noahh.io) and 

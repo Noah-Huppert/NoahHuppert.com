@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+export DOCKER_REPO="noahhuppert/noahhuppert-com"
+export DEPLOY_DIR="deploy/"

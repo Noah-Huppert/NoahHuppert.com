@@ -20,20 +20,20 @@ var app = new Vue({
 				languages: ["C++","Python","C#"],
 				status: "complete"},	
 			{title: "Human Call Filter", description: "Captcha "+
-				"for phone calls",
+				"for phone calls.",
 				github: "Noah-Huppert/human-call-filter",
 				languages: ["Go", "HTML", "Javascript", "CSS"],
 				status: "complete"},
 			{title: "Kubernetes Deploy",
 				description: "Kubernetes deployment command "+
-				"line tool", github: "Noah-Huppert/k8s-deploy",
+				"line tool.", github: "Noah-Huppert/k8s-deploy",
 				languages: ["Bash"], status: "complete"},
 			{title: "Kube Namespace", description: "Run multiple"+
-				"kubectl commands in the same namespace",
+				"kubectl commands in the same namespace.",
 				github: "Noah-Huppert/kube-namespace",
 				languages: ["Bash"], status: "complete"},
 			{title: "Go Log", description: "A simple Go logging "+
-				"package", github: "Noah-Huppert/golog",
+				"package.", github: "Noah-Huppert/golog",
 				languages: ["Go"], status: "complete"},
 			{title: "CNC.js", description: "Web tool to convert "+
 				"drawings into GCode which can be run by a "+

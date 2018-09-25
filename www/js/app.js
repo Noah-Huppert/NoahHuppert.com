@@ -32,6 +32,9 @@ var app = new Vue({
 				"kubectl commands in the same namespace",
 				github: "Noah-Huppert/kube-namespace",
 				languages: ["Bash"], status: "complete"},
+			{title: "Go Log", description: "A simple Go logging "+
+				"package", github: "Noah-Huppert/golog",
+				languages: ["Go"], status: "complete"},
 			{title: "CNC.js", description: "Web tool to convert "+
 				"drawings into GCode which can be run by a "+
 				"CNC mill.", github: "Noah-Huppert/CNC.js",

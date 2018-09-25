@@ -29,7 +29,7 @@ var app = new Vue({
 				"line tool.", github: "Noah-Huppert/k8s-deploy",
 				languages: ["Bash"], status: "complete"},
 			{title: "Kube Namespace", description: "Run multiple"+
-				"kubectl commands in the same namespace.",
+				" kubectl commands in the same namespace.",
 				github: "Noah-Huppert/kube-namespace",
 				languages: ["Bash"], status: "complete"},
 			{title: "Go Log", description: "A simple Go logging "+

@@ -19,6 +19,19 @@ var app = new Vue({
 				github: "Noah-Huppert/Inertial-Motion-Capture",
 				languages: ["C++","Python","C#"],
 				status: "complete"},	
+			{title: "Human Call Filter", description: "Captcha "+
+				"for phone calls",
+				github: "Noah-Huppert/human-call-filter",
+				languages: ["Go", "HTML", "Javascript", "CSS"],
+				status: "complete"},
+			{title: "Kubernetes Deploy",
+				description: "Kubernetes deployment command "+
+				"line tool", github: "Noah-Huppert/k8s-deploy",
+				languages: ["Bash"], status: "complete"},
+			{title: "Kube Namespace", description: "Run multiple"+
+				"kubectl commands in the same namespace",
+				github: "Noah-Huppert/kube-namespace",
+				languages: ["Bash"], status: "complete"},
 			{title: "CNC.js", description: "Web tool to convert "+
 				"drawings into GCode which can be run by a "+
 				"CNC mill.", github: "Noah-Huppert/CNC.js",
@@ -42,27 +55,11 @@ var app = new Vue({
 				github: "Noah-Huppert/NoahHuppert.com",
 				languages: ["YAML", "HTML", "JavaScript", "CSS"],
 				status: "complete"},
-			{title: "Crime Map", description: "Analysis of "+
-				"recent criminal activity in the University "+
-				"City area of Philadelphia.",
-				github: "Noah-Huppert/crime-map",
-				languages: ["Go", "HTML", "Javascript"],
-				status: "wip"},
 			{title: "GitHub Gantt", description: "Generates a"+
 				" Gantt chart for a GitHub repositories' "+
 				"issues using the GitHub and ZenHub APIs.",
 				github: "Noah-Huppert/gh-gantt",
 				languages: ["Go", "Javascript", "HTML"],
-				status: "wip"},
-			{title: "Flock", description: "Automates the process "+
-				"of planning events with friends.",
-				github: "Open-Proj/flock",
-				languages: ["Javascript", "HTML", "CSS"],
-				status: "wip"},
-			{title: "Zen Task", description: "User experience "+
-				"focused mobile Task Warrior client.",
-				github: "Open-Proj/zen-task", 
-				languages: ["Dart", "C++", "XML"],
 				status: "wip"},
 			{title: "Redmine To GSheets", 
 				description: "Google Sheets Script for "+

@@ -35,6 +35,10 @@ var app = new Vue({
 			{title: "Go Log", description: "A simple Go logging "+
 				"package.", github: "Noah-Huppert/golog",
 				languages: ["Go"], status: "complete"},
+			{title: "CPU Price Graph", description: "Simple "+
+				"analysis of CPU price vs performance.",
+				github: "Noah-Huppert/cpu-price-graph",
+				languages: ["Python"], status: "complete"},
 			{title: "CNC.js", description: "Web tool to convert "+
 				"drawings into GCode which can be run by a "+
 				"CNC mill.", github: "Noah-Huppert/CNC.js",

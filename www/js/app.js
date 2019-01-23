@@ -2,6 +2,11 @@ var app = new Vue({
 	el: "#app",
 	data: {
 		projects: [	
+			{title: "Human Call Filter", description: "Captcha "+
+				"for phone calls.",
+				github: "Noah-Huppert/human-call-filter",
+				languages: ["Go", "HTML", "Javascript", "CSS"],
+				status: "complete"},
 			{title: "Lidar Lite", 
 				description: "Code necessary to get a Lidar "+
 				"Lite v3 unit working with an Omega "+
@@ -18,12 +23,18 @@ var app = new Vue({
 				"Motion Units.", 
 				github: "Noah-Huppert/Inertial-Motion-Capture",
 				languages: ["C++","Python","C#"],
-				status: "complete"},	
-			{title: "Human Call Filter", description: "Captcha "+
-				"for phone calls.",
-				github: "Noah-Huppert/human-call-filter",
-				languages: ["Go", "HTML", "Javascript", "CSS"],
-				status: "complete"},
+				status: "complete"},		
+			{title: "GitHub Gantt", description: "Generates a"+
+				" Gantt chart for a GitHub repositories' "+
+				"issues using the GitHub and ZenHub APIs.",
+				github: "Noah-Huppert/gh-gantt",
+				languages: ["Go", "Javascript", "HTML"],
+				status: "wip"},
+			{title: "Kiln",
+				description: "A client side only, Helm "+
+				"compatible, package manager for Kubernetes",
+				github: "Noah-Huppert/kiln",
+				languages: ["Bash"], status: "complete"},
 			{title: "Kubernetes Deploy",
 				description: "Kubernetes deployment command "+
 				"line tool.", github: "Noah-Huppert/k8s-deploy",
@@ -35,6 +46,34 @@ var app = new Vue({
 			{title: "Go Log", description: "A simple Go logging "+
 				"package.", github: "Noah-Huppert/golog",
 				languages: ["Go"], status: "complete"},
+			{title: "NoahHuppert.com", description: "Personal "+
+				"website hosted on Kubernetes and "+
+				"automatically deployed with Drone CI and Helm.",
+				github: "Noah-Huppert/NoahHuppert.com",
+				languages: ["YAML", "HTML", "JavaScript", "CSS"],
+				status: "complete"},
+			{title: "Linux Install",
+				description: "Completely automated setup of "+
+				"my current Linux installation",
+				github: "Noah-Huppert/linux-install",
+				languages: ["Bash", "Yaml"], status: "wip"},
+			{title: "Git Container",
+				description: "Docker container with the "+
+				"Git client",
+				github: "Noah-Huppert/git-container",
+				languages: ["Dockerfile", "Bash"],
+				status: "complete"},
+			{title: "Gomplate Container",
+				description: "Container which runs the "+
+				"Gomplate tool",
+				github: "Noah-Huppert/gomplate-container",
+				languages: ["Dockerfile"], status: "complete"},
+			{title: "File Wait Container",
+				description: "Container which waits for a "+
+				"file to exist",
+				github: "Noah-Huppert/file-wait-container",
+				languages: ["Dockerfile", "Bash"],
+				status: "complete"},
 			{title: "CPU Price Graph", description: "Simple "+
 				"analysis of CPU price vs performance.",
 				github: "Noah-Huppert/cpu-price-graph",
@@ -56,18 +95,6 @@ var app = new Vue({
 				github: "Noah-Huppert/Bug-Swatter",
 				languages: ["HTML", "CSS", "Javascript"],
 				status: "complete"},
-			{title: "NoahHuppert.com", description: "Personal "+
-				"website hosted on Kubernetes and "+
-				"automatically deployed with Drone CI and Helm.",
-				github: "Noah-Huppert/NoahHuppert.com",
-				languages: ["YAML", "HTML", "JavaScript", "CSS"],
-				status: "complete"},
-			{title: "GitHub Gantt", description: "Generates a"+
-				" Gantt chart for a GitHub repositories' "+
-				"issues using the GitHub and ZenHub APIs.",
-				github: "Noah-Huppert/gh-gantt",
-				languages: ["Go", "Javascript", "HTML"],
-				status: "wip"},
 			{title: "Redmine To GSheets", 
 				description: "Google Sheets Script for "+
 				"taking a Redmine CSV issue export and "+

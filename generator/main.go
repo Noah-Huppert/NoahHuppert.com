@@ -12,6 +12,7 @@ import (
 	"fmt"
 	"regexp"
 	"sort"
+	"flag"
 
 	"github.com/Noah-Huppert/golog"
 	"github.com/BurntSushi/toml"
@@ -44,6 +45,11 @@ type ProjectHeader struct {
 func main() {
 	// {{{1 Setup logger
 	logger := golog.NewStdLogger("generator")
+
+	// {{{1 Parse flags
+	var outputDir string
+	flag.StringVar(&outputDir, "o", "output", "Output directory")
+	flag.Parse()
 
 	// {{{1 Load projects
 	projectsExp := regexp.MustCompile("^([0-9]+)[-_].+$")
@@ -228,8 +234,18 @@ func main() {
 	}
 
 	// {{{1 Write output files
+	// {{{2 Create output directory if doesn't exist
+	if outDirInfo, err := os.Stat(outputDir); err != nil && os.IsNotExist(err) {
+		if err := os.Mkdir(outputDir, 0755); err != nil {
+			logger.Fatalf("error creating %s output directory: %s",
+				outputDir, err.Error())
+		}
+	} else if !outDirInfo.IsDir() {
+		logger.Fatalf("%s output directory exists but as a file, not directory")
+	}
+	
 	// {{{2 Projects output file
-	projectsF, err := os.Create("output/projects.json")
+	projectsF, err := os.Create(filepath.Join(outputDir, "projects.json"))
 	if err != nil {
 		logger.Fatalf("error opening projects output file: %s", err.Error())
 	}
@@ -250,7 +266,7 @@ func main() {
 	}
 
 	// {{{2 Lanuages index
-	langF, err := os.Create("output/languages.json")
+	langF, err := os.Create(filepath.Join(outputDir, "languages.json"))
 	if err != nil {
 		logger.Fatalf("error opening languages index output file: %s", err.Error())
 	}
@@ -268,7 +284,7 @@ func main() {
 	}
 
 	// {{{2 Technologies index
-	techF, err := os.Create("output/technologies.json")
+	techF, err := os.Create(filepath.Join(outputDir, "technologies.json"))
 	if err != nil {
 		logger.Fatalf("error opening technologies index output file: %s", err.Error())
 	}

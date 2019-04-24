@@ -241,7 +241,7 @@ func main() {
 				outputDir, err.Error())
 		}
 	} else if !outDirInfo.IsDir() {
-		logger.Fatalf("%s output directory exists but as a file, not directory")
+		logger.Fatalf("%s output directory exists but as a file")
 	}
 	
 	// {{{2 Projects output file

@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-make HOST=k8s.noahh.io DHOST=k8s-noahh-io
-make HOST=k8s.noahhuppert.com DHOST=k8s-noahhuppert-com

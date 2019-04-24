@@ -47,8 +47,12 @@ func main() {
 	logger := golog.NewStdLogger("generator")
 
 	// {{{1 Parse flags
+	var inputDir string
 	var outputDir string
+
+	flag.StringVar(&inputDir, "i", ".", "Input directory")
 	flag.StringVar(&outputDir, "o", "output", "Output directory")
+	
 	flag.Parse()
 
 	// {{{1 Load projects
@@ -57,7 +61,7 @@ func main() {
 	projects := make(map[uint64]Project)
 	projectsBySlug := make(map[string]Project)
 	
-	err := filepath.Walk("./projects", func(path string, info os.FileInfo, err error) error {
+	err := filepath.Walk(filepath.Join(inputDir, "projects"), func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err
 		}

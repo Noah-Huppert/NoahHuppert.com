@@ -24,6 +24,7 @@ Headers:
 - `Name` (String)
 - `Languages` ([]String)
 - `Technologies` ([]String)
+- `Slug` (String)
 
 Content: Description of project
 
@@ -31,5 +32,20 @@ Content: Description of project
 JSON files are generated for each content type.
 
 ## Projects
-- `/projects/index.json`: All projects with headers and content in one file
-- `/projects/{languages,technologies}.json`: Indexes of header values
+### Projects
+`projects.json`  
+
+Schema:
+
+- `ordered_slugs` ([]String): Project slugs ordered by their source file numeric
+  prefixes in descending order
+- `projects` (map[String]Project): Map, keys are slugs, values are projects 
+  with their headers
+
+### Indexes
+`{languages,technologies}.json`
+
+Indexes for header values.  
+
+Keys are language / technology names, values are project slugs.
+

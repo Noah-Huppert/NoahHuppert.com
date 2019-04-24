@@ -2,6 +2,7 @@ package main
 
 import (
 	"io/ioutil"
+	"encoding/json"
 	"strings"
 	"strconv"
 	"bytes"
@@ -48,6 +49,7 @@ func main() {
 	projectsExp := regexp.MustCompile("^([0-9]+)[-_].+$")
 
 	projects := make(map[uint64]Project)
+	projectsBySlug := make(map[string]Project)
 	
 	err := filepath.Walk("./projects", func(path string, info os.FileInfo, err error) error {
 		if err != nil {
@@ -167,11 +169,18 @@ func main() {
 			return fmt.Errorf("read no content from %s file", path)
 		}
 
+		// {{{2 Close file
+		if err := f.Close(); err != nil {
+			return fmt.Errorf("error closing %s file: %s", path, err.Error())
+		}
+
 		// {{{2 Add project to map
-		projects[numPrefix] = Project{
+		p := Project{
 			ProjectHeader: header,
 			Content: contentBuffer.String(),
 		}
+		projects[numPrefix] = p
+		projectsBySlug[p.Slug] = p
 
 		return nil
 	})
@@ -190,12 +199,89 @@ func main() {
 		return projectPrefixes[i] < projectPrefixes[j]
 	})
 
-	sortedProjects := []Project{}
+	orderedSlugs := []string{}
 	
-	for k := range projectPrefixes {
-		numPrefix := uint64(k)
-		
-		sortedProjects = append(sortedProjects, projects[numPrefix])
-		logger.Debugf("%d: %#v", k, projects[numPrefix])
+	for _, k := range projectPrefixes {
+		orderedSlugs = append(orderedSlugs, projects[k].Slug)
+	}
+	
+	// {{{1 Build indexes
+	langIndex := make(map[string][]string)
+	techIndex := make(map[string][]string)
+
+	for _, project := range projects {
+		for _, lang := range project.Languages {
+			if _, ok := langIndex[lang]; !ok {
+				langIndex[lang] = []string{}
+			}
+
+			langIndex[lang] = append(langIndex[lang], project.Slug)
+		}
+
+		for _, tech := range project.Technologies {
+			if _, ok := techIndex[tech]; !ok {
+				techIndex[tech] = []string{}
+			}
+
+			techIndex[tech] = append(techIndex[tech], project.Slug)
+		}
+	}
+
+	// {{{1 Write output files
+	// {{{2 Projects output file
+	projectsF, err := os.Create("output/projects.json")
+	if err != nil {
+		logger.Fatalf("error opening projects output file: %s", err.Error())
+	}
+	defer func() {
+		if err := projectsF.Close(); err != nil {
+			logger.Fatalf("error closing projects output file: %s", err.Error())
+		}
+	}()
+
+	projectsEncoder := json.NewEncoder(projectsF)
+
+	projectsOut := map[string]interface{}{
+		"ordered_slugs": orderedSlugs,
+		"projects": projectsBySlug,
+	}
+	if err := projectsEncoder.Encode(projectsOut); err != nil {
+		logger.Fatalf("error encoding projects output file to JSON: %s", err.Error())
+	}
+
+	// {{{2 Lanuages index
+	langF, err := os.Create("output/languages.json")
+	if err != nil {
+		logger.Fatalf("error opening languages index output file: %s", err.Error())
+	}
+	defer func() {
+		if err := langF.Close(); err != nil {
+			logger.Fatalf("error closing languages index output file: %s",
+				err.Error())
+		}
+	}()
+
+	langEncoder := json.NewEncoder(langF)
+	if err := langEncoder.Encode(langIndex); err != nil {
+		logger.Fatalf("error encoding languages index output file to JSON: %s",
+			err.Error())
+	}
+
+	// {{{2 Technologies index
+	techF, err := os.Create("output/technologies.json")
+	if err != nil {
+		logger.Fatalf("error opening technologies index output file: %s", err.Error())
+	}
+	defer func() {
+		if err := techF.Close(); err != nil {
+			logger.Fatalf("error closing technologies index output file: %s",
+				err.Error())
+		}
+	}()
+
+	techEncoder := json.NewEncoder(techF)
+	if err := techEncoder.Encode(techIndex); err != nil {
+		logger.Fatalf("error encoding technologies index output file to JSON: %s",
+			err.Error())
 	}
 }

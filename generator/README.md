@@ -1,41 +1,35 @@
 # Generator
-Program to generate static post content.
+Transforms static content into deployable format.
 
 # Table Of Contents
 - [Overview](#overview)
-- [Input](#input)
-- [Output](#output)
+- [Content Specification](#content-specification)
+- [Output Files](#output-files)
 
 # Overview
-Generates JSON files from post files.
+Content is stored in markdown files.  
+Metadata about content is stored in the header section of a file.  
+The order of content is determined by numeric prefixes in their names.
 
-# Input
-The tool reads post files as input.  
+Content is coalesced into JSON files which emulate an API.
 
-Posts must be located in sub-directories which determine the type of a post.
+# Content Specification
+Currently the only type of content are projects.
 
-Inside each sub-directory a `metadata-schema.toml` file must be present which 
-describes the metadata schema for posts of that type.  
+## Projects
+Projects are located in the `projects` input directory.  
 
-Post files are markdown files which contain metadata and content.  
-The metadata is TOML at the top of the file. Separated from the content by 
-3 dashes.  
+Headers:
 
-All posts are required to have at least the following metadata:
+- `Name` (String)
+- `Languages` ([]String)
+- `Technologies` ([]String)
 
-- `title` (String): Human readable title of post
-- `slug` (String): Value used in URLs when linking to post. Should never 
-    change. Must only contain alpha-numeric characters, no spaces. Must be 
-    unique to all other posts.
-- `order` (Integer): Used to order post against other posts in category
+Content: Description of project
 
-# Output
-JSON files are outputted to emulate an API.
+# Output Files
+JSON files are generated for each content type.
 
-A file will be generated for each post in the `posts` output directory 
-named `<slug>.json`.  
-It will contain a metadata object and a text field with markdown in HTML form.  
-
-Additionally an index file for each post type will be created. It will be named
-`<post type directory name>.json`. It will include an array of sorted post 
-slugs for the category.
+## Projects
+- `/projects/index.json`: All projects with headers and content in one file
+- `/projects/{languages,technologies}.json`: Indexes of header values

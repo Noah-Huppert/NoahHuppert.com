@@ -32,14 +32,17 @@ type ProjectHeader struct {
 	// Name of project
 	Name string `json:"name"`
 
+	// Slug of project
+	Slug string `json:"slug"`
+
 	// Languages used in project
 	Languages []string `json:"languages"`
 
 	// Technologies used in project
 	Technologies []string `json:"technologies"`
 
-	// Slug of project
-	Slug string `json:"slug"`
+	// GitHub repository link, in format username/repository
+	GitHub string `json:"github"`
 }
 
 func main() {
@@ -191,6 +194,8 @@ func main() {
 		}
 		projects[numPrefix] = p
 		projectsBySlug[p.Slug] = p
+
+		logger.Info("project: %s", p.Slug)
 
 		return nil
 	})

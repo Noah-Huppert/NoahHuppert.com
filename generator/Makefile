@@ -1,10 +1,6 @@
 .PHONY: build
 
-USER ?= noahhuppert
-IMAGE ?= noahhuppert-com-generator
-VERSION ?= latest
-
-TAG = ${USER}/${IMAGE}:${VERSION}
+TAG ?= noahhuppert/noahhuppert-com-generator:latest
 
 # build docker image
 build:

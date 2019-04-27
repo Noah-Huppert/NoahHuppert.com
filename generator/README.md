@@ -22,9 +22,10 @@ Projects are located in the `projects` input directory.
 Headers:
 
 - `Name` (String)
+- `Slug` (String)
 - `Languages` ([]String)
 - `Technologies` ([]String)
-- `Slug` (String)
+- `GitHub` (String)
 
 Content: Description of project
 

@@ -9,4 +9,5 @@ COPY . .
 
 RUN go install
 
-CMD [ /go/bin/generator ]
+ENTRYPOINT [ "/go/bin/generator" ]
+CMD []

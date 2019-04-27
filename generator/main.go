@@ -195,7 +195,7 @@ func main() {
 		projects[numPrefix] = p
 		projectsBySlug[p.Slug] = p
 
-		logger.Info("project: %s", p.Slug)
+		logger.Infof("project: %s", p.Slug)
 
 		return nil
 	})

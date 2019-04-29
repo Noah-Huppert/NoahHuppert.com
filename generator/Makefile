@@ -1,7 +1,5 @@
-.PHONY: build
+SRC ?= main.go
+OUT ?= generator
 
-TAG ?= noahhuppert/noahhuppert-com-generator:latest
-
-# build docker image
-build:
-	docker build -t ${TAG} .
+${OUT}: ${SRC}
+	go build -o ${OUT} ${SRC}

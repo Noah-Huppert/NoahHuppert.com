@@ -1,133 +1,70 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
-<head>
-	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <head>
+    <!-- Meta -->
+    <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
+    <link href="/manifest.json" rel="manifest">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0,
+				   initial-scale=1, user-scalable=yes">
 
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <!-- Style -->
+    <link href="https://fonts.googleapis.com/css?family=Lekton|Noto+Sans"
+	  rel="stylesheet">
+    <link href="/css/styles.css" rel="stylesheet">
 
-	<title>Noah Huppert</title>
+    <!-- Javascript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <!-- Error dialog -->
+      <error-boundary>
+	<div>
+	  <!-- Header -->
+	  <div id="header-wrapper">
+	    <div id="header-bg"></div>
+	    <header class="padded content-max">
+	      <div id="fullname">
+		<h1>Noah</h1>
+		<h1 id="lastname">Huppert</h1>
+	      </div>
 
-	<link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet"> 
-	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="/css/styles.css" >
-
-	 <link rel="stylesheet"
-		href="/css/material-components-web.min.css">
-
-	<script src="/js/vue.min.js"></script>
-</head>
-<body>
-	<div id="app">
-	<header class="mdc-toolbar">
-		<div class="mdc-toolbar__row">
-			<section class="mdc-toolbar__section
-					mdc-toolbar__section--align-start">
-				<span class="mdc-toolbar__title">
-					Noah Huppert
-				</span>
-			</section>
-		</div>
-	</header>
-
-	<div id="sidebar">
-		<div class="section">
-			<div class="title mdc-typography">Biography</div>
-			My name is Noah Huppert, I am a second year computer 
-			science major at the University of 
-			Massachusetts Amherst.
+	      <div id="contact">
+		<div class="line">
+		  <img src="/imgs/email.svg">
+		  <div>contact <span class="bold">AT</span> noahh.io</div>
 		</div>
 
-		<div class="section">
-			<div class="title mdc-typography">Contact</div>
-
-			<div class="section-line">
-				<img class="little-icon" src="/img/keybase.png" alt="Keybase.io icon">
-				<a href="https://keybase.io/noahh" class="little-icon-text">Keybase</a>
-			</div>
-
-			<div class="section-line">
-				<img class="little-icon" src="/img/key.png" alt="Key icon">
-				<a href="https://keybase.io/noahh/key.asc" class="little-icon-text">GPG Key</a>
-			</div>
-
-
-			<div class="section-line">
-				<img class="little-icon" src="img/email.png" alt="Email symbol">
-				<div class="little-icon-text">contact <b>AT</b> noahh <b>DOT</b> io</div>
-			</div>
-
-			<div class="section-line">
-				<img class="little-icon" src="img/email.png" alt="Email symbol">
-				<div class="little-icon-text">contact <b>AT</b> noahhuppert <b>DOT</b> com</div>
-			</div>
-
-			<div class="section-line">
-				<img class="little-icon" src="/img/github.svg" alt="GitHub logo">
-				<a href="https://github.com/Noah-Huppert" class="little-icon-text">Noah-Huppert</a>
-			</div>
-
-			<div class="section-line">
-				<img class="little-icon" src="/img/twitter.svg" alt="Twitter logo">
-				<a href="https://twitter.com/NoahHuppert" class="little-icon-text">Noah-Huppert</a>
-			</div>
+		<div class="line">
+		  <img src="/imgs/github.svg">
+		  <div>Noah-Huppert</div>
 		</div>
 
-		<div id="languages" class="section">
-			<div class="title mdc-typography">Skills</div>
-			<span v-for="(lang, i) in languages" >
-				{{ lang }}<span v-if="i + 1 != languages.length">, </span>
-			</span>
+		<div class="line">
+		  <img src="/imgs/lock.svg">
+		  <div>GPG Key</div>
 		</div>
+	      </div>
+	    </header>
+	  </div>
+
+	  <!-- Projects -->
+	  <section id="projects" class="padded content-max">
+	    <h2>Projects</h2>
+
+	    <!-- No script -->
+	    <noscript>
+	      <div id="noscript">JavaScript is required for this site.</div>
+	    </noscript>
+
+	    <x-projects></x-projects>
+	  </section>
 	</div>
-
-	<!-- Projects -->
-	<div class="section mdc-elevation--z1" id="projects">
-		<div id="projects-title" class="title mdc-typography">Projects</div>
-
-		<ul class="mdc-grid-list__tiles">
-			<li v-for="item in projects" 
-				v-bind:class="'project mdc-grid-tile status-' + item.status">
-				<a class="mdc-card" 
-					target="_blank"
-					v-bind:href="'https://github.com/' + item.github" 
-					v-bind:alt="item.title + 'Github link'">
-					<section class="mdc-card__primary">
-						<h1 class="mdc-typography mdc-card__title 
-							mdc-card__title--large">
-							{{ item.title }}
-						</h1>
-
-						<div class="status">
-							<img v-bind:src="statuses[item.status].icon">
-							{{ statuses[item.status].text }}
-						</div>
-
-					</section>
-
-					<section class="description font mdc-card__supporting-text">
-						{{ item.description }}	
-					</section>
-
-					<section class="languages mdc-card__actions">
-						<span v-for="lang in item.languages" 
-							class="language mdc-card__action">
-							{{ lang }}
-						</span>
-					</section>
-				</a>
-			</li>
-		</ul>	
-	</div>
-
-	<a href="https://icons8.com" id="icons8-attrib">
-		<img class="little-icon" src="/img/icons8.svg" alt="icons8.com icon">
-		<div class="little-icon-text">Icons courtesy of Icons8</div>
-	</a>
-
-	</div> <!-- /#app -->
-
-	<script src="/js/app.js"></script>
-</body>
+      </error-boundary>
+    </div>
+    
+    <!-- Javascript -->
+    <script src="/js/app.js"></script>
+  </body>
 </html>

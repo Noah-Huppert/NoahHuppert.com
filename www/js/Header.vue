@@ -31,3 +31,74 @@
 </div>
 </template>
 
+<style>
+#header-wrapper {
+    overflow: hidden;
+    margin-bottom: calc(-1 * var(--header-height) + 10rem);
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    z-index: 2;
+    position: relative;
+    top: calc(-1 * var(--header-height))
+}
+
+#header-bg {
+    width: 150%;
+    height: var(--header-height);
+    z-index: 1;
+    transform: rotate(-4deg);
+    position: relative;
+    top: -35rem;
+    left: -20%;
+    
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+    background: #F5F5F5;
+}
+
+#fullname {
+    width: 45rem;
+    display: inline-block;
+}
+
+#firstname {
+    text-align: left;
+}
+
+#lastname {
+    text-align: right;
+}
+
+#contact {
+    display: inline-block;
+    vertical-align: top;
+}
+
+#contact .line {
+    height: 4rem;
+    line-height: 4rem;
+    margin-top: 3rem;
+    display: block;
+}
+
+#contact .line:first-of-type {
+    margin-top: 0;
+}
+
+#contact .line img {
+    width: 2.8rem;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#contact .line div {
+    height: 100%;
+    vertical-align: middle;
+    display: inline-block;
+    margin-left: 3rem;
+    
+    font-size: 2.4rem;
+}
+</style>

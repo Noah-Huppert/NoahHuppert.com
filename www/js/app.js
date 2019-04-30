@@ -1,4 +1,5 @@
 const errorBoundary = {
+    template: "#template-error-boundary",
     data: function() {
 	return {
 	    error: ""
@@ -12,17 +13,11 @@ const errorBoundary = {
 	}
 	
 	console.error("error boundary:", err, vm, info)
-    },
-    template: `
-        <div>
-            <div id="error" v-bind:x-show="error.length > 0 ? 'true' : 'false'">
-                {{ error }}
-            </div>
-            <slot></slot>
-        </div>`,
+    }
 };
 
 const projects = {
+    template: "#template-x-projects",
     data: function() {
 	return {
 	    orderedProjectSlugs: [],
@@ -43,23 +38,23 @@ const projects = {
 		self.orderedProjects.push(self.projects[self.orderedProjectSlugs[k]]);
 	    }
 	}).catch(function(err) {
-	    self.error = "Failed to load projects";
+	    throw "Failed to load projects";
 	    
 	    console.error("Failed to load projects", err);
 	});
-    },
-    template: `
-        <div>
-            <div v-for="item in orderedProjects">
-                {{ item.name }}
-            </div>
-        </div>`
+    }
+};
+
+const project = {
+    template: "#template-x-project",
+    props: ["project"],
 };
 
 var app = new Vue({
     el: "#app",
     components: {
 	"error-boundary": errorBoundary,
-	"x-projects": projects
+	"x-projects": projects,
+	"x-project": project
     }
 });

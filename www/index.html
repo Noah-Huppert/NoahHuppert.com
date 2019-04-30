@@ -38,12 +38,16 @@
 
 		<div class="line">
 		  <img src="/imgs/github.svg">
-		  <div>Noah-Huppert</div>
+		  <div>
+		    <a href="https://github.com/Noah-Huppert">Noah-Huppert</a>
+		  </div>
 		</div>
 
 		<div class="line">
 		  <img src="/imgs/lock.svg">
-		  <div>GPG Key</div>
+		  <div>
+		    <a href="https://keybase.io/noahh">Keybase</a>
+		  </div>
 		</div>
 	      </div>
 	    </header>
@@ -63,6 +67,33 @@
 	</div>
       </error-boundary>
     </div>
+
+    <!-- Component templates -->
+    <!-- <error-boundary></error-boundary> -->
+    <script type="text/x-template" id="template-error-boundary">
+      <div>
+	<div id="error" v-bind:x-show="error.length > 0 ? 'true' : 'false'">
+	  {{ error }}
+	</div>
+	<slot></slot>
+      </div>
+    </script>
+
+    <!-- <x-projects></x-projects> -->
+    <script type="text/x-template" id="template-x-projects">
+      <div>
+        <div v-for="item in orderedProjects">
+          <x-project x-bind:project="item"></x-project>
+        </div>
+      </div>
+    </script>
+
+    <!-- <x-project></x-project> -->
+    <script type="text/x-template" id="template-x-project">
+      <div class="project">
+	{{ project.name }}
+      </div>
+    </script>
     
     <!-- Javascript -->
     <script src="/js/app.js"></script>

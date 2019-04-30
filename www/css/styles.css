@@ -1,193 +1,146 @@
-/* Colors:
-https://material.io/color/#!/?view.left=0&view.right=0&primary.color=1E88E5&secondary.color=FF8A65
+/* Generic built-in */
+:root {
+    font-size: 10px;
 
-primary #1e88e5
-	text light = #69b6ff
-secondary #ff8a65
-*/
+    --error-height: 4.8rem;
+    --header-height: 80rem;
+    --color-red: #F44336;
+}
+
 body {
-	margin: 0;
-	padding: 0;
-	font-size: 10px;
-	font-family: 'Quicksand', sans-serif;
+    margin: 0;
 
-	--mdc-theme-primary: #1e88e5;
+    font-family: 'Noto Sans', sans-serif;
 }
 
-.font {
-	font-family: 'Quicksand', sans-serif !important;
+h1, h2, h3, h4, h5, h6 {
+    font-style: normal;
+    font-weight: normal;
+    font-family: 'Lekton', sans-serif;
 }
 
-.text-size-title {
-	font-size: 32px !important;
+h1 {
+    margin: 0;
+    line-height: 16rem;
+    
+    font-size: 16rem;
 }
 
-@media(min-width: 901px) {
-	.mdc-toolbar__title {
-		margin-left: 5px !important;
-	}
+h2 {
+    font-size: 7.2rem;
+    text-decoration: underline;
 }
 
-#sidebar {
-	max-width: 336px;
-	float: left;
-	position: fixed;
-	top: 0;
-	transform: translateY(64px);
+/* Generic custom  */
+.bold {
+    font-weight: bold;
 }
 
+.padded {
+    padding-left: 8rem;
+    padding-right: 8rem;
+    padding-top: 8.2rem;
+    padding-bottom: 0;
+}
+
+.content-max {
+    margin: auto;
+    max-width: 150rem;
+}
+
+/* Error dialog */
+#error {
+    width: 100%;
+    position: fixed;
+    padding: 1rem;
+    z-index: 3;
+    top: calc(-1 * var(--error-height));
+    transition: top 1s;
+
+    text-align: center;
+    font-size: 2rem;
+    background: var(--color-red);
+    color: white;
+}
+
+#error[x-show="true"] {
+    top: 0;
+}
+
+/* Header */
+#header-wrapper {
+    overflow: hidden;
+    margin-bottom: calc(-1 * var(--header-height) + 10rem);
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    z-index: 2;
+    position: relative;
+    top: calc(-1 * var(--header-height))
+}
+
+#header-bg {
+    width: 150%;
+    height: var(--header-height);
+    z-index: 1;
+    transform: rotate(-7.03deg);
+    position: relative;
+    top: -35rem;
+    left: -20%;
+    
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+    background: #F5F5F5;
+}
+
+#fullname {
+    width: 72rem;
+    display: inline-block;
+}
+
+#firstname {
+    text-align: left;
+}
+
+#lastname {
+    text-align: right;
+}
+
+#contact {
+    display: inline-block;
+    vertical-align: top;
+}
+
+#contact .line {
+    height: 4rem;
+    line-height: 4rem;
+    margin-top: 3rem;
+    display: block;
+}
+
+#contact .line img {
+    width: 2.8rem;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#contact .line div {
+    height: 100%;
+    vertical-align: middle;
+    display: inline-block;
+    margin-left: 3rem;
+    
+    font-size: 2.4rem;
+}
+
+/* No script */
+#noscript {
+    font-size: 10rem;
+}
+
+/* Projects */
 #projects {
-	width: calc(90% - 336px - 1rem - 1rem);
-	float: right;
-	padding-left: 10%;
-}
-
-@media (max-width: 900px) {
-	#sidebar {
-		max-width: 33rem;
-		margin: auto;
-		float: none;
-		position: relative;
-		transform: translateY(0px);
-	}
-	
-	#projects {
-		width: 100%;
-		padding-left: 0;
-		max-width: 505px;
-		margin: auto;
-		float: none;
-		box-shadow: none !important;
-	}
-
-	.project {
-		width: calc(100% - 30px);
-		margin: auto;
-	}
-
-	#projects-title {
-		margin-left: 12px;
-	}
-}
-
-#icons8-attrib {
-	padding: 0.5rem;
-	padding-bottom: 0.1rem;
-	bottom: 0;
-	left: 1rem;
-	position: fixed;
-	font-size: 1rem;
-	opacity: 0.4;
-	transition: opacity 0.4s;
-	background: white;
-	border-radius: 1rem;
-}
-
-#icons8-attrib:hover{
-	opacity: 1.0;
-}
-
-#icons8-attrib > .little-icon-text {
-	margin-left: 0;
-}
-
-.little-icon {
-	width: 1.5rem;
-}
-
-.little-icon-text {
-	top: -0.3rem;
-	position: relative;
-	display: inline-block;
-	margin-left: 0.8rem;
-}
-
-.section {
-	padding: 1rem;
-	display: block;
-	font-size: 16px;
-}
-
-.project {
-	max-width: 464px;
-	min-width: 400px;
-	width: 100% !important;
-	margin-bottom: 20px !important;
-	transition: border-bottom 5s;
-}
-
-@media(min-width: 500px) {
-	.project {
-		margin-left: 20px !important;
-	}
-}
-
-@media(max-width: 499px) {
-	.project a {
-		width: 90%;
-		margin: auto;
-	}
-}
-
-.project .mdc-card {
-	border-bottom: 2px solid #ffffff;
-}
-
-.project:hover .mdc-card {
-	border-bottom: 2px solid var(--mdc-theme-primary);
-}
-
-.status-wip  .mdc-card {
-	border-bottom: 2px solid #ffa000;
-}
-
-.project a {
-	color: black;
-	text-decoration: none;
-}
-
-.project h1,.description,.status {
-	margin-left: 15px;
-}
-
-.project h1 {
-	font-weight: 500;
-	margin-bottom: 0;
-}
-
-.project .status {
-	margin-top: -5px;
-	padding-bottom: 0.5rem;
-}
-
-.project .description {
-	height: 40px;
-}
-
-.project img {
-	width: 30px;
-	position: relative;
-	top: 8px;
-}
-
-.title {
-	padding-bottom: 1rem;
-	font-size: 32px;
-}
-
-.languages {
-	margin-left: 8px;
-	margin-bottom: 3px;
-}
-
-.language {
-	padding: 8px;
-	padding-top: 3px;
-	padding-bottom: 3px;
-	margin-right: 5px;
-	color: var(--mdc-theme-primary);
-	border: 2px solid var(--mdc-theme-primary);
-	border-radius: 5px;
-	font-size: 12px;
-	font-weight: bold;
+    padding-top: 0;
+    margin-top: 10rem;
 }

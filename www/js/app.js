@@ -1,3 +1,15 @@
+import Vue from "vue"
+import App from "./App.vue"
+
+import "../css/styles.css"
+
+new Vue({
+    el: "#app",
+    render: h => h(App)
+})
+
+/*
+
 const errorBoundary = {
     template: "#template-error-boundary",
     data: function() {
@@ -58,3 +70,4 @@ var app = new Vue({
 	"x-project": project
     }
 });
+*/

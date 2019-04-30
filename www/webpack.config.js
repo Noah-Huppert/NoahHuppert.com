@@ -2,11 +2,12 @@ const path = require("path");
 
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const VueLoader = require("vue-loader/lib/plugin");
+const CleanWebpackPlugin = require("clean-webpack-plugin");
 
 const outPath = path.resolve(__dirname, "dist");
 
-module.exports =  {
-    entry: "./js/app.js",
+module.exports = {
+    entry: path.resolve(__dirname, "js/app.js"),
     output: {
 	path: outPath,
 	filename: "bundle.js"
@@ -40,6 +41,7 @@ module.exports =  {
 	]
     },
     plugins: [
+	new CleanWebpackPlugin(),
 	new HtmlWebpackPlugin({
 	    template: path.resolve(__dirname, "index.html")
 	}),

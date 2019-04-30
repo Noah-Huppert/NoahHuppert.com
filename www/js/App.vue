@@ -1,15 +1,18 @@
 <template>
 <div>
-  <h1>Hi</h1>
+  <Header></Header>
 </div>
 </template>
 
 <script>
+import Header from "./Header.vue"
+
 export default {
     data() {
-	return {
-	    msg: "hi"
-	}
+	return {}
+    },
+    components: {
+	Header
     }
 }
 </script>

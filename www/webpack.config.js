@@ -3,28 +3,28 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const VueLoader = require("vue-loader/lib/plugin");
 
+const outPath = path.resolve(__dirname, "dist");
+
 module.exports =  {
     entry: "./js/app.js",
     output: {
-	path: path.resolve(__dirname, "dist"),
+	path: outPath,
 	filename: "bundle.js"
     },
+    mode: "development",
     devtool: "source-map",
+    devServer: {
+	contentBase: outPath
+    },
     module: {
 	rules: [
 	    {
-		test: /\.js$/,
-		exclude: /node_modules/,
-		use: {
-		    loader: "babel-loader",
-		    options: {
-			presets: [ "@babel/preset-env" ]
-		    }
-		}
-	    },
-	    {
 		test: /\.vue$/,
 		use: "vue-loader"
+	    },
+	    {
+		test: /\.js$/,
+		loader: "babel-loader"
 	    },
 	    {
 		test: /\.css$/,
@@ -32,6 +32,10 @@ module.exports =  {
 		    "vue-style-loader",
 		    "css-loader"
 		]
+	    },
+	    {
+		test: /\.(png|svg|jpg|gif)$/,
+		use: "file-loader"
 	    }
 	]
     },

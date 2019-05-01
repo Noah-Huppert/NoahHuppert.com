@@ -60,3 +60,13 @@ h2 {
     color: white;
     text-align: center;
 }
+
+#noscript-contact {
+    font-size: 3rem;
+}
+
+.nospace-key {
+    width: 14rem;
+    display: inline-block;
+}
+

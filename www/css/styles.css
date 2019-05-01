@@ -52,7 +52,7 @@ h3 {
 
 .content-max {
     margin: auto;
-    max-width: 120rem;
+    max-width: 180rem;
 }
 
 @media(max-width: 980px) {

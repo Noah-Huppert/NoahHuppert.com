@@ -36,6 +36,31 @@ export default {
 	Bio,
 	Projects
     },
+    methods: {
+	sortedObjKeys(o) {
+	    var sortable = []
+
+	    for (var k in o) {
+		sortable.push([k, o[k].length])
+	    }
+
+	    sortable.sort((a, b) => {
+		if (a[1] > b[1]) {
+		    return -1
+		} else {
+		    return 1
+		}
+	    })
+
+	    var res = []
+	    
+	    for (var i in sortable) {
+		res.push(sortable[i][0])
+	    }
+
+	    return res
+	}
+    },
     mounted() {
 	var self = this
 
@@ -59,7 +84,7 @@ export default {
 	    return res.json()
 	}).then(body => {
 	    self.languagesIndex = body
-	    self.languages = Object.keys(body)
+	    self.languages = this.sortedObjKeys(body)
 	}).catch(err => {
 	    console.error("Failed to load languages index", err)
 	    throw "Failed to load projects metadata"
@@ -70,7 +95,7 @@ export default {
 	    return res.json()
 	}).then(body => {
 	    self.technologiesIndex = body
-	    self.technologies = Object.keys(body)
+	    self.technologies = this.sortedObjKeys(body)
 	}).catch(err => {
 	    console.error("Failed to load technologies index", err)
 	    throw "Failed to load projects metadata"

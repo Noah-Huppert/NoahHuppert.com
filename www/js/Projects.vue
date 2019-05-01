@@ -5,7 +5,11 @@
   <div id="projects-container">
     <a v-bind:href="'https://github.com/' + project.github"
        class="project" v-for="project in orderedProjects">
-      <h3>{{ project.name }}<img alt="chain link icon" src="../imgs/chain.svg"></h3>
+      
+      <div class="project-header">
+	<h3>{{ project.name }}</h3>
+	<img alt="chain link icon" src="../imgs/chain.svg">
+      </div>
       
       <p>{{ project.content }}</p>
 
@@ -72,13 +76,19 @@ export default {
     box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.25);
 }
 
+.project-header {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
 .project h3 {
     font-weight: bold;
+    flex: 1;
 }
 
 .project img {
     width: 2rem;
-    margin-left: 1rem;
 }
 
 .project p {

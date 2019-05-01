@@ -5,6 +5,7 @@
     --error-height: 4.8rem;
     --header-height: 65rem;
     --color-red: #F44336;
+    --color-blue: rgb(30, 136, 229);
 }
 
 body {
@@ -31,6 +32,10 @@ h1 {
 h2 {
     font-size: 6rem;
     text-decoration: underline;
+}
+
+h3 {
+    font-size: 3rem;
 }
 
 /* Generic custom  */

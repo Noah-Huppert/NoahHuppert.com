@@ -32,7 +32,8 @@ export default {
 
 #projects-container {
     display: flex;
-    flex-wrap: wrap;    
+    flex-wrap: wrap;
+    flex-direction: row;
 }
 
 #projects h2 {
@@ -42,9 +43,9 @@ export default {
 .project {
     width: 37rem;
     min-height: 22rem;
-    flex: 0 1 37rem;
+    flex: 1 1 37rem;
     display: inline-block;
-    margin: 7rem;
+    margin: 3rem;
     padding: 1.5rem;
     padding-bottom: calc(1.5rem + 3rem);
     position: relative;
@@ -55,18 +56,6 @@ export default {
     box-sizing: border-box;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     transition: box-shadow 0.25s;
-}
-
-@media(max-width: 1179px) {
-    .project {
-	margin: 6rem;
-    }
-}
-
-@media(max-width: 1138px) {
-    .project {
-	margin: 3rem;
-    }
 }
 
 @media(max-width: 1019px) {

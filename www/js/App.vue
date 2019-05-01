@@ -1,18 +1,22 @@
 <template>
 <div>
-  <Header></Header>
+  <ErrorBoundary>
+    <Header></Header>
+  </ErrorBoundary>
 </div>
 </template>
 
 <script>
 import Header from "./Header.vue"
+import ErrorBoundary from "./ErrorBoundary.vue"
 
 export default {
     data() {
 	return {}
     },
     components: {
-	Header
+	Header,
+	ErrorBoundary
     }
 }
 </script>

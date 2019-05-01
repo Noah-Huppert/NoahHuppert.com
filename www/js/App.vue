@@ -8,6 +8,10 @@
     <template v-slot:content>
       <Content></Content>
     </template>
+
+    <template v-slot:footer>
+      <Footer></Footer>
+    </template>
   </ErrorBoundary>
 </div>
 </template>
@@ -16,12 +20,14 @@
 import Header from "./Header.vue"
 import ErrorBoundary from "./ErrorBoundary.vue"
 import Content from "./Content.vue"
+import Footer from "./Footer.vue"
 
 export default {
     components: {
 	ErrorBoundary,
 	Header,
 	Content,
+	Footer
     }
 }
 </script>

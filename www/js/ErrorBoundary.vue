@@ -10,6 +10,8 @@
   <div id="error-content-msg" v-if="error.length > 0">
     Failed to display content
   </div>
+
+  <slot name="footer"></slot>
 </div>
 </template>
 

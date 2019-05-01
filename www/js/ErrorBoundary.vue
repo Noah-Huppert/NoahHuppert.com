@@ -15,13 +15,35 @@ export default {
 	}
     },
     errorCaptured(err, vm, info) {
-	if (typeof(err) == "string") {
-	    this.error = err;
-	} else {
-	    this.error = "Error while loading page";
-	}
+	console.error("error boundary caught:", err, "-", info)
 	
-	console.error("error boundary:", err, vm, info)
+	if (typeof(err) == "string") {
+	    this.error = err
+	} else {
+	    this.error = "Error while loading page"
+	}
+
+	return false
     }
 }
 </script>
+
+<style>
+#error {
+    width: 100%;
+    position: fixed;
+    padding: 1rem;
+    z-index: 3;
+    top: calc(-1 * var(--error-height));
+    transition: top 1s;
+
+    text-align: center;
+    font-size: 2rem;
+    background: var(--color-red);
+    color: white;
+}
+
+#error[x-show="true"] {
+    top: 0;
+}
+</style>

@@ -1,9 +1,0 @@
-http://, https:// {
-	root /srv
-	gzip
-	tls off
-
-	errors {
-		404 404.html
-	}
-}

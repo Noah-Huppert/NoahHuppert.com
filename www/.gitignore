@@ -1,0 +1,5 @@
+# Webpack build
+dist/
+
+# NPM logs
+*.log

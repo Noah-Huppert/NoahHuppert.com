@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-make -C helm
-sleep 10
-make -C kube-lego
-make -C external-dns
-make -C noahhuppert-com

@@ -37,6 +37,32 @@
     margin-bottom: calc(-1 * var(--header-height) + 10rem);
 }
 
+@media(max-width: 980px) {
+    :root {
+	--header-height: 86rem !important;
+    }
+
+    header {
+	display: block !important;
+    }
+
+    #fullname {
+	width: 100% !important;
+	text-align: center !important;
+    }
+
+    #lastname {
+	text-align: center !important;
+    }
+
+    #contact {
+	width: 29rem;
+	display: block !important;
+	margin: auto;
+	margin-top: 4rem;
+    }
+}
+
 header {
     display: flex;
     justify-content: space-between;

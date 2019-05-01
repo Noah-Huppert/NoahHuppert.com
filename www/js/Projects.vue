@@ -82,6 +82,24 @@ export default {
     transition: box-shadow 0.25s;
 }
 
+@media(max-width: 1179px) {
+    .project {
+	margin: 6rem;
+    }
+}
+
+@media(max-width: 1138px) {
+    .project {
+	margin: 3rem;
+    }
+}
+
+@media(max-width: 1019px) {
+    .project {
+	margin: 1rem;
+    }
+}
+
 .project:hover {
     box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.25);
 }

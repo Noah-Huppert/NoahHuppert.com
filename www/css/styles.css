@@ -71,7 +71,13 @@ h2 {
 
 /* No script */
 #noscript {
-    font-size: 10rem;
+    width: 100%;
+    padding: 1rem;
+
+    background: var(--color-red);
+    font-size: 2rem;
+    color: white;
+    text-align: center;
 }
 
 /* Projects */
@@ -79,3 +85,4 @@ h2 {
     padding-top: 0;
     margin-top: 5rem;
 }
+

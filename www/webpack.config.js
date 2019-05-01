@@ -3,14 +3,17 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const VueLoader = require("vue-loader/lib/plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const outPath = path.resolve(__dirname, "dist");
 
 module.exports = {
-    entry: path.resolve(__dirname, "js/app.js"),
+    entry: [
+	path.resolve(__dirname, "js/app.js"),
+    ],
     output: {
 	path: outPath,
-	filename: "bundle.js"
+	filename: "[name].js"
     },
     mode: "development",
     devtool: "source-map",
@@ -30,7 +33,12 @@ module.exports = {
 	    {
 		test: /\.css$/,
 		use: [
-		    "vue-style-loader",
+		    {
+			loader: MiniCssExtractPlugin.loader,
+			options: {
+			    hmr: process.env.NODE_ENV === "development"
+			}
+		    },
 		    "css-loader"
 		]
 	    },
@@ -45,6 +53,7 @@ module.exports = {
 	new HtmlWebpackPlugin({
 	    template: path.resolve(__dirname, "index.html")
 	}),
-	new VueLoader()
+	new VueLoader(),
+	new MiniCssExtractPlugin()
     ]
 };

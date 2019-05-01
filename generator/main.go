@@ -214,10 +214,15 @@ func main() {
 		return projectPrefixes[i] < projectPrefixes[j]
 	})
 
-	orderedSlugs := []string{}
+	reverseOrderedSlugs := []string{}
 	
 	for _, k := range projectPrefixes {
-		orderedSlugs = append(orderedSlugs, projects[k].Slug)
+		reverseOrderedSlugs = append(reverseOrderedSlugs, projects[k].Slug)
+	}
+
+	orderedSlugs := []string{}
+	for i := len(reverseOrderedSlugs) - 1; i > 0; i-- {
+		orderedSlugs = append(orderedSlugs, reverseOrderedSlugs[i])
 	}
 	
 	// {{{1 Build indexes

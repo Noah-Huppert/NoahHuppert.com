@@ -68,7 +68,7 @@ header {
     justify-content: space-between;
     z-index: 2;
     position: relative;
-    top: calc(-1 * var(--header-height))
+    top: calc(-1 * var(--header-height));
 }
 
 #header-bg {

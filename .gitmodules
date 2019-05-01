@@ -1,3 +1,0 @@
-[submodule "deploy/k8s-deploy"]
-	path = deploy/k8s-deploy
-	url = git@github.com:Noah-Huppert/k8s-deploy.git

@@ -7,8 +7,8 @@
        class="project" v-for="project in orderedProjects">
       <h3>{{ project.name }}</h3>
       <p>{{ project.content }}</p>
-      
-      <div class="languages">
+
+      <div id="languages">
 	<span v-for="lang in project.languages">
 	  {{ lang }}
 	</span>
@@ -77,12 +77,12 @@ export default {
     font-size: 2rem;
 }
 
-.project .languages {
+.project #languages {
     position: absolute;
     bottom: 1.5rem;
 }
 
-.project .languages span {
+.project #languages span {
     padding: 0.8rem;
     margin-right: 0.5rem;
     display: inline-flex;

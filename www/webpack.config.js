@@ -43,8 +43,14 @@ module.exports = {
 		]
 	    },
 	    {
-		test: /\.(png|svg|jpg|gif)$/,
-		use: "file-loader"
+		type: "javascript/auto",
+		test: /\.(png|svg|jpg|gif|json)$/,
+		use: {
+		    loader: "file-loader",
+		    options: {
+			name: "[path][name].[ext]"
+		    }
+		}
 	    }
 	]
     },

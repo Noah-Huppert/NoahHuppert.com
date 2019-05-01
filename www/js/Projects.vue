@@ -3,7 +3,8 @@
   <h2>Projects</h2>
   
   <div id="projects-container">
-    <div class="project" v-for="project in orderedProjects">
+    <a v-bind:href="'https://github.com/' + project.github"
+       class="project" v-for="project in orderedProjects">
       <h3>{{ project.name }}</h3>
       <p>{{ project.content }}</p>
       
@@ -12,7 +13,7 @@
 	  {{ lang }}
 	</span>
       </div>
-    </div>
+    </a>
   </div>
 </section>
 </template>
@@ -31,7 +32,7 @@ export default {
     mounted() {
 	var self = this
 	
-	return fetch("/content/projects.json").then(function(res) {
+	return fetch("content/projects.json").then(function(res) {
 	    return res.json()
 	}).then(function(body) {
 	    self.orderedProjectSlugs = body.ordered_slugs
@@ -72,10 +73,17 @@ export default {
     padding: 1.5rem;
     padding-bottom: calc(1.5rem + 3rem);
     position: relative;
+    color: black;
+    text-decoration: none;
     
     border: 3px solid #000000;
     box-sizing: border-box;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    transition: box-shadow 0.25s;
+}
+
+.project:hover {
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.25);
 }
 
 .project h3 {

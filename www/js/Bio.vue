@@ -8,7 +8,7 @@
     </p>
 
     <p>
-      I have made projects which use the following programming languages {{ languagesStr }}.
+      <b>Programming languages I use:</b> {{ languagesStr }}.
     </p>
   </section>
 </template>

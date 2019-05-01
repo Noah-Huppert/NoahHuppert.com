@@ -1,10 +1,13 @@
 ><template>
 <section id="projects" class="padded content-max">
-  <h2>Projects</h2>
+  <div id="projects-header">
+    <h2>Projects</h2>
+    <input type="text" placeholder="Search projects" v-model="projectSearch">
+  </div>
   
   <div id="projects-container">
     <a v-bind:href="'https://github.com/' + project.github"
-       class="project" v-for="project in orderedProjects">
+       class="project" v-for="project in searchedProjects">
       
       <div class="project-header">
 	<h3>{{ project.name }}</h3>
@@ -19,13 +22,54 @@
 	</span>
       </div>
     </a>
+    
+    <span id="projects-no-search-match" v-if="searchedProjects.length == 0">
+      No matching projects found
+    </span>
   </div>
 </section>
 </template>
 
 <script>
+const fuzz = require("fuzzball")
+  
 export default {
-    props: [ "orderedProjectSlugs", "orderedProjects", "projects" ]
+    props: [ "orderedProjectSlugs", "orderedProjects", "projects" ],
+    data() {
+	return {
+	    projectSearch: ""
+	}
+    },
+    computed: {
+	searchedProjects() {
+	    if (this.projectSearch.length == 0) {
+		return this.orderedProjects
+	    }
+
+	    var searched = [];
+
+	    for (var i in this.orderedProjects) {
+		const project = this.orderedProjects[i]
+
+		var searchValues = [
+		    project.name,
+		    project.content
+		]
+
+		searchValues.push.apply(searchValues, project.languages)
+		searchValues.push.apply(searchValues, project.technologies)
+		
+		for (var j in searchValues) {
+		    if (fuzz.partial_ratio(searchValues[j], this.projectSearch) > 80) {
+			searched.push(project)
+			break
+		    }
+		}
+	    }
+
+	    return searched
+	}
+    }
 }
 </script>
 
@@ -35,14 +79,41 @@ export default {
     margin-top: 5rem;
 }
 
+#projects-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+#projects-header input {
+    max-width: 80rem;
+    min-width: 1rem;
+    height: 4rem;
+
+    margin-right: 3rem;
+    margin-left: 4rem;
+    padding-left: 1rem;
+    
+    display: inline-flex;
+    flex: 1 1 37rem;
+
+    border-radius: 0;
+    border: 0.2rem black solid;
+    
+    font-size: 2rem;
+}
+
+@media(max-width: 1019px) {
+    #projects-header input {
+	margin: 1rem;
+    }
+}
+
 #projects-container {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-}
-
-#projects h2 {
-    margin-bottom: 1rem;
 }
 
 .project {
@@ -110,5 +181,10 @@ export default {
     border: 0.2rem solid var(--color-blue);
     border-radius: 0.3rem;
     color: var(--color-blue);
+}
+
+#projects-no-search-match {
+    font-size: 2.5rem;
+    margin-left: 1rem;
 }
 </style>

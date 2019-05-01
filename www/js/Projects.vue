@@ -19,33 +19,8 @@
 </template>
 
 <script>
-import "../content/projects.json"
-  
 export default {
-    data() {
-	return {
-	    orderedProjectSlugs: [],
-	    orderedProjects: [],
-	    projects: {}
-	}
-    },
-    mounted() {
-	var self = this
-	
-	return fetch("content/projects.json").then(function(res) {
-	    return res.json()
-	}).then(function(body) {
-	    self.orderedProjectSlugs = body.ordered_slugs
-	    self.projects = body.projects
-
-	    for (var k in self.orderedProjectSlugs) {
-		self.orderedProjects.push(self.projects[self.orderedProjectSlugs[k]])
-	    }
-	}).catch(function(err) {
-	    console.error("Failed to load projects", err)
-	    throw "Failed to load projects"
-	})
-    }
+    props: [ "orderedProjectSlugs", "orderedProjects", "projects" ]
 }
 </script>
 

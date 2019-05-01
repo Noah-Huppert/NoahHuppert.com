@@ -1,11 +1,13 @@
 <template>
 <div>
   <ErrorBoundary ref="errorBoundary">
-    <div>
+    <template v-slot:header>
       <Header></Header>
-      
-      <Projects></Projects>
-    </div>
+    </template>
+
+    <template v-slot:content>
+      <Content></Content>
+    </template>
   </ErrorBoundary>
 </div>
 </template>
@@ -13,16 +15,13 @@
 <script>
 import Header from "./Header.vue"
 import ErrorBoundary from "./ErrorBoundary.vue"
-import Projects from "./Projects.vue"
+import Content from "./Content.vue"
 
 export default {
-    data() {
-	return {}
-    },
     components: {
 	ErrorBoundary,
 	Header,
-	Projects
+	Content,
     }
 }
 </script>

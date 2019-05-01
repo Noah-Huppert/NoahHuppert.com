@@ -3,7 +3,13 @@
   <div id="error" v-bind:x-show="error.length > 0 ? 'true' : 'false'">
     {{ error }}
   </div>
-  <slot></slot>
+  
+  <slot name="header"></slot>
+  
+  <slot name="content" v-if="error.length == 0"></slot>
+  <div id="error-content-msg" v-if="error.length > 0">
+    Failed to display content
+  </div>
 </div>
 </template>
 
@@ -45,5 +51,15 @@ export default {
 
 #error[x-show="true"] {
     top: 0;
+}
+
+#error-content-msg {
+    width: 100%;
+    margin-top: 4rem;
+    
+    font-size: 4rem;
+    text-align: center;
+    text-decoration: underline;
+    text-decoration-color: var(--color-red);
 }
 </style>

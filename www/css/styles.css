@@ -50,25 +50,6 @@ h2 {
     max-width: 120rem;
 }
 
-/* Error dialog */
-#error {
-    width: 100%;
-    position: fixed;
-    padding: 1rem;
-    z-index: 3;
-    top: calc(-1 * var(--error-height));
-    transition: top 1s;
-
-    text-align: center;
-    font-size: 2rem;
-    background: var(--color-red);
-    color: white;
-}
-
-#error[x-show="true"] {
-    top: 0;
-}
-
 /* No script */
 #noscript {
     width: 100%;
@@ -79,10 +60,3 @@ h2 {
     color: white;
     text-align: center;
 }
-
-/* Projects */
-#projects {
-    padding-top: 0;
-    margin-top: 5rem;
-}
-

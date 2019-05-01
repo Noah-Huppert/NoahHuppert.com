@@ -5,7 +5,8 @@
   <div id="projects-container">
     <a v-bind:href="'https://github.com/' + project.github"
        class="project" v-for="project in orderedProjects">
-      <h3>{{ project.name }}</h3>
+      <h3>{{ project.name }}<img alt="chain link icon" src="../imgs/chain.svg"></h3>
+      
       <p>{{ project.content }}</p>
 
       <div id="languages">
@@ -43,18 +44,21 @@ export default {
 .project {
     width: 37rem;
     min-height: 22rem;
-    flex: 1 1 37rem;
-    display: inline-block;
+
     margin: 3rem;
     padding: 1.5rem;
-    padding-bottom: calc(1.5rem + 3rem);
-    position: relative;
+    
+    flex: 1 1 37rem;
+    flex-direction: column;
+    display: inline-flex;
+    
     color: black;
     text-decoration: none;
     
     border: 3px solid #000000;
     box-sizing: border-box;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    
     transition: box-shadow 0.25s;
 }
 
@@ -72,22 +76,27 @@ export default {
     font-weight: bold;
 }
 
+.project img {
+    width: 2rem;
+    margin-left: 1rem;
+}
+
 .project p {
-    height: 100%;
     font-size: 2rem;
+    flex: 1;
 }
 
 .project #languages {
-    position: absolute;
-    bottom: 1.5rem;
+    display: inline-flex;
+    flex-direction: row;
 }
 
 .project #languages span {
     padding: 0.8rem;
     margin-right: 0.5rem;
-    display: inline-flex;
-    flex-direction: row;
+    
     box-sizing: border-box;
+    
     border: 0.2rem solid var(--color-blue);
     border-radius: 0.3rem;
     color: var(--color-blue);

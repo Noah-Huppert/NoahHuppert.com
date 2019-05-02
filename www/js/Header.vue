@@ -9,19 +9,19 @@
     
     <div id="contact">
       <div class="line">
-	<img src="../imgs/email.svg">
+	<img src="../imgs/email-white.svg">
 	<div>contact <span class="bold">AT</span> noahh.io</div>
       </div>
       
       <div class="line">
-	<img src="../imgs/github.svg">
+	<img src="../imgs/github-white.svg">
 	<div>
 	  <a href="https://github.com/Noah-Huppert">Noah-Huppert</a>
 	</div>
       </div>
       
       <div class="line">
-	<img src="../imgs/lock.svg">
+	<img src="../imgs/lock-white.svg">
 	<div>
 	  <a href="https://keybase.io/noahh">Keybase</a>
 	</div>
@@ -69,6 +69,8 @@ header {
     z-index: 2;
     position: relative;
     top: calc(-1 * var(--header-height));
+
+    color: white;
 }
 
 #header-bg {
@@ -81,7 +83,7 @@ header {
     left: -20%;
     
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
-    background: #ffff00;
+    background: #536dfe
 }
 
 #fullname {
@@ -100,6 +102,10 @@ header {
 #contact {
     display: inline-block;
     vertical-align: top;
+}
+
+#contact a {
+    color: white;
 }
 
 #contact .line {

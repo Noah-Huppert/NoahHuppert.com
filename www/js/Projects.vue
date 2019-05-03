@@ -52,8 +52,7 @@ export default {
 		const project = this.orderedProjects[i]
 
 		var searchValues = [
-		    project.name,
-		    project.content
+		    project.name
 		]
 
 		searchValues.push.apply(searchValues, project.languages)

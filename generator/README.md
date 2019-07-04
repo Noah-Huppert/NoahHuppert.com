@@ -6,7 +6,7 @@ Generate JSON data files for static content.
 - [Content](#content)
 - [Data Schema](#data-schema)
   - [Input Files](#input-files)
-  - [Output Files](#output-files)
+  - [Output File](#output-file)
 
 # Overview
 Parses input files and combines them into JSON output files.  
@@ -45,7 +45,8 @@ Values are IDs.
 
 Items which appear first in the file will appear first on the site.
 
-## Output Files
+## Output File
+One JSON file.  
 Contains a top level key for each input file type.  
 
 Each of these type keys has the following keys:

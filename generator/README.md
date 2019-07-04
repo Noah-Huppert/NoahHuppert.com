@@ -56,4 +56,4 @@ Each of these type keys has the following keys:
 - `order` (`[]string`): List of IDs in order specified by order file
 - `index` (`map[string]map[string][]string`): Map of IDs organized by header 
   values. Keys are header key names, values are another map who's keys are 
-  header values and who's values are IDs
+  header values and who's values are ordered IDs

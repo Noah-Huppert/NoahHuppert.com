@@ -1,9 +1,9 @@
 package schema
 
-// Input file
-type Input struct {
+// Item is 1 content file
+type Item struct {
 	// Header holds metadata
-	Header interface{} `json:"header"`
+	Header
 
 	// Content is markdown formatted
 	Content string `json:"content"`

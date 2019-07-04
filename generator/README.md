@@ -19,6 +19,10 @@ Personal projects are the only type of content.
 
 # Data Schema
 ## Input Files
+### IDs
+IDs are used to refer to content items.  
+IDs are content file base names without file extensions.
+
 ### Types
 The schema input files use is determined by their type.  
 Their type is determined by their parent directory.  
@@ -35,8 +39,9 @@ Markdown is the content.
 Determines the order content will be displayed.  
 
 A text file which holds a newline delimited list.  
+Placed in same directory as content.
 
-Values are names of content files without their file extensions.  
+Values are IDs.
 
 Items which appear first in the file will appear first on the site.
 
@@ -45,3 +50,9 @@ Contains a top level key for each input file type.
 
 Each of these type keys has the following keys:
 
+- `content` (`map[string]interface{}`): Map of content, keys IDs, values are 
+  content items
+- `order` (`[]string`): List of IDs in order specified by order file
+- `index` (`map[string]map[string][]string`): Map of IDs organized by header 
+  values. Keys are header key names, values are another map who's keys are 
+  header values and who's values are IDs

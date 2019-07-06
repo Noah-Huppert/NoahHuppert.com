@@ -13,7 +13,7 @@ import (
 
 // tomlSep is the value expected to be on its own line to seperate TOML, which comes
 // before it, and Markdown, which comes after it.
-const tomlSep []byte = {"---"}
+var tomlSep []byte = []byte("---")
 
 // Marshal decodes a TOML + Markdown file into a schema.Item
 // TOML must appear first seperated from the markdown by 3 dashes on their own line.
@@ -26,12 +26,16 @@ func Marshal(data []byte, item *schema.Item) error {
 	inScanner := bufio.NewScanner(inBuf)
 
 	isToml := true
-
+	
+	// Read each line
 	for inScanner.Scan() {
+		// When we find TOMl seperator set isToml to false
 		if bytes.Equal(inScanner.Bytes(), tomlSep) {
 			isToml = false
+			continue
 		}
 
+		// Fill correct buffers
 		var buf *bytes.Buffer
 
 		if isToml {
@@ -40,28 +44,39 @@ func Marshal(data []byte, item *schema.Item) error {
 			buf = contentBuf
 		}
 
+		// whosBuf is a human readable description of which buffer is encountering an error
+		whosBuf := "header"
+		if !isToml {
+			whosBuf = "content"
+		}
+
+		// Write line
 		_, err := buf.Write(inScanner.Bytes())
 		if err != nil {
-			whosBuf := "header"
-			if !isToml {
-				whosBuf = "content"
-			}
-			
 			return fmt.Errorf("failed write bytes to %s buffer: %s",
+				whosBuf, err.Error())
+		}
+
+		// Write newline
+		_, err = buf.Write([]byte("\n"))
+		if err != nil {
+			return fmt.Errorf("failed write newline bytes to %s buffer: %s",
 				whosBuf, err.Error())
 		}
 	}
 
+	// If scanner errors
 	if err := inScanner.Err(); err != nil {
 		return fmt.Errorf("failed to read bytes: %s", err.Error())
 	}
 
 	// {{{1 Parse header as TOML
-	_, err := toml.DecodeReader(headerBuf, &item)
+	_, err := toml.DecodeReader(headerBuf, &item.Header)
 	if err != nil {
 		return fmt.Errorf("failed to decode header as TOML: %s",
 			err.Error())
 	}
+	fmt.Printf("item=%#v\n", *item)
 
 	// {{{1 Read content
 	contentBytes, err := ioutil.ReadAll(contentBuf)

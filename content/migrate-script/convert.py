@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+""" Small script which migrates the old static JSON format I used in 2018 to the new
+TOML + Markdown hybrid format.
+"""
 
 import json
 

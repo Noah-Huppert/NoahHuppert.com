@@ -42,7 +42,7 @@ project/
 		quix.md
 work/
 	order.txt
-    resume.md
+	resume.md
 ```
 
 The `foo.md`, `bar.md`, `baz.md`, and `quix.md` files are of type `project`.  

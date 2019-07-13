@@ -24,8 +24,31 @@ IDs are used to refer to content items.
 IDs are content file base names without file extensions.
 
 ### Types
-The schema input files use is determined by their type.  
-Their type is determined by their parent directory.  
+Input file's have schemas depending on their type.  
+Type is determined by the parent directory 1 level down from the working
+directory.
+
+For example:
+
+```
+project/
+    art/
+		order.txt
+	    foo.md
+		bar.md
+    computers/
+		order.txt
+	    baz.md
+		quix.md
+work/
+	order.txt
+    resume.md
+```
+
+The `foo.md`, `bar.md`, `baz.md`, and `quix.md` files are of type `project`.  
+The `resume.md` file is of type `work`.  
+
+However the files in `art` and `computers` will have their own order files.
 
 ### Content Files
 Markdown files with a TOML header.  
@@ -38,7 +61,7 @@ Markdown is the content.
 ### Order File
 Determines the order content will be displayed.  
 
-A text file which holds a newline delimited list.  
+A text file named `order.txt` which holds a newline delimited list.  
 Placed in same directory as content.
 
 Values are IDs.
@@ -48,6 +71,8 @@ Items which appear first in the file will appear first on the site.
 ## Output File
 One JSON file.  
 Contains a top level key for each input file type.  
+If types have sub-keys (like `project/art`) there will be an top level key for
+each sub-key in those types.
 
 Each of these type keys has the following keys:
 

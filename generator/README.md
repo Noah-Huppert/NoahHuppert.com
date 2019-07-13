@@ -34,7 +34,7 @@ For example:
 project/
     art/
 		order.txt
-	    foo.md
+		foo.md
 		bar.md
     computers/
 		order.txt

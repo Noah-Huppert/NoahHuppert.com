@@ -38,11 +38,11 @@ For example:
 |   |   |-- bar.md
 |   |-- computers/
 |       |-- order.txt
-|		|-- baz.md
-|		|-- quix.md
+|       |-- baz.md
+|       |-- quix.md
 |-- work/
-|	|-- order.txt
-|	|-- resume.md
+|   |-- order.txt
+|   |-- resume.md
 ```
 
 The `foo.md`, `bar.md`, `baz.md`, and `quix.md` files are of type `project`.  

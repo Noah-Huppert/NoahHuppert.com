@@ -1,4 +1,4 @@
-package parse
+package tomlmd
 
 import (
 	"testing"
@@ -9,7 +9,7 @@ import (
 
 // TestMarshal decode TOML header and extracts markdown content
 func TestMarshal(t *testing.T) {
-	expected := schema.Item{
+	expected := schema.InputFile{
 		Header: map[string]interface{}{
 			"IsBar": "Bar",
 			"IsOne": int64(1), // int64 b/c that's what the TOML decoder parses ints to
@@ -18,7 +18,7 @@ func TestMarshal(t *testing.T) {
 		Content: "expected content\n",
 	}
 
-	var actual schema.Item
+	var actual schema.InputFile
 
 	itemBytes := []byte(`
 IsBar = "Bar"

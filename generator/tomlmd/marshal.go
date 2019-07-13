@@ -1,4 +1,4 @@
-package parse
+package tomlmd
 
 import (
 	"bytes"
@@ -17,7 +17,7 @@ var tomlSep []byte = []byte("---")
 
 // Marshal decodes a TOML + Markdown file into a schema.Item
 // TOML must appear first seperated from the markdown by 3 dashes on their own line.
-func Marshal(data []byte, item *schema.Item) error {
+func Marshal(data []byte, item *schema.InputFile) error {
 	// {{{1 Gather header and content bytes
 	headerBuf := bytes.NewBuffer(nil)
 	contentBuf := bytes.NewBuffer(nil)

@@ -38,7 +38,7 @@ project/
 		bar.md
     computers/
 		order.txt
-        baz.md
+		baz.md
 		quix.md
 work/
 	order.txt

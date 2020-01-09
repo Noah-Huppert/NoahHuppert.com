@@ -3,7 +3,7 @@
     <h2>About Me</h2>
 
     <p>
-      My name is Noah Huppert, I am a third year computer science major at the
+      My name is Noah Huppert, I am a fourth year computer science major at the
       University of Massachusetts Amherst.
     </p>
 

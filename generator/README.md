@@ -1,47 +1,52 @@
 # Generator
-Generate JSON data files for static content.
+Transforms static content into deployable format.
 
 # Table Of Contents
 - [Overview](#overview)
-- [Content](#content)
-- [Data Schema](#data-schema)
-  - [Input Files](#input-files)
-  - [Output Files](#output-files)
+- [Content Specification](#content-specification)
+- [Output Files](#output-files)
 
 # Overview
-Parses input files and combines them into JSON output files.  
-JSON output files are loaded by the website.
+Content is stored in markdown files.  
+Metadata about content is stored in the header section of a file.  
+The order of content is determined by numeric prefixes in their names.
 
-# Content
-This tool is used parse content for my personal website.  
+Content is coalesced into JSON files which emulate an API.
 
-Personal projects are the only type of content.
+# Content Specification
+Currently the only type of content are projects.
 
-# Data Schema
-## Input Files
-### Types
-The schema input files use is determined by their type.  
-Their type is determined by their parent directory.  
+## Projects
+Projects are located in the `projects` input directory.  
 
-### Content Files
-Markdown files with a TOML header.  
-TOML header must appear first, separated from markdown with 3 dashes on their 
-own line.
+Headers:
 
-Header contains content metadata.  
-Markdown is the content.  
+- `Name` (String)
+- `Slug` (String)
+- `Languages` ([]String)
+- `Technologies` ([]String)
+- `GitHub` (String)
 
-### Order File
-Determines the order content will be displayed.  
+Content: Description of project
 
-A text file which holds a newline delimited list.  
+# Output Files
+JSON files are generated for each content type.
 
-Values are names of content files without their file extensions.  
+## Projects
+### Projects
+`projects.json`  
 
-Items which appear first in the file will appear first on the site.
+Schema:
 
-## Output Files
-Contains a top level key for each input file type.  
+- `ordered_slugs` ([]String): Project slugs ordered by their source file numeric
+  prefixes in descending order
+- `projects` (map[String]Project): Map, keys are slugs, values are projects 
+  with their headers
 
-Each of these type keys has the following keys:
+### Indexes
+`{languages,technologies}.json`
+
+Indexes for header values.  
+
+Keys are language / technology names, values are project slugs.
 

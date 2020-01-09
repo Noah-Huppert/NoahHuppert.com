@@ -17,7 +17,8 @@ var tomlSep []byte = []byte("---")
 
 // Marshal decodes a TOML + Markdown file into a schema.Item
 // TOML must appear first seperated from the markdown by 3 dashes on their own line.
-func Marshal(data []byte, item *schema.InputFile) error {
+// Header should be an uninitiaized struct of the type used to unmarshal the header
+func Marshal(data []byte, item *schema.InputFile, header interface{}) error {
 	// {{{1 Gather header and content bytes
 	headerBuf := bytes.NewBuffer(nil)
 	contentBuf := bytes.NewBuffer(nil)
@@ -71,11 +72,12 @@ func Marshal(data []byte, item *schema.InputFile) error {
 	}
 
 	// {{{1 Parse header as TOML
-	_, err := toml.DecodeReader(headerBuf, &item.Header)
+	_, err := toml.DecodeReader(headerBuf, &header)
 	if err != nil {
 		return fmt.Errorf("failed to decode header as TOML: %s",
 			err.Error())
 	}
+	item.Header = header
 	fmt.Printf("item=%#v\n", *item)
 
 	// {{{1 Read content

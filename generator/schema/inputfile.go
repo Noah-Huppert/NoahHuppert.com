@@ -17,6 +17,9 @@ type InputFile struct {
 
 // Meta holds input file metadata
 type Meta struct {
+	// ID of input file
+	ID string
+	
 	// SchemaType is the name of the schema to apply to input file
 	SchemaType string
 

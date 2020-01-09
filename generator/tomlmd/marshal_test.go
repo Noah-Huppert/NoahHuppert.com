@@ -27,7 +27,7 @@ IsTrue = true
 ---
 expected content`)
 	
-	err := Marshal(itemBytes, &actual)
+	err := Marshal(itemBytes, &actual, interface{})
 	assert.Nil(t, err)
 	
 	assert.Equal(t, expected, actual, "not equal")

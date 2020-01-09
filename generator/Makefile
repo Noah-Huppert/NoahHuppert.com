@@ -1,5 +1,7 @@
-SRC ?= main.go
 OUT ?= generator
 
-${OUT}: ${SRC}
-	go build -o ${OUT} ${SRC}
+${OUT}: $(wildcard "**/*.go")
+	go build -o ${OUT} .
+
+test: $(wildcard "**/*.go")
+	go test ./...

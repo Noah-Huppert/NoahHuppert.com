@@ -4,22 +4,24 @@
 
     <p>
       My name is Noah Huppert, I am a computer scientist
-	 who solves problems in the software and hardware
-	 development stack. My experience ranges from work
-	 in cloud computing and web development to firmware
-	 and electronics.
+	 who cares deeply about human rights. My work
+	 focuses on solving problems in the software and
+	 hardware stack. With experience ranging from cloud
+	 computing and web development to firmware and
+	 electronics.
 	 <br><br>
-	 I enjoy spending time outdoors biking,
-	 rollerblading, and in the winter snowboarding.
-	 Flight simulator and Cyberpunk 2077 are my games of
-	 choice at the moment. Currently I run Void Linux
-	 on my laptop and server. I spend some of my free
-	 time working on side projects or contributing to
-	 other open source. I am about to complete
-	 my last semester at the University of Massachusetts
-	 Amherst. Where I am studying computer science,
-	 and also enjoy learning about political theory
-	 and foreign languages.
+	 I enjoy spending time outdoors, working on
+	 projects, and playing video games. In the summer
+	 you will find me biking and rollerblading, while in
+	 the winter I'll be on the slopes snowboarding. As
+	 someone who loves the open source community all my
+	 side projects are open source themselves, and I
+	 run Void Linux on my laptop and server. In these
+	 coming months I will complete my last semester at
+	 the University of Massachusetts Amherst. Where I
+	 am studying computer science, and also enjoy
+	 learning about political theory and
+	 foreign languages.
     </p>
 
     <p>

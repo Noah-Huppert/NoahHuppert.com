@@ -7,7 +7,8 @@
   
   <div id="projects-container">
     <a v-bind:href="'https://github.com/' + project.github"
-       class="project" v-for="project in searchedProjects">
+       class="project"
+	  v-for="project in searchedProjects">
       
       <div class="project-header">
 	<h3>{{ project.name }}</h3>
@@ -110,19 +111,18 @@ export default {
 }
 
 #projects-container {
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
-    flex-direction: row;
+    /* flex-direction: row; */
+    justify-content: space-around;
 }
 
 .project {
-    width: 37rem;
-    min-height: 22rem;
-
-    margin: 3rem;
+    margin: 1rem;
     padding: 1.5rem;
-    
-    flex: 1 1 37rem;
+    flex: 1 0;
+
     flex-direction: column;
     display: inline-flex;
     
@@ -134,12 +134,6 @@ export default {
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     
     transition: box-shadow 0.25s;
-}
-
-@media(max-width: 1019px) {
-    .project {
-	margin: 1rem;
-    }
 }
 
 .project:hover {

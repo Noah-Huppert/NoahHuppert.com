@@ -3,25 +3,18 @@
     <h2>About Me</h2>
 
     <p>
-      My name is Noah Huppert, I am a computer scientist
-	 who cares deeply about human rights. My work
-	 focuses on solving problems in the software and
-	 hardware stack. With experience ranging from cloud
-	 computing and web development to firmware and
-	 electronics.
+      My name is Noah Huppert. I am a computer scientist
+	 who creates systems using my full stack experience
+	 with the cloud, websites and APIs, drivers and
+	 firmware, electronic circuits, and
+	 project management.
 	 <br><br>
-	 I enjoy spending time outdoors, working on
-	 projects, and playing video games. In the summer
-	 you will find me biking and rollerblading, while in
-	 the winter I'll be on the slopes snowboarding. As
-	 someone who loves the open source community all my
-	 side projects are open source themselves, and I
-	 run Void Linux on my laptop and server. In these
-	 coming months I will complete my last semester at
+	 I enjoy creating side projects and using them to
+	 learn. All my side projects are open source
+	 on GitHub. I am completing my last semester at
 	 the University of Massachusetts Amherst. Where I
-	 am studying computer science, and also enjoy
-	 learning about political theory and
-	 foreign languages.
+	 am studying computer science and learning about
+	 political theory and foreign languages.
     </p>
 
     <p>

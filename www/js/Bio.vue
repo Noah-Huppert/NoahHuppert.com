@@ -4,17 +4,16 @@
 
     <p>
       My name is Noah Huppert. I am a computer scientist
-	 who creates systems using my full stack experience
-	 with the cloud, websites and APIs, drivers and
-	 firmware, electronic circuits, and
+	 who solves cool problems using my full stack
+	 experience with cloud operations, frontend, web
+	 APIs, databases, firmware, electronic circuits, and
 	 project management.
 	 <br><br>
-	 I enjoy creating side projects and using them to
-	 learn. All my side projects are open source
-	 on GitHub. I am completing my last semester at
-	 the University of Massachusetts Amherst. Where I
-	 am studying computer science and learning about
-	 political theory and foreign languages.
+	 I enjoy learning by building small projects. For fun I
+	 rollerblade, snowboard, and play video games. These coming
+	 months will be my final semester studying computer science,
+	 political theory, and foreign languages at the
+	 University of Massachusetts Amherst. 
     </p>
 
     <p>

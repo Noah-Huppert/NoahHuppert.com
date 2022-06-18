@@ -9,11 +9,7 @@
 	 APIs, databases, firmware, electronic circuits, and
 	 project management.
 	 <br><br>
-	 I enjoy learning by building small projects. For fun I
-	 rollerblade, snowboard, and play video games. These coming
-	 months will be my final semester studying computer science,
-	 political theory, and foreign languages at the
-	 University of Massachusetts Amherst. 
+	 I enjoy learning by building small projects. I enjoy rollerblading and video games.
     </p>
 
     <p>

@@ -9,7 +9,7 @@
 	 APIs, databases, firmware, electronic circuits, and
 	 project management.
 	 <br><br>
-	 I enjoy learning by building small projects. I enjoy rollerblading and video games.
+	 I enjoy playing video games, rollerblading, and learning by building small projects. 
     </p>
 
     <p>

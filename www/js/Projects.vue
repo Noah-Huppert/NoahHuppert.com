@@ -1,4 +1,4 @@
-><template>
+<template>
 <section id="projects" class="padded content-max">
   <div id="projects-header">
     <h2>Projects</h2>
@@ -32,7 +32,7 @@
 </template>
 
 <script>
-const fuzz = require("fuzzball")
+import * as fuzz from "fuzzball"
   
 export default {
     props: [ "orderedProjectSlugs", "orderedProjects", "projects" ],

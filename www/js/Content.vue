@@ -14,9 +14,9 @@
 import Bio from "./Bio.vue"
 import Projects from "./Projects.vue"
 
-import "../content/projects.json"
-import "../content/languages.json"
-import "../content/technologies.json"
+import projectsData from "../content/projects.json"
+import languagesData from "../content/languages.json"
+import technologiesData from  "../content/technologies.json"
 
 export default {
     data() {
@@ -62,46 +62,21 @@ export default {
 	}
     },
     mounted() {
-	var self = this
+		// Get projects
+		this.orderedProjectSlugs = projectsData.ordered_slugs
+		this.projects = projectsData.projects
 
-	// Get projects
-	var getProjectsProm = fetch("content/projects.json").then(res => {
-	    return res.json()
-	}).then((body) => {
-	    self.orderedProjectSlugs = body.ordered_slugs
-	    self.projects = body.projects
+		for (var k in this.orderedProjectSlugs) {
+			this.orderedProjects.push(this.projects[this.orderedProjectSlugs[k]])
+		}
 
-	    for (var k in self.orderedProjectSlugs) {
-		self.orderedProjects.push(self.projects[self.orderedProjectSlugs[k]])
-	    }
-	}).catch((err) => {
-	    console.error("Failed to load projects", err)
-	    throw "Failed to load projects"
-	})
+		// Get languages index
+		this.languagesIndex = languagesData
+		this.languages = this.sortedObjKeys(languagesData)
 
-	// Get languages index
-	var getTechsIndexProm = fetch("content/languages.json").then(res => {
-	    return res.json()
-	}).then(body => {
-	    self.languagesIndex = body
-	    self.languages = this.sortedObjKeys(body)
-	}).catch(err => {
-	    console.error("Failed to load languages index", err)
-	    throw "Failed to load projects metadata"
-	})
-
-	// Get technologies index
-	var getLangsIndexProm = fetch("content/technologies.json").then(res=> {
-	    return res.json()
-	}).then(body => {
-	    self.technologiesIndex = body
-	    self.technologies = this.sortedObjKeys(body)
-	}).catch(err => {
-	    console.error("Failed to load technologies index", err)
-	    throw "Failed to load projects metadata"
-	})
-
-	return Promise.all([getProjectsProm, getLangsIndexProm, getTechsIndexProm])
+		// Get technologies index
+		this.technologiesIndex = technologiesData
+		this.technologies = this.sortedObjKeys(technologiesData)
     }
 }
 </script>

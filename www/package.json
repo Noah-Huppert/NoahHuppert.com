@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "prod": "vite build"
+    "build": "vite build"
   },
   "dependencies": {
     "fuzzball": "^2.1.2",
